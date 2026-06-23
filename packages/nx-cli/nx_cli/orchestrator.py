@@ -813,6 +813,65 @@ def cmd_pack(args: argparse.Namespace) -> int:
     return 0
 
 
+def _detect_stack() -> str:
+    try:
+        mem = analyzer.load_memory()
+        langs = {str(k).lower() for k in (mem.get("architecture") or {}).get("languages", {})}
+    except Exception:
+        langs = set()
+    if "python" in langs:
+        return "python"
+    if "typescript" in langs or "javascript" in langs:
+        return "node"
+    if "go" in langs:
+        return "go"
+    return "generic"
+
+
+def cmd_scaffold(args: argparse.Namespace) -> int:
+    """Lay open-source/GitHub repository standards (governance files, issue/PR
+    templates, CI per stack) into the project root. Idempotent; never overwrites
+    without --force. Sourced from the `repo-standards` pack."""
+    import shutil
+    import nx_packs
+    root = Path(args.path).resolve() if args.path else util.project_root()
+    try:
+        scaffold = nx_packs.pack_dir("repo-standards") / "scaffold"
+        manifest = json.loads((scaffold / "manifest.json").read_text(encoding="utf-8"))
+    except Exception as exc:
+        util.eprint(f"error: repo-standards scaffold unavailable ({exc})")
+        return 2
+    stack = args.stack if args.stack != "auto" else _detect_stack()
+    if stack not in manifest.get("stacks", {}):
+        stack = "generic"
+    entries = list(manifest.get("common", [])) + list(manifest["stacks"].get(stack, []))
+    print(util.banner(f"NXAI SCAFFOLD — {root.name}"))
+    suffix = " (auto-detected)" if args.stack == "auto" else ""
+    print(f"\n  target: {root}\n  stack:  {stack}{suffix}\n")
+    written = skipped = 0
+    for e in entries:
+        src, dest = scaffold / e["src"], root / e["dest"]
+        if not src.is_file():
+            continue
+        if dest.exists() and not args.force:
+            print(f"    skip   {e['dest']} (exists)")
+            skipped += 1
+            continue
+        if args.dry_run:
+            print(f"    would write {e['dest']}")
+            written += 1
+            continue
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(src, dest)
+        print(f"    write  {e['dest']}")
+        written += 1
+    verb = "would write" if args.dry_run else "wrote"
+    print(f"\n  {verb} {written} file(s), skipped {skipped} existing.")
+    if skipped and not args.force:
+        print("  (use --force to overwrite existing files)")
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(prog="nxai",
                                 description="NX AI Engineer — Developer Infrastructure Platform")
@@ -848,6 +907,17 @@ def build_parser() -> argparse.ArgumentParser:
     sp.add_argument("action", choices=["list", "show", "add", "remove"])
     sp.add_argument("name", nargs="?", help="Pack name (for show/add/remove)")
     sp.set_defaults(fn=cmd_pack)
+
+    sp = sub.add_parser("scaffold", help="Lay open-source/GitHub repo standards into the project")
+    sp.add_argument("target", nargs="?", default="github", choices=["github"],
+                    help="What to scaffold (default: github)")
+    sp.add_argument("--stack", default="auto",
+                    choices=["auto", "python", "node", "go", "generic"],
+                    help="Stack for the CI/.gitignore variant (default: auto-detect)")
+    sp.add_argument("--force", action="store_true", help="Overwrite existing files")
+    sp.add_argument("--dry-run", action="store_true", help="Show what would be written")
+    sp.add_argument("--path", help="Project dir (default: the project root)")
+    sp.set_defaults(fn=cmd_scaffold)
 
     sub.add_parser("audit", help="Discover & persist the project architecture").set_defaults(fn=cmd_audit)
 

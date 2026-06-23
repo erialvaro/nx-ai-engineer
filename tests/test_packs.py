@@ -9,8 +9,8 @@ import nx_packs
 from nx_providers.knowledge.packs import PackProvider
 from nx_cli import orchestrator
 
-EXPECTED = {"lgpd", "security", "owasp", "ai", "cloud", "docker",
-            "multi-tenant", "observability", "testing", "billing", "authentication"}
+EXPECTED = {"lgpd", "security", "owasp", "ai", "cloud", "docker", "multi-tenant",
+            "observability", "testing", "billing", "authentication", "repo-standards"}
 
 
 class TestCatalog(unittest.TestCase):
@@ -92,6 +92,34 @@ class TestPackCLI(unittest.TestCase):
 
     def test_pack_add_unknown_fails(self):
         self.assertEqual(orchestrator.main(["pack", "add", "nope"]), 2)
+
+
+class TestScaffold(unittest.TestCase):
+    def test_scaffold_lays_repo_standards(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            rc = orchestrator.main(["scaffold", "--stack", "python", "--path", tmp])
+            self.assertEqual(rc, 0)
+            root = Path(tmp)
+            for f in ("CONTRIBUTING.md", "CODE_OF_CONDUCT.md", "SECURITY.md",
+                      ".editorconfig", ".gitignore",
+                      ".github/PULL_REQUEST_TEMPLATE.md",
+                      ".github/ISSUE_TEMPLATE/bug_report.md",
+                      ".github/workflows/ci.yml"):
+                self.assertTrue((root / f).exists(), f"missing {f}")
+            # the python CI variant was chosen
+            self.assertIn("setup-python", (root / ".github/workflows/ci.yml").read_text(encoding="utf-8"))
+
+    def test_scaffold_is_idempotent(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            orchestrator.main(["scaffold", "--stack", "go", "--path", tmp])
+            (Path(tmp) / "CONTRIBUTING.md").write_text("MINE", encoding="utf-8")
+            orchestrator.main(["scaffold", "--stack", "go", "--path", tmp])  # no --force
+            self.assertEqual((Path(tmp) / "CONTRIBUTING.md").read_text(encoding="utf-8"), "MINE")
+
+    def test_scaffold_dry_run_writes_nothing(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            orchestrator.main(["scaffold", "--stack", "node", "--dry-run", "--path", tmp])
+            self.assertFalse((Path(tmp) / "CONTRIBUTING.md").exists())
 
 
 if __name__ == "__main__":

@@ -91,6 +91,7 @@ project history, the sharper the model's work, the **fewer tokens** spent.
 | `nxai knowledge <index\|list\|retrieve\|sync\|status\|graph>` | Knowledge Engine + Providers |
 | `nxai obsidian <sync\|status>` | Sync/inspect the Obsidian vault |
 | `nxai pack <list\|show\|add\|remove>` | Engineering Packs (domain knowledge bundles) |
+| `nxai scaffold [--stack ...]` | Lay open-source/GitHub repo standards into the project |
 | `nxai graph` | Show the project Knowledge Graph |
 | `nxai report` | Consolidated report (status + insights + metrics) |
 | `nxai docs [name]` | List the bundled guides, or print one |
@@ -113,12 +114,27 @@ nxai pack add lgpd             # install LGPD/privacy policies + checklists + co
 nxai pack add security         # OWASP/ASVS-aligned application security
 ```
 
-Built-in packs: **lgpd**, **security** (stable) plus scaffolds for owasp, ai,
-cloud, docker, multi-tenant, observability, testing, billing, authentication. Once
-installed, the **Pack Provider** feeds the pack's policies/checklists/context to
-the agents working in that domain. Packs contain **no code and no AI**. See the
+Built-in packs: **lgpd**, **security**, **repo-standards** (stable) plus scaffolds
+for owasp, ai, cloud, docker, multi-tenant, observability, testing, billing,
+authentication. Once installed, the **Pack Provider** feeds the pack's
+policies/checklists/context to the agents working in that domain. Packs contain
+**no code and no AI**. See the
 [Packs Guide](packages/nx-cli/nx_cli/_template/docs/PACKS_GUIDE.md); third parties
 can publish their own (the pack Marketplace).
+
+### Standardize a repository
+
+The `repo-standards` pack also ships concrete templates that `nxai scaffold` lays
+into a project's repo root — governance files, issue/PR templates and a CI
+workflow matched to the stack:
+
+```bash
+nxai scaffold --stack auto --dry-run   # preview
+nxai scaffold --stack python           # CONTRIBUTING, CODE_OF_CONDUCT, SECURITY,
+                                       # .github/ISSUE_TEMPLATE, PR template, CI, .gitignore
+```
+
+Idempotent — it never overwrites an existing file without `--force`.
 
 ## Architecture
 

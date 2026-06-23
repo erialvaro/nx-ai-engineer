@@ -1,0 +1,70 @@
+{
+  "common": [
+    {
+      "src": "CONTRIBUTING.md",
+      "dest": "CONTRIBUTING.md"
+    },
+    {
+      "src": "CODE_OF_CONDUCT.md",
+      "dest": "CODE_OF_CONDUCT.md"
+    },
+    {
+      "src": "SECURITY.md",
+      "dest": "SECURITY.md"
+    },
+    {
+      "src": "editorconfig",
+      "dest": ".editorconfig"
+    },
+    {
+      "src": "pull_request.md",
+      "dest": ".github/PULL_REQUEST_TEMPLATE.md"
+    },
+    {
+      "src": "issue_bug.md",
+      "dest": ".github/ISSUE_TEMPLATE/bug_report.md"
+    },
+    {
+      "src": "issue_feature.md",
+      "dest": ".github/ISSUE_TEMPLATE/feature_request.md"
+    }
+  ],
+  "stacks": {
+    "python": [
+      {
+        "src": "stacks/python/ci.yml",
+        "dest": ".github/workflows/ci.yml"
+      },
+      {
+        "src": "stacks/python/gitignore",
+        "dest": ".gitignore"
+      }
+    ],
+    "node": [
+      {
+        "src": "stacks/node/ci.yml",
+        "dest": ".github/workflows/ci.yml"
+      },
+      {
+        "src": "stacks/node/gitignore",
+        "dest": ".gitignore"
+      }
+    ],
+    "go": [
+      {
+        "src": "stacks/go/ci.yml",
+        "dest": ".github/workflows/ci.yml"
+      },
+      {
+        "src": "stacks/go/gitignore",
+        "dest": ".gitignore"
+      }
+    ],
+    "generic": [
+      {
+        "src": "stacks/generic/ci.yml",
+        "dest": ".github/workflows/ci.yml"
+      }
+    ]
+  }
+}

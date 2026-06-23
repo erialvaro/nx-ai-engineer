@@ -21,8 +21,14 @@ packaging and the official product surface.
   agents working in that domain. Packs contain **no code and no AI** (enforced by
   the test suite). Third parties can publish their own packs (the Marketplace).
   New `PACKS_GUIDE.md`.
+- **Repository standardization** — a `repo-standards` Engineering Pack plus a
+  `nxai scaffold` command that lays open-source/GitHub standards into a project's
+  repo root: governance files (CONTRIBUTING/CODE_OF_CONDUCT/SECURITY/.editorconfig),
+  `.github/` issue & PR templates, a stack-matched CI workflow (Python/Node/Go/
+  generic) and `.gitignore`. Idempotent (never overwrites without `--force`),
+  with `--stack auto` detecting the stack from the audit and `--dry-run` to preview.
 - **CLI**: `nxai graph` (top-level Knowledge Graph), `nxai report` (consolidated
-  status + insights + metrics), and `nxai pack`.
+  status + insights + metrics), `nxai pack`, and `nxai scaffold`.
 - **Open-source / ecosystem docs**: `PROVIDER_SDK_GUIDE.md` (author Knowledge
   Providers), `MARKETPLACE.md` (distribute third-party packs/plugins as PyPI
   packages), and a maintainer `RELEASING.md` (release process + publication

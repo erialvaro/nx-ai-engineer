@@ -30,6 +30,7 @@ other knowledge.
 |---|---|---|
 | `lgpd` | privacy / PII | **stable** |
 | `security` | application security (OWASP/ASVS) | **stable** |
+| `repo-standards` | repo governance + CI + templates (used by `nxai scaffold`) | **stable** |
 | `owasp` | OWASP Top 10 mapping | scaffold |
 | `ai` | safe AI/LLM integration | scaffold |
 | `cloud` | cloud architecture | scaffold |
@@ -42,6 +43,24 @@ other knowledge.
 
 *Scaffold* packs are structured starting points seeded with real domain bullets —
 expand their sections for your project.
+
+## Repository scaffolding (`nxai scaffold`)
+
+The **repo-standards** pack is special: besides its policies/checklists it ships a
+`scaffold/` tree of concrete files that `nxai scaffold` lays into a project's repo
+root — governance files (`CONTRIBUTING`, `CODE_OF_CONDUCT`, `SECURITY`,
+`.editorconfig`), `.github/` issue & PR templates, a `.gitignore`, and a CI
+workflow matched to the stack (Python/Node/Go/generic).
+
+```bash
+nxai scaffold --stack auto --dry-run   # preview (auto-detects the stack from the audit)
+nxai scaffold --stack python           # write the files (skips existing)
+nxai scaffold --force                  # overwrite existing files
+```
+
+It is **idempotent** and never overwrites a file without `--force`. CI templates
+are stored under neutral paths inside the pack and mapped to `.github/workflows/`
+only when written into your project.
 
 ## Pack layout
 

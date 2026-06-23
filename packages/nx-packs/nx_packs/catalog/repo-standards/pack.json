@@ -1,0 +1,29 @@
+{
+  "name": "repo-standards",
+  "title": "Repository Standards",
+  "version": "1.0.0",
+  "domain": "repo-standards",
+  "status": "stable",
+  "summary": "Open-source repository standards: governance files, CI/CD, issue/PR templates, security policy and a conventional structure. Applied with `nxai scaffold`.",
+  "tags": [
+    "github",
+    "open-source",
+    "ci",
+    "governance",
+    "scaffold"
+  ],
+  "provides": [
+    "context.md",
+    "policies.md",
+    "checklists.md"
+  ],
+  "files": [
+    "README.md",
+    "architecture.md",
+    "patterns.md",
+    "policies.md",
+    "checklists.md",
+    "context.md",
+    "scaffold/manifest.json"
+  ]
+}

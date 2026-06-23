@@ -65,6 +65,7 @@ EXPECTED_CLI = {
     "deliver", "pipeline", "metrics", "insights", "recommend", "knowledge",
     "obsidian", "worktree", "tasks", "locks", "unlock", "status",
     "init", "update", "doctor", "docs", "version", "execute", "graph", "report", "pack",
+    "scaffold",
 }
 
 
