@@ -1,0 +1,14 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nx-runtime"
+version = "1.0.0"
+description = "Execution runtime: schedulers (engine+cluster), adapters, intelligence, domain engines, the unified pipeline."
+requires-python = ">=3.8"
+license = { text = "MIT" }
+dependencies = ["nx-core==1.0.0", "nx-workflow==1.0.0", "nx-sdk==1.0.0", "nx-knowledge==1.0.0"]
+
+[tool.setuptools.packages.find]
+include = ["nx_runtime*"]

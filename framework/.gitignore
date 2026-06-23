@@ -1,0 +1,9 @@
+# AIES — keep the framework and memory in git; ignore volatile runtime state.
+tools/**/__pycache__/
+**/*.pyc
+
+# Advisory locks are local coordination state — uncomment to keep them local:
+# locks/*.json
+
+# Generated review reports — uncomment to keep them local:
+# reviews/*.md

@@ -1,0 +1,26 @@
+{
+  "name": "billing",
+  "title": "Billing / Payments",
+  "version": "1.0.0",
+  "domain": "billing",
+  "summary": "Money handling: idempotency, integer cents, audit trail, webhook verification, reconciliation.",
+  "tags": [
+    "billing",
+    "payments",
+    "money"
+  ],
+  "status": "scaffold",
+  "provides": [
+    "context.md",
+    "policies.md",
+    "checklists.md"
+  ],
+  "files": [
+    "README.md",
+    "architecture.md",
+    "patterns.md",
+    "policies.md",
+    "checklists.md",
+    "context.md"
+  ]
+}

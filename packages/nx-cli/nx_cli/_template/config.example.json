@@ -1,0 +1,16 @@
+{
+  "project_name": null,
+  "branch_prefix": "feature",
+  "default_base": "HEAD",
+  "large_file_loc": 400,
+  "domain_rules": [
+    "Never read or write another tenant's data",
+    "Never log or expose PII"
+  ],
+  "protected_paths": [
+    "**/billing/**",
+    "**/payments/**"
+  ],
+  "extra_agents": {},
+  "disabled_agents": []
+}

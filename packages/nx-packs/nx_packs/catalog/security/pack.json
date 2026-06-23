@@ -1,0 +1,27 @@
+{
+  "name": "security",
+  "title": "Application Security",
+  "version": "1.0.0",
+  "domain": "security",
+  "summary": "Application security baseline aligned to OWASP Top 10 and ASVS: input validation, injection, authz, secrets, crypto, dependencies, SSRF, deserialization, logging and error handling.",
+  "tags": [
+    "security",
+    "owasp",
+    "asvs",
+    "appsec"
+  ],
+  "status": "stable",
+  "provides": [
+    "context.md",
+    "policies.md",
+    "checklists.md"
+  ],
+  "files": [
+    "README.md",
+    "architecture.md",
+    "patterns.md",
+    "policies.md",
+    "checklists.md",
+    "context.md"
+  ]
+}

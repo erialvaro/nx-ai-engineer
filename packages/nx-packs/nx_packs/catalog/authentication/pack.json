@@ -1,0 +1,26 @@
+{
+  "name": "authentication",
+  "title": "Authentication",
+  "version": "1.0.0",
+  "domain": "authentication",
+  "summary": "Authentication and session handling: password hashing, MFA, sessions/JWT, lockout, OAuth/OIDC.",
+  "tags": [
+    "auth",
+    "authentication",
+    "identity"
+  ],
+  "status": "scaffold",
+  "provides": [
+    "context.md",
+    "policies.md",
+    "checklists.md"
+  ],
+  "files": [
+    "README.md",
+    "architecture.md",
+    "patterns.md",
+    "policies.md",
+    "checklists.md",
+    "context.md"
+  ]
+}

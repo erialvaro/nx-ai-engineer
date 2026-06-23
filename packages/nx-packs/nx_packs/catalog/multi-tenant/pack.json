@@ -1,0 +1,26 @@
+{
+  "name": "multi-tenant",
+  "title": "Multi-Tenancy",
+  "version": "1.0.0",
+  "domain": "multi-tenant",
+  "summary": "Tenant isolation and data separation; never leak data across tenants.",
+  "tags": [
+    "multi-tenant",
+    "isolation",
+    "saas"
+  ],
+  "status": "scaffold",
+  "provides": [
+    "context.md",
+    "policies.md",
+    "checklists.md"
+  ],
+  "files": [
+    "README.md",
+    "architecture.md",
+    "patterns.md",
+    "policies.md",
+    "checklists.md",
+    "context.md"
+  ]
+}

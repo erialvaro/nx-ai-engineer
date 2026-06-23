@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nx-packs"
+version = "1.0.0"
+description = "NX AI Engineer — Engineering Packs catalog (domain knowledge bundles: policies, patterns, checklists, ADRs, templates, context)."
+requires-python = ">=3.8"
+license = { text = "MIT" }
+dependencies = ["nx-core==1.0.0"]
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+include = ["nx_packs*"]
+
+# Ship the built-in pack catalog (markdown/json/templates) as package data so a
+# plain `pip install` carries every pack and `nxai pack add` works offline.
+[tool.setuptools.package-data]
+nx_packs = ["catalog/**/*"]

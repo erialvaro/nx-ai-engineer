@@ -1,0 +1,26 @@
+{
+  "name": "testing",
+  "title": "Testing Strategy",
+  "version": "1.0.0",
+  "domain": "testing",
+  "summary": "Test pyramid, determinism, coverage and CI gates.",
+  "tags": [
+    "testing",
+    "quality",
+    "ci"
+  ],
+  "status": "scaffold",
+  "provides": [
+    "context.md",
+    "policies.md",
+    "checklists.md"
+  ],
+  "files": [
+    "README.md",
+    "architecture.md",
+    "patterns.md",
+    "policies.md",
+    "checklists.md",
+    "context.md"
+  ]
+}

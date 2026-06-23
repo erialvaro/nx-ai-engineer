@@ -1,0 +1,26 @@
+{
+  "name": "cloud",
+  "title": "Cloud Architecture",
+  "version": "1.0.0",
+  "domain": "cloud",
+  "summary": "Cloud architecture and operations: IaC, least-privilege IAM, network segmentation, secrets, backups, resilience.",
+  "tags": [
+    "cloud",
+    "infra",
+    "iac"
+  ],
+  "status": "scaffold",
+  "provides": [
+    "context.md",
+    "policies.md",
+    "checklists.md"
+  ],
+  "files": [
+    "README.md",
+    "architecture.md",
+    "patterns.md",
+    "policies.md",
+    "checklists.md",
+    "context.md"
+  ]
+}

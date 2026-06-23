@@ -1,0 +1,26 @@
+{
+  "name": "docker",
+  "title": "Containers / Docker",
+  "version": "1.0.0",
+  "domain": "containers",
+  "summary": "Container image and runtime best practices: minimal, non-root, reproducible, secret-free, scanned.",
+  "tags": [
+    "docker",
+    "containers",
+    "oci"
+  ],
+  "status": "scaffold",
+  "provides": [
+    "context.md",
+    "policies.md",
+    "checklists.md"
+  ],
+  "files": [
+    "README.md",
+    "architecture.md",
+    "patterns.md",
+    "policies.md",
+    "checklists.md",
+    "context.md"
+  ]
+}

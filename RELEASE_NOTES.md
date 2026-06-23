@@ -1,0 +1,67 @@
+# Release Notes — NX AI Engineer 1.0.0
+
+**NX AI Engineer** is a Developer Infrastructure Platform for AI-assisted
+software development. It organizes **knowledge, context and execution** so that
+*any* AI model becomes dramatically more effective while building software — it
+does not replace Claude Code, GPT, Gemini or any model. **All intelligence
+belongs to the model; all organization belongs to NX.**
+
+1.0.0 is the first public release: distributable via PyPI, installable with a
+single `nxai` CLI, and prepared for long-term open-source evolution.
+
+## Install
+
+```bash
+pip install nx-ai-engineer
+nxai version
+nxai doctor
+```
+
+Then, from any repository:
+
+```bash
+nxai init                      # scaffold .ai-project + audit + Brain + Knowledge + Vault
+nxai plan "Add OAuth login"
+nxai execute "Add OAuth login" # full flow, Dry Run -> Test -> Execute (dry-run by default)
+nxai review
+nxai docs                      # the bundled guides
+```
+
+## Highlights
+
+- **Official `nxai` CLI** — 25 commands. New in 1.0: `init`, `update`, `doctor`,
+  `docs`, `version`, `execute`. The legacy `nx` alias is also installed.
+- **PyPI distribution** — 8 acyclic, **stdlib-only** packages (no third-party
+  runtime deps). The deployable template ships as package data; **no manual file
+  copying**.
+- **Data-only `.ai-project/`** — platform code lives in the installed packages;
+  your project keeps only data (config + Project Brain + Obsidian vault +
+  knowledge + working state). `nxai update` refreshes template assets and **never**
+  touches your Brain/Vault/Knowledge/config/history.
+- **Obsidian vault** — the official numbered structure `00 Dashboard` …
+  `14 Retrospectives`, created on `init` and auto-synced (a reflection of the
+  Brain, never the source of truth).
+- **Three memories** — Project Brain (operational, never stores code), Obsidian
+  (organizational), Git (historical, opt-in), coordinated by the Knowledge Engine.
+- **Knowledge Engine doctrine** — exactly five responsibilities (discover, index,
+  relate, update, deliver_context); it never reasons. Enforced by a guardrail test.
+- **Open-source ready** — GitHub Actions CI (quality-gate matrix + acyclic graph +
+  wheel build), tag-driven PyPI release, issue/PR templates, Installer & Upgrade
+  guides.
+
+## Quality bar
+
+Every release must pass the Quality Gate (`python scripts/quality_gate.py`):
+**219 tests**, no import cycles, no unused imports, public CLI/API present, all
+docs present — plus `scripts/verify_packages.py` (declared **and** real-import
+graphs acyclic and consistent).
+
+## Upgrading
+
+```bash
+pip install -U nx-ai-engineer
+nxai update      # refresh template assets; your data is untouched
+```
+
+See the [Upgrade Guide](packages/nx-cli/nx_cli/_template/docs/UPGRADE_GUIDE.md)
+and [Installer Guide](packages/nx-cli/nx_cli/_template/docs/INSTALLER_GUIDE.md).

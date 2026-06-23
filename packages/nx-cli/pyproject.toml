@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nx-cli"
+version = "1.0.0"
+description = "NX AI Engineer official CLI (nxai): init/audit/plan/execute/review/knowledge/docs/doctor/update."
+requires-python = ">=3.8"
+license = { text = "MIT" }
+dependencies = ["nx-core==1.0.0", "nx-runtime==1.0.0", "nx-knowledge==1.0.0", "nx-obsidian==1.0.0", "nx-sdk==1.0.0", "nx-packs==1.0.0"]
+
+[project.scripts]
+nxai = "nx_cli.orchestrator:main"
+nx = "nx_cli.orchestrator:main"
+
+[tool.setuptools]
+# Honour MANIFEST.in so the bundled template ships in both sdist and wheel,
+# regardless of setuptools version.
+include-package-data = true
+
+[tool.setuptools.packages.find]
+include = ["nx_cli*"]
+
+# Ship the deployable template (agent specs, doc/code templates, project rules,
+# config example, guides) as package data so `nxai init`/`update` work after a
+# plain `pip install` — no manual file copying.
+[tool.setuptools.package-data]
+nx_cli = [
+  "_template/**/*.md",
+  "_template/**/*.json",
+  "_template/**/*",
+]

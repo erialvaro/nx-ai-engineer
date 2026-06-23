@@ -1,0 +1,27 @@
+{
+  "name": "observability",
+  "title": "Observability",
+  "version": "1.0.0",
+  "domain": "observability",
+  "summary": "Logs, metrics and traces with correlation, SLOs and alerting; no PII.",
+  "tags": [
+    "observability",
+    "logs",
+    "metrics",
+    "tracing"
+  ],
+  "status": "scaffold",
+  "provides": [
+    "context.md",
+    "policies.md",
+    "checklists.md"
+  ],
+  "files": [
+    "README.md",
+    "architecture.md",
+    "patterns.md",
+    "policies.md",
+    "checklists.md",
+    "context.md"
+  ]
+}

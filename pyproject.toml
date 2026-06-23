@@ -1,0 +1,55 @@
+# nx-ai-engineer — monorepo workspace.
+# A Developer Infrastructure Platform for AI-assisted software development.
+# The platform is split into 8 acyclic, stdlib-only packages under packages/.
+# All intelligence belongs to the AI model; NX organizes knowledge, context and
+# execution. See docs/ARCHITECTURE.md and docs/MIGRATION_PLAN.md.
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nx-ai-engineer"
+version = "1.0.0"
+description = "Developer Infrastructure Platform for AI-assisted development: knowledge-driven, multi-agent, stdlib-only."
+requires-python = ">=3.8"
+license = { text = "MIT" }
+readme = "README.md"
+authors = [{ name = "NX AI Engineer" }]
+keywords = ["ai", "developer-tools", "multi-agent", "knowledge", "cli", "platform"]
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Topic :: Software Development :: Build Tools",
+]
+# The platform core depends on NOTHING third-party (stdlib-only). The metapackage
+# simply aggregates the workspace members.
+dependencies = [
+  "nx-core==1.0.0", "nx-workflow==1.0.0", "nx-sdk==1.0.0", "nx-providers==1.0.0",
+  "nx-obsidian==1.0.0", "nx-knowledge==1.0.0", "nx-runtime==1.0.0", "nx-cli==1.0.0",
+  "nx-packs==1.0.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/nx-ai-engineer/nx-ai-engineer"
+Documentation = "https://github.com/nx-ai-engineer/nx-ai-engineer/tree/main/packages/nx-cli/nx_cli/_template/docs"
+Repository = "https://github.com/nx-ai-engineer/nx-ai-engineer"
+Changelog = "https://github.com/nx-ai-engineer/nx-ai-engineer/blob/main/CHANGELOG.md"
+
+# The `nxai` (and legacy `nx`) console scripts are provided by the nx-cli package
+# this metapackage depends on — defined once, there, to avoid duplicate entry
+# points across distributions.
+
+# The root distribution is a pure metapackage (no importable modules of its own);
+# it only aggregates the workspace members as dependencies.
+[tool.setuptools]
+packages = []
+
+[tool.nx.workspace]
+# Acyclic dependency order (lower -> higher); enforced by the quality gate.
+members = [
+  "packages/nx-core", "packages/nx-workflow", "packages/nx-sdk",
+  "packages/nx-providers", "packages/nx-obsidian", "packages/nx-knowledge",
+  "packages/nx-runtime", "packages/nx-cli", "packages/nx-packs",
+]

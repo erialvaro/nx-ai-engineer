@@ -1,0 +1,28 @@
+{
+  "name": "lgpd",
+  "title": "LGPD / Privacy",
+  "version": "1.0.0",
+  "domain": "privacy",
+  "summary": "Brazilian LGPD and general privacy/PII handling: lawful basis, data-subject rights, minimization, tenant isolation, retention and incident response.",
+  "tags": [
+    "privacy",
+    "lgpd",
+    "pii",
+    "compliance",
+    "br"
+  ],
+  "status": "stable",
+  "provides": [
+    "context.md",
+    "policies.md",
+    "checklists.md"
+  ],
+  "files": [
+    "README.md",
+    "architecture.md",
+    "patterns.md",
+    "policies.md",
+    "checklists.md",
+    "context.md"
+  ]
+}

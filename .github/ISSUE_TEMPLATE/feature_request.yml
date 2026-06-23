@@ -1,0 +1,39 @@
+name: Feature request
+description: Suggest an enhancement to the platform
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem / motivation
+      description: What are you trying to do that the platform doesn't support today?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - CLI (nxai)
+        - Knowledge Engine / Providers
+        - Project Brain
+        - Obsidian vault
+        - SDK / Plugins
+        - Runtime / Execution
+        - Docs
+        - Other
+    validations:
+      required: true
+  - type: checkboxes
+    id: doctrine
+    attributes:
+      label: Doctrine check
+      options:
+        - label: This keeps all reasoning in the AI model (NX only organizes knowledge/context/execution)
+        - label: This adds no third-party runtime dependency to the core

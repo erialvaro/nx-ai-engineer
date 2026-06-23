@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+dist/
+build/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Deployed/runtime data — never commit a project's .ai-project
+.ai-project/
+
+# Generated website output
+website/site/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
