@@ -9,6 +9,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any, Optional
 
+from nx_core.foundation import util
 from nx_providers.knowledge.adr import ADRProvider
 from nx_providers.knowledge.base import KnowledgeItem, KnowledgeProvider, Relationship
 from nx_providers.knowledge.filesystem import FilesystemProvider
@@ -80,7 +81,8 @@ def default_registry(*, root: Optional[Path] = None, config: Optional[dict] = No
     reg.register(MarkdownProvider(root))
     reg.register(ADRProvider(root))
     reg.register(ObsidianProvider(root, config=config))
-    reg.register(PackProvider(root))
+    # Packs live in the data home (.ai-project/packs), not the project source root.
+    reg.register(PackProvider(util.config_root()))
     if brain is not None:
         reg.register(ProjectBrainProvider(brain))
     return reg

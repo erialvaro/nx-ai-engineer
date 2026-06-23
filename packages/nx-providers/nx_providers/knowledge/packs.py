@@ -71,6 +71,12 @@ class PackProvider(KnowledgeProvider):
                     "status": mf.get("status", ""),
                     "policies": policies, "checklists": checklist,
                     "context": (context or first_heading(context or "")),
+                    # Engineering-Contract fields (declarative — what the pack requires).
+                    "applies_to": mf.get("applies_to", []),
+                    "required_adrs": mf.get("required_adrs", []),
+                    "mandatory_tests": mf.get("mandatory_tests", []),
+                    "validations": mf.get("validations", []),
+                    "brain_facets": mf.get("brain_facets", []),
                 },
                 relationships=[Relationship(f"pack:{name}", f"domain:{mf.get('domain', '')}", "applies-to")],
             )

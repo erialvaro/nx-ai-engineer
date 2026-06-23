@@ -11,6 +11,20 @@ evolution. No engine behavior was removed; this release is about distribution,
 packaging and the official product surface.
 
 ### Added
+- **Engineering Contract** — the concept that ties Brain/Knowledge/Context/Providers/
+  Packs together and makes delivery to the agent *predictable*. An agent receives a
+  declarative **contract** (`context · knowledge · engineering · constraints ·
+  requirements · brain`), not an ad-hoc prompt:
+  `Task → EngineeringContract → Context Builder → Model → Result → Knowledge Update`.
+  **Engineering Packs are contracts**: each declares `applies_to` (agents or `"*"`)
+  plus `required_adrs`/`mandatory_tests`/`validations`/`brain_facets`, so packs
+  **auto-attach** to an agent (Backend automatically gets Security + LGPD +
+  Multi-Tenant), with per-agent overrides in `config.json` (`contracts.agents`).
+  The contract is **enforced at delivery** — a Governance/Delivery gate blocks
+  shipping untested code when an applicable pack mandates tests, and the PR lists
+  the contract's required validations/checklists. New `nxai contract` command,
+  `KnowledgeEngine.build_contract`, `ContractBuilder`, ADR-0020 and
+  `ENGINEERING_CONTRACT.md`.
 - **Engineering Packs** — a new `nx-packs` package shipping a catalog of **domain
   knowledge bundles** (policies, patterns, checklists, ADRs, templates, examples,
   context) for engineering domains. Two reference packs are authored in full

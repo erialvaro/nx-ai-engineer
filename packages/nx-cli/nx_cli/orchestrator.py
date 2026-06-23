@@ -872,6 +872,39 @@ def cmd_scaffold(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_contract(args: argparse.Namespace) -> int:
+    """Build the Engineering Contract for an agent + task: the declarative brief
+    (context/knowledge/engineering packs/constraints/requirements) the agent
+    receives. Engineering Packs auto-attach by their `applies_to`."""
+    from nx_knowledge.knowledge.engine import KnowledgeEngine
+    from nx_knowledge.memory.brain import ProjectBrain
+    cfg = _cfg()
+    task = args.goal or ""
+    files = list(args.files or [])
+    areas = list(args.areas or [])
+    if args.plan:
+        data = tasks_mod.load(args.plan)
+        if not data:
+            util.eprint(f"error: task {args.plan} not found")
+            return 2
+        raw = next((s for s in data.get("subtasks", []) if s.get("agent") == args.agent), None)
+        task = task or (raw.get("objective") if raw else "") or data.get("description") or data["id"]
+        if raw:
+            areas = areas or raw.get("areas", [])
+            files = files or raw.get("files", [])
+    if not task:
+        util.eprint('error: provide a task — `nxai contract --agent <a> "<task>"` or --plan <id>')
+        return 2
+    contract = KnowledgeEngine(ProjectBrain(), config=cfg).build_contract(
+        task, args.agent, files=files, areas=areas)
+    if args.format == "json":
+        print(json.dumps(contract.as_dict(), ensure_ascii=False, indent=2))
+    else:
+        print(util.banner(f"ENGINEERING CONTRACT — {args.agent}"))
+        print("\n" + contract.to_text())
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(prog="nxai",
                                 description="NX AI Engineer — Developer Infrastructure Platform")
@@ -918,6 +951,15 @@ def build_parser() -> argparse.ArgumentParser:
     sp.add_argument("--dry-run", action="store_true", help="Show what would be written")
     sp.add_argument("--path", help="Project dir (default: the project root)")
     sp.set_defaults(fn=cmd_scaffold)
+
+    sp = sub.add_parser("contract", help="Build the Engineering Contract for an agent + task")
+    sp.add_argument("goal", nargs="?", help="Free-text task (or use --plan)")
+    sp.add_argument("--agent", required=True, help="Agent the contract is for")
+    sp.add_argument("--plan", help="Task id to derive task/areas from")
+    sp.add_argument("--files", nargs="*", help="Files in scope")
+    sp.add_argument("--areas", nargs="*", help="Areas in scope")
+    sp.add_argument("--format", choices=["text", "json"], default="text")
+    sp.set_defaults(fn=cmd_contract)
 
     sub.add_parser("audit", help="Discover & persist the project architecture").set_defaults(fn=cmd_audit)
 

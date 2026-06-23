@@ -12,11 +12,16 @@
     "governance",
     "scaffold"
   ],
+  "applies_to": [],
   "provides": [
     "context.md",
     "policies.md",
     "checklists.md"
   ],
+  "required_adrs": [],
+  "mandatory_tests": [],
+  "validations": [],
+  "brain_facets": [],
   "files": [
     "README.md",
     "architecture.md",

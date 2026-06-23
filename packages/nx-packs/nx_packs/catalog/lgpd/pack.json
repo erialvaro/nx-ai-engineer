@@ -3,6 +3,7 @@
   "title": "LGPD / Privacy",
   "version": "1.0.0",
   "domain": "privacy",
+  "status": "stable",
   "summary": "Brazilian LGPD and general privacy/PII handling: lawful basis, data-subject rights, minimization, tenant isolation, retention and incident response.",
   "tags": [
     "privacy",
@@ -11,11 +12,26 @@
     "compliance",
     "br"
   ],
-  "status": "stable",
+  "applies_to": [
+    "*"
+  ],
   "provides": [
     "context.md",
     "policies.md",
     "checklists.md"
+  ],
+  "required_adrs": [],
+  "mandatory_tests": [
+    "No raw PII in logs/telemetry",
+    "Deletion path removes the subject everywhere"
+  ],
+  "validations": [
+    "PII encrypted at rest and in transit",
+    "Data access is tenant-scoped"
+  ],
+  "brain_facets": [
+    "decisions",
+    "architecture"
   ],
   "files": [
     "README.md",

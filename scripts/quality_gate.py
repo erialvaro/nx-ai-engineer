@@ -57,6 +57,7 @@ REQUIRED_DOCS = [
     DOCS / "PACKS_GUIDE.md",
     DOCS / "PROVIDER_SDK_GUIDE.md",
     DOCS / "MARKETPLACE.md",
+    DOCS / "ENGINEERING_CONTRACT.md",
     SKILL / "RELEASING.md",
 ]
 
@@ -65,7 +66,7 @@ EXPECTED_CLI = {
     "deliver", "pipeline", "metrics", "insights", "recommend", "knowledge",
     "obsidian", "worktree", "tasks", "locks", "unlock", "status",
     "init", "update", "doctor", "docs", "version", "execute", "graph", "report", "pack",
-    "scaffold",
+    "scaffold", "contract",
 }
 
 

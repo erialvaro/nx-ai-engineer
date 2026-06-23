@@ -3,17 +3,33 @@
   "title": "Authentication",
   "version": "1.0.0",
   "domain": "authentication",
+  "status": "scaffold",
   "summary": "Authentication and session handling: password hashing, MFA, sessions/JWT, lockout, OAuth/OIDC.",
   "tags": [
     "auth",
     "authentication",
     "identity"
   ],
-  "status": "scaffold",
+  "applies_to": [
+    "backend",
+    "security"
+  ],
   "provides": [
     "context.md",
     "policies.md",
     "checklists.md"
+  ],
+  "required_adrs": [],
+  "mandatory_tests": [
+    "Passwords hashed (argon2/bcrypt)",
+    "Lockout/throttling on repeated failures"
+  ],
+  "validations": [
+    "Sessions/JWTs short-lived + rotated"
+  ],
+  "brain_facets": [
+    "decisions",
+    "architecture"
   ],
   "files": [
     "README.md",

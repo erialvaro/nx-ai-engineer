@@ -3,17 +3,33 @@
   "title": "OWASP Top 10",
   "version": "1.0.0",
   "domain": "security",
+  "status": "scaffold",
   "summary": "OWASP Top 10 mapping and controls; companion to the security pack.",
   "tags": [
     "owasp",
     "security",
     "top10"
   ],
-  "status": "scaffold",
+  "applies_to": [
+    "backend",
+    "frontend",
+    "security"
+  ],
   "provides": [
     "context.md",
     "policies.md",
     "checklists.md"
+  ],
+  "required_adrs": [],
+  "mandatory_tests": [
+    "Top-10 controls covered by the change"
+  ],
+  "validations": [
+    "A01–A10 mapped"
+  ],
+  "brain_facets": [
+    "decisions",
+    "bugs"
   ],
   "files": [
     "README.md",

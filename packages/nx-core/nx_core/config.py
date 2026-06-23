@@ -31,6 +31,10 @@ DEFAULTS: dict[str, Any] = {
     "obsidian_vault": None,   # path; null => .ai-project/obsidian
     # Knowledge Engine: opt-in commit of brain+obsidian to Git (historical memory).
     "knowledge_git_snapshot": False,
+    # Engineering Contracts: per-agent overrides for pack auto-application, e.g.
+    # {"backend": {"packs": ["billing"], "exclude": ["docker"], "constraints": ["..."]}}.
+    # By default packs auto-attach to an agent via their `applies_to`.
+    "contracts": {},
 }
 
 

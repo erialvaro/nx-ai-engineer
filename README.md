@@ -79,6 +79,28 @@ relate, update, deliver_context* — and **never reasons, learns programming, or
 interprets code**. It only reduces the model's cognitive load: the richer the
 project history, the sharper the model's work, the **fewer tokens** spent.
 
+### The Engineering Contract
+
+How knowledge reaches the agent. An agent doesn't get an ad-hoc prompt — it gets a
+**contract**: a declarative, predictable statement of what applies to a task.
+
+```
+Task → Engineering Contract → Context Builder → Model → Result → Knowledge Update
+```
+
+The contract assembles `context` (files/areas), `knowledge` (ADRs/patterns),
+`engineering` (the Engineering Packs that apply), `constraints`, `requirements`
+(mandatory tests/validations/checklists) and `brain` facets. **Packs are
+contracts**: they declare `applies_to`, so the Backend Agent automatically
+receives the **Security**, **LGPD** and **Multi-Tenant** contracts — without anyone
+remembering to ask. The contract is **enforced at delivery** (a gate blocks
+shipping untested code when an applicable pack mandates tests). See the
+[Engineering Contract guide](packages/nx-cli/nx_cli/_template/docs/ENGINEERING_CONTRACT.md).
+
+```bash
+nxai contract --agent backend "Implement Google login" --files auth.py --areas api/auth
+```
+
 ## CLI
 
 | Command | Purpose |
@@ -90,6 +112,7 @@ project history, the sharper the model's work, the **fewer tokens** spent.
 | `nxai review` | Consolidated diff review |
 | `nxai knowledge <index\|list\|retrieve\|sync\|status\|graph>` | Knowledge Engine + Providers |
 | `nxai obsidian <sync\|status>` | Sync/inspect the Obsidian vault |
+| `nxai contract --agent <a> "<task>"` | Build the Engineering Contract for an agent + task |
 | `nxai pack <list\|show\|add\|remove>` | Engineering Packs (domain knowledge bundles) |
 | `nxai scaffold [--stack ...]` | Lay open-source/GitHub repo standards into the project |
 | `nxai graph` | Show the project Knowledge Graph |

@@ -3,17 +3,32 @@
   "title": "AI / LLM Integration",
   "version": "1.0.0",
   "domain": "ai",
+  "status": "scaffold",
   "summary": "Safely USING AI models in the product (prompt-injection, output validation, data minimization, cost/limits). NX never implements AI — this governs how the product calls models.",
   "tags": [
     "ai",
     "llm",
     "safety"
   ],
-  "status": "scaffold",
+  "applies_to": [
+    "ai"
+  ],
   "provides": [
     "context.md",
     "policies.md",
     "checklists.md"
+  ],
+  "required_adrs": [],
+  "mandatory_tests": [
+    "Model output validated before use"
+  ],
+  "validations": [
+    "No secrets/PII in prompts",
+    "Cost/rate limits + timeouts set"
+  ],
+  "brain_facets": [
+    "decisions",
+    "integrations"
   ],
   "files": [
     "README.md",

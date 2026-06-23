@@ -3,17 +3,32 @@
   "title": "Billing / Payments",
   "version": "1.0.0",
   "domain": "billing",
+  "status": "scaffold",
   "summary": "Money handling: idempotency, integer cents, audit trail, webhook verification, reconciliation.",
   "tags": [
     "billing",
     "payments",
     "money"
   ],
-  "status": "scaffold",
+  "applies_to": [
+    "backend"
+  ],
   "provides": [
     "context.md",
     "policies.md",
     "checklists.md"
+  ],
+  "required_adrs": [],
+  "mandatory_tests": [
+    "Charge/refund operations are idempotent"
+  ],
+  "validations": [
+    "Money as integer minor units",
+    "Webhook signatures verified"
+  ],
+  "brain_facets": [
+    "services",
+    "decisions"
   ],
   "files": [
     "README.md",

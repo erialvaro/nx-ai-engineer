@@ -3,17 +3,32 @@
   "title": "Testing Strategy",
   "version": "1.0.0",
   "domain": "testing",
+  "status": "scaffold",
   "summary": "Test pyramid, determinism, coverage and CI gates.",
   "tags": [
     "testing",
     "quality",
     "ci"
   ],
-  "status": "scaffold",
+  "applies_to": [
+    "*"
+  ],
   "provides": [
     "context.md",
     "policies.md",
     "checklists.md"
+  ],
+  "required_adrs": [],
+  "mandatory_tests": [
+    "New code is covered by tests",
+    "Tests are deterministic/isolated"
+  ],
+  "validations": [
+    "CI gate green",
+    "Edge cases asserted"
+  ],
+  "brain_facets": [
+    "architecture"
   ],
   "files": [
     "README.md",

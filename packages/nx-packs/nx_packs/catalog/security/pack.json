@@ -3,6 +3,7 @@
   "title": "Application Security",
   "version": "1.0.0",
   "domain": "security",
+  "status": "stable",
   "summary": "Application security baseline aligned to OWASP Top 10 and ASVS: input validation, injection, authz, secrets, crypto, dependencies, SSRF, deserialization, logging and error handling.",
   "tags": [
     "security",
@@ -10,11 +11,28 @@
     "asvs",
     "appsec"
   ],
-  "status": "stable",
+  "applies_to": [
+    "*"
+  ],
   "provides": [
     "context.md",
     "policies.md",
     "checklists.md"
+  ],
+  "required_adrs": [],
+  "mandatory_tests": [
+    "Unauthorized caller is denied on every protected endpoint",
+    "Injection payloads are neutralized (parameterized queries)"
+  ],
+  "validations": [
+    "No secrets in code/config",
+    "Dependencies scanned for known vulns",
+    "Authorization enforced on every endpoint"
+  ],
+  "brain_facets": [
+    "decisions",
+    "bugs",
+    "architecture"
   ],
   "files": [
     "README.md",

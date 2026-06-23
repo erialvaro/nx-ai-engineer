@@ -3,17 +3,33 @@
   "title": "Containers / Docker",
   "version": "1.0.0",
   "domain": "containers",
+  "status": "scaffold",
   "summary": "Container image and runtime best practices: minimal, non-root, reproducible, secret-free, scanned.",
   "tags": [
     "docker",
     "containers",
     "oci"
   ],
-  "status": "scaffold",
+  "applies_to": [
+    "devops",
+    "backend"
+  ],
   "provides": [
     "context.md",
     "policies.md",
     "checklists.md"
+  ],
+  "required_adrs": [],
+  "mandatory_tests": [
+    "Image runs as non-root"
+  ],
+  "validations": [
+    "Minimal pinned base",
+    "No secrets in image",
+    "Image scanned"
+  ],
+  "brain_facets": [
+    "dependencies"
   ],
   "files": [
     "README.md",

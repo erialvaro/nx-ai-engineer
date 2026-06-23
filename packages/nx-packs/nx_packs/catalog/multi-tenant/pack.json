@@ -3,17 +3,34 @@
   "title": "Multi-Tenancy",
   "version": "1.0.0",
   "domain": "multi-tenant",
+  "status": "scaffold",
   "summary": "Tenant isolation and data separation; never leak data across tenants.",
   "tags": [
     "multi-tenant",
     "isolation",
     "saas"
   ],
-  "status": "scaffold",
+  "applies_to": [
+    "backend",
+    "database",
+    "ai"
+  ],
   "provides": [
     "context.md",
     "policies.md",
     "checklists.md"
+  ],
+  "required_adrs": [],
+  "mandatory_tests": [
+    "Cross-tenant access is rejected"
+  ],
+  "validations": [
+    "Tenant scope on every query/command"
+  ],
+  "brain_facets": [
+    "services",
+    "apis",
+    "architecture"
   ],
   "files": [
     "README.md",

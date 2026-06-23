@@ -25,6 +25,7 @@ from nx_core.foundation import util
 from nx_providers.knowledge.base import KnowledgeItem, Relationship
 from nx_providers.knowledge.graph import KnowledgeGraph, KnowledgeGraphBuilder
 from nx_obsidian.knowledge.obsidian_sync import MANIFEST, ObsidianSync
+from .contract import ContractBuilder, EngineeringContract
 from .registry import KnowledgeRegistry, default_registry
 
 
@@ -67,6 +68,14 @@ class KnowledgeEngine:
     def retrieve(self, scope: Optional[dict] = None,
                  providers: Optional[list[str]] = None) -> list[KnowledgeItem]:
         return self.registry.retrieve(scope, providers)
+
+    def build_contract(self, task: str, agent: str, *, files: Optional[list] = None,
+                       areas: Optional[list] = None) -> EngineeringContract:
+        """Assemble the Engineering Contract for an agent+task — the declarative
+        brief (context/knowledge/engineering packs/constraints/requirements) that
+        precedes context delivery. Part of `deliver_context`; pure organization."""
+        return ContractBuilder(self.brain, config=self.config, registry=self.registry).build(
+            task, agent, files=files, areas=areas)
 
     def relationships(self) -> list[Relationship]:
         return self.registry.relationships()
