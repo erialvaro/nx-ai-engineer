@@ -15,6 +15,7 @@ Run: `python scripts/quality_gate.py`
 from __future__ import annotations
 
 import ast
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -213,10 +214,27 @@ def gate_docs() -> bool:
                "all present" if not missing else f"missing {missing}")
 
 
+def gate_py_floor() -> bool:
+    """Builtin-generic annotations (list[…], dict[…]) are evaluated at runtime on
+    Python 3.8 unless `from __future__ import annotations` is present — guard the
+    declared 3.8 floor so this can't only fail on CI."""
+    rx = re.compile(r"(:\s*|->\s*)(list|dict|set|tuple|frozenset|type)\[")
+    flagged = []
+    for base in (PACKAGES, SKILL / "tests", SKILL / "scripts"):
+        for p in base.rglob("*.py"):
+            if "__pycache__" in p.parts:
+                continue
+            src = p.read_text(encoding="utf-8")
+            if rx.search(src) and "from __future__ import annotations" not in src:
+                flagged.append(str(p.relative_to(SKILL)))
+    return _ok("py3.8-annotations", not flagged,
+               "ok" if not flagged else f"missing __future__ import: {flagged[:5]}")
+
+
 def main() -> int:
     print("AIES Quality Gate\n" + "=" * 40)
     gates = [gate_tests, gate_cycles, gate_unused_imports, gate_cli,
-             gate_public_api, gate_docs]
+             gate_public_api, gate_docs, gate_py_floor]
     results = [g() for g in gates]
     failed = results.count(False)
     print("=" * 40)

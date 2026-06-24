@@ -6,6 +6,8 @@ model; this layer only reduces its cognitive load. These tests enforce that the
 `nx_knowledge/knowledge` layer never imports a reasoning/decision/memory layer,
 so the doctrine cannot silently erode.
 """
+from __future__ import annotations
+
 import ast
 import os
 import tempfile
