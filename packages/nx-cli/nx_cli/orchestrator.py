@@ -877,6 +877,75 @@ def cmd_scaffold(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_new(args: argparse.Namespace) -> int:
+    """Scaffold a brand-new Cloud-Agnostic project foundation (the create-next-app
+    moment): backend + frontend + Docker Compose + Supabase adapter + Makefile +
+    multi-env + observability hooks + docs — then make it AI-ready via
+    `.ai-project-assistant`. No business logic is generated, only the foundation."""
+    from nx_cli import bootstrap
+    parent = Path(args.path).resolve()
+    extra: dict = {}
+    if args.backend_port:
+        extra["backend_port"] = str(args.backend_port)
+    if args.frontend_port:
+        extra["frontend_port"] = str(args.frontend_port)
+    try:
+        root, written, skipped = bootstrap.new_project(
+            args.name, parent, stack=args.stack, variables=extra, force=args.force)
+    except (FileExistsError, FileNotFoundError) as exc:
+        util.eprint(f"error: {exc}")
+        return 2
+    print(util.banner(f"NXAI NEW — {args.name}"))
+    print(f"\n  stack:    {args.stack}")
+    print(f"  project:  {root}")
+    print(f"  files:    {written} written, {skipped} kept")
+    if not args.no_init:
+        try:
+            iroot, *_ = bootstrap.init(root, force=False)
+            print(f"  ai-home:  {iroot.name}/ scaffolded (.ai-project-assistant)")
+        except Exception as exc:  # never let scaffolding crash on the assistant home
+            print(f"  ai-home:  skipped ({exc.__class__.__name__})")
+    if not args.no_audit:
+        from nx_cli import platform_audit
+        checks = platform_audit.audit(root)
+        s = platform_audit.summarize(checks)
+        verdict = "PRODUCTION-READY" if s["ok"] else "review findings"
+        print(f"\n  platform-audit: {s['pass']} pass · {s['warn']} warn · "
+              f"{s['fail']} fail  ({verdict})")
+        for c in checks:
+            if c.status != "PASS":
+                print(f"     [{c.status[0].lower()}] {c.dimension}: {c.name} — {c.detail}")
+    print("\n  Next:")
+    print(f"    cd {args.name}")
+    print("    cp .env.example .env        # fill Supabase URL + keys (free tier)")
+    print("    make up                     # boot the stack via Docker Compose")
+    print("    nxai platform-audit         # re-verify production-readiness")
+    return 0
+
+
+def cmd_platform_audit(args: argparse.Namespace) -> int:
+    """Audit a project for production-readiness across eight dimensions:
+    Cloud-Agnostic, Twelve-Factor, Docker, Security, Scalability, Observability,
+    Multi-Environment, Production-Ready. Static + stdlib-only (no daemon)."""
+    from nx_cli import platform_audit
+    root = Path(args.path).resolve()
+    checks = platform_audit.audit(root)
+    s = platform_audit.summarize(checks)
+    print(util.banner(f"PLATFORM AUDIT — {root.name}"))
+    dim = None
+    for c in checks:
+        if c.dimension != dim:
+            dim = c.dimension
+            print(f"\n  {dim}:")
+        mark = {"PASS": "+", "WARN": "~", "FAIL": "x"}[c.status]
+        print(f"    [{mark}] {c.name:34} {c.detail}")
+    ready = "PRODUCTION-READY" if s["ok"] else "NOT READY — fix [x] above"
+    print(f"\n  {s['pass']} pass · {s['warn']} warn · {s['fail']} fail   →   {ready}")
+    if args.strict and s["warn"]:
+        return 1
+    return 0 if s["ok"] else 1
+
+
 def cmd_contract(args: argparse.Namespace) -> int:
     """Build the Engineering Contract for an agent + task: the declarative brief
     (context/knowledge/engineering packs/constraints/requirements) the agent
@@ -945,6 +1014,28 @@ def build_parser() -> argparse.ArgumentParser:
     sp.add_argument("action", choices=["list", "show", "add", "remove"])
     sp.add_argument("name", nargs="?", help="Pack name (for show/add/remove)")
     sp.set_defaults(fn=cmd_pack)
+
+    sp = sub.add_parser("new",
+                        help="Scaffold a new Cloud-Agnostic project foundation "
+                             "(backend+frontend+Docker+Supabase+multi-env)")
+    sp.add_argument("name", help="Project name (creates a new directory)")
+    sp.add_argument("--stack", default="cloud-agnostic",
+                    help="Stack template to use (default: cloud-agnostic)")
+    sp.add_argument("--path", default=".", help="Parent directory (default: current)")
+    sp.add_argument("--backend-port", type=int, help="Backend port (default 8000)")
+    sp.add_argument("--frontend-port", type=int, help="Frontend port (default 3000)")
+    sp.add_argument("--force", action="store_true", help="Write into a non-empty directory")
+    sp.add_argument("--no-init", action="store_true",
+                    help="Skip the .ai-project-assistant scaffolding")
+    sp.add_argument("--no-audit", action="store_true",
+                    help="Skip the post-scaffold platform audit")
+    sp.set_defaults(fn=cmd_new)
+
+    sp = sub.add_parser("platform-audit",
+                        help="Audit a project for production-readiness (8 dimensions)")
+    sp.add_argument("--path", default=".", help="Project dir (default: current)")
+    sp.add_argument("--strict", action="store_true", help="Exit non-zero on warnings too")
+    sp.set_defaults(fn=cmd_platform_audit)
 
     sp = sub.add_parser("scaffold", help="Lay open-source/GitHub repo standards into the project")
     sp.add_argument("target", nargs="?", default="github", choices=["github"],

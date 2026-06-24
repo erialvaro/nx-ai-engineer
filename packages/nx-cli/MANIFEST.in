@@ -1,1 +1,2 @@
 recursive-include nx_cli/_template *
+recursive-include nx_cli/_stacks *

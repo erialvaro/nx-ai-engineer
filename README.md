@@ -37,6 +37,26 @@ nxai doctor
 No manual file copying, ever. The platform code lives in the installed packages;
 your project's `.ai-project-assistant/` holds **data only**.
 
+## Scaffold a new project (`nxai new`)
+
+NX AI Engineer can also **create** the project — a Cloud-Agnostic production
+foundation in one command (the `create-next-app` moment for AI-native platforms):
+
+```bash
+nxai new my-platform
+cd my-platform
+cp .env.example .env        # Supabase URL + keys (free tier)
+make up                     # boot backend + frontend via Docker Compose
+nxai platform-audit         # 8-dimension production-readiness check
+```
+
+It generates a **FastAPI** backend (12-factor, structured logs, request-id, a
+decoupled **Supabase** adapter), a **Next.js** frontend, **Docker Compose**
+(dev/override/prod), Dockerfiles, a Makefile, multi-environment config, Supabase
+migrations + RLS, and docs — **no business logic, just the foundation** — runnable
+on Docker, any cloud, a VPS, Kubernetes or Swarm. See the
+[Scaffolding guide](packages/nx-cli/nx_cli/_template/docs/SCAFFOLDING_GUIDE.md).
+
 ## Quickstart
 
 From the root of any repository:

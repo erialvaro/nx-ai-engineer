@@ -1,0 +1,50 @@
+# {{project_title}} — portable base (runs identically on any host/cloud).
+# No proprietary cloud service; persistence is external (Supabase). Dev extras
+# come from docker-compose.override.yml (auto), production from .prod.yml.
+name: {{project_slug}}
+
+services:
+  backend:
+    build:
+      context: ./backend
+      target: prod
+    image: {{project_slug}}-backend:local
+    env_file: [.env]
+    environment:
+      APP_ENV: ${APP_ENV:-development}
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+    ports:
+      - "${BACKEND_PORT:-{{backend_port}}}:8000"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://localhost:8000/health').status==200 else 1)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    networks: [appnet]
+
+  frontend:
+    build:
+      context: ./frontend
+      target: prod
+    image: {{project_slug}}-frontend:local
+    env_file: [.env]
+    environment:
+      NODE_ENV: ${NODE_ENV:-production}
+      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:{{backend_port}}}
+    ports:
+      - "${FRONTEND_PORT:-{{frontend_port}}}:3000"
+    depends_on:
+      backend:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000/',r=>process.exit(r.statusCode<500?0:1)).on('error',()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+    networks: [appnet]
+
+networks:
+  appnet:
+    driver: bridge

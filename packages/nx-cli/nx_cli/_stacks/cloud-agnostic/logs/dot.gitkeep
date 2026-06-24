@@ -1,0 +1,1 @@
+# App logs also go to stdout (Twelve-Factor). This dir is for opt-in file logs.

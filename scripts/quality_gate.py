@@ -40,6 +40,15 @@ def _modname(path: Path, base: Path) -> str:
     rel = str(path.relative_to(base)).replace("\\", ".").replace("/", ".")[:-3]
     return rel[: -len(".__init__")] if rel.endswith(".__init__") else rel
 
+
+# tests are fixtures; `_stacks`/`_template` are project templates (data shipped
+# to scaffolded projects), NOT platform source — exclude from source scans.
+_SKIP_PARTS = {"tests", "_stacks", "_template", "__pycache__"}
+
+
+def _skip_path(p: Path) -> bool:
+    return any(part in _SKIP_PARTS for part in p.parts)
+
 REQUIRED_DOCS = [
     SKILL / "README.md", SKILL / "ROADMAP.md", SKILL / "CHANGELOG.md",
     SKILL / "CONTRIBUTING.md", SKILL / "CODE_OF_CONDUCT.md",
@@ -59,6 +68,7 @@ REQUIRED_DOCS = [
     DOCS / "PROVIDER_SDK_GUIDE.md",
     DOCS / "MARKETPLACE.md",
     DOCS / "ENGINEERING_CONTRACT.md",
+    DOCS / "SCAFFOLDING_GUIDE.md",
     SKILL / "RELEASING.md",
 ]
 
@@ -67,7 +77,7 @@ EXPECTED_CLI = {
     "deliver", "pipeline", "metrics", "insights", "recommend", "knowledge",
     "obsidian", "worktree", "tasks", "locks", "unlock", "status",
     "init", "update", "doctor", "docs", "version", "execute", "graph", "report", "pack",
-    "scaffold", "contract",
+    "scaffold", "contract", "new", "platform-audit",
 }
 
 
@@ -108,7 +118,7 @@ def gate_unused_imports() -> bool:
     flagged = []
     for scan, base in _source_roots():
         for p in scan.rglob("*.py"):
-            if "tests" in p.parts:
+            if _skip_path(p):
                 continue
             src = p.read_text(encoding="utf-8")
             tree = ast.parse(src)
@@ -143,7 +153,7 @@ def gate_cycles() -> bool:
     graph = {}
     for scan, base in _source_roots():
         for p in scan.rglob("*.py"):
-            if "tests" in p.parts:
+            if _skip_path(p):
                 continue
             mod = _modname(p, base)
             # current package: the module itself for an __init__, else its parent
@@ -222,7 +232,7 @@ def gate_py_floor() -> bool:
     flagged = []
     for base in (PACKAGES, SKILL / "tests", SKILL / "scripts"):
         for p in base.rglob("*.py"):
-            if "__pycache__" in p.parts:
+            if _skip_path(p):
                 continue
             src = p.read_text(encoding="utf-8")
             if rx.search(src) and "from __future__ import annotations" not in src:

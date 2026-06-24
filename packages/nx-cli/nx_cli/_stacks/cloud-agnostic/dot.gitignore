@@ -1,0 +1,35 @@
+# Environment / secrets — NEVER commit real values
+.env
+.env.*
+!.env.example
+environments/*.env
+!environments/*.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+
+# Node / Next.js
+node_modules/
+frontend/.next/
+frontend/out/
+frontend/dist/
+
+# Runtime data (kept out of git; created by the stack)
+logs/*
+!logs/.gitkeep
+volumes/*
+!volumes/.gitkeep
+
+# AI assistant working dir (data only — never deployed to production)
+.ai-project-assistant/
+
+# OS / editors
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

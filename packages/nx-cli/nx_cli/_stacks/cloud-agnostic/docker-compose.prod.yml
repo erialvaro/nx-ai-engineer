@@ -1,0 +1,37 @@
+# Production overlay: restart policies + resource limits + no bind mounts.
+# Usage: docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+# (or `make prod`). Cloud-agnostic — the same file runs on any Docker host,
+# a VPS, a dedicated server, Swarm, or (translated) Kubernetes.
+services:
+  backend:
+    build:
+      target: prod
+    restart: unless-stopped
+    environment:
+      APP_ENV: production
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+    deploy:
+      replicas: ${BACKEND_REPLICAS:-1}
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 512M
+      restart_policy:
+        condition: on-failure
+        max_attempts: 3
+
+  frontend:
+    build:
+      target: prod
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+    deploy:
+      replicas: ${FRONTEND_REPLICAS:-1}
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 256M
+      restart_policy:
+        condition: on-failure
+        max_attempts: 3

@@ -14,7 +14,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "nx-ai-engineer"
-version = "1.0.1"
+version = "2.0.0"
 description = "Developer Infrastructure Platform for AI-assisted development: knowledge-driven, multi-agent, stdlib-only."
 requires-python = ">=3.8"
 license = { text = "MIT" }
@@ -73,7 +73,7 @@ namespaces = false
 # so a plain `pip install` carries them and `nxai init` / `nxai pack add` work
 # offline — no manual file copying.
 [tool.setuptools.package-data]
-nx_cli = ["_template/**/*"]
+nx_cli = ["_template/**/*", "_stacks/**/*"]
 nx_packs = ["catalog/**/*"]
 
 [tool.nx.workspace]

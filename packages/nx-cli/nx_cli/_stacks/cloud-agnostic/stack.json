@@ -1,0 +1,12 @@
+{
+  "name": "cloud-agnostic",
+  "title": "Cloud-Agnostic SaaS Foundation",
+  "description": "Production-ready, runs-anywhere foundation: FastAPI backend + Next.js frontend + Docker Compose (dev/override/prod) + a decoupled Supabase adapter. No proprietary cloud service; everything is configured via environment variables and orchestrated with Docker. No business logic — only the foundation.",
+  "backend": "fastapi",
+  "frontend": "nextjs",
+  "database": "supabase",
+  "services": ["backend", "frontend"],
+  "optional_services": ["redis", "nginx", "worker", "scheduler", "mailhog", "minio", "pgadmin"],
+  "targets": ["docker", "gcp", "azure", "aws", "oracle-cloud", "vps", "dedicated", "kubernetes", "docker-swarm"],
+  "audited": ["Cloud-Agnostic", "Twelve-Factor", "Docker", "Security", "Scalability", "Observability", "Multi-Environment", "Production-Ready"]
+}

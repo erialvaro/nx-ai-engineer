@@ -16,11 +16,14 @@ Doctrine:
 """
 from __future__ import annotations
 
+import re
 import shutil
 from pathlib import Path
 
 CONFIG_DIRNAME = ".ai-project-assistant"
 TEMPLATE = Path(__file__).resolve().parent / "_template"
+# Project-foundation stack templates for `nxai new` (the scaffolding framework).
+STACKS = Path(__file__).resolve().parent / "_stacks"
 
 # Template assets laid down on init AND refreshed on update
 # (framework/SDK/providers/templates — never user data).
@@ -115,3 +118,106 @@ def update(target) -> tuple[Path, int, int]:
     if not root.is_dir():
         raise FileNotFoundError(f"{root} not found — run `nxai init` first")
     return root, *_lay_assets(root, force=True)
+
+
+# --------------------------------------------------------------------------- #
+# Project scaffolding (`nxai new`) — turn a stack template into a real project.
+#
+# A stack template lives under ``nx_cli/_stacks/<stack>/`` and is laid into a
+# fresh project dir with two conventions:
+#   • text content is rendered, replacing ``{{ variable }}`` tokens;
+#   • a path part beginning ``dot.`` becomes a real dotfile (``dot.gitignore``
+#     -> ``.gitignore``, ``dot.github`` -> ``.github``) — so dotfiles survive
+#     packaging as wheel data, where leading-dot names are unreliable.
+# Stdlib-only. No business logic is generated — only the cloud-agnostic
+# foundation (Docker, env, adapters, observability hooks, docs).
+# --------------------------------------------------------------------------- #
+
+_VAR_RX = re.compile(r"\{\{\s*(\w+)\s*\}\}")
+# Suffixes copied verbatim (never text-rendered).
+_BINARY_SUFFIXES = {".png", ".jpg", ".jpeg", ".gif", ".ico", ".webp",
+                    ".woff", ".woff2", ".ttf", ".otf", ".pdf", ".zip"}
+
+
+def stacks_dir() -> Path:
+    """Absolute path to the bundled stack templates (ship as package data)."""
+    return STACKS
+
+
+def available_stacks() -> list[str]:
+    """Names of bundled stacks (dirs under _stacks/ holding a stack.json)."""
+    if not STACKS.is_dir():
+        return []
+    return sorted(d.name for d in STACKS.iterdir() if (d / "stack.json").is_file())
+
+
+def render(text: str, variables: dict) -> str:
+    """Replace ``{{ name }}`` tokens; unknown tokens are left untouched."""
+    return _VAR_RX.sub(lambda m: str(variables.get(m.group(1), m.group(0))), text)
+
+
+def _dotted(rel: Path) -> Path:
+    """Map ``dot.`` path parts to real leading-dot names (packaging-safe)."""
+    return Path(*[("." + part[4:]) if part.startswith("dot.") else part
+                  for part in rel.parts])
+
+
+def _render_tree(src: Path, dst: Path, variables: dict, force: bool) -> tuple[int, int]:
+    copied = skipped = 0
+    for p in sorted(src.rglob("*")):
+        if p.is_dir() or "__pycache__" in p.parts or p.name.endswith(".pyc"):
+            continue
+        if p.name == "stack.json":  # metadata, not laid into the project
+            continue
+        dest = dst / _dotted(p.relative_to(src))
+        if dest.exists() and not force:
+            skipped += 1
+            continue
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        if p.suffix.lower() in _BINARY_SUFFIXES:
+            shutil.copy2(p, dest)
+        else:
+            try:
+                dest.write_text(render(p.read_text(encoding="utf-8"), variables),
+                                encoding="utf-8")
+            except UnicodeDecodeError:
+                shutil.copy2(p, dest)
+        copied += 1
+    return copied, skipped
+
+
+def _slug(name: str) -> str:
+    s = re.sub(r"[^a-z0-9]+", "-", name.strip().lower()).strip("-")
+    return s or "app"
+
+
+def scaffold_variables(name: str, extra: dict | None = None) -> dict:
+    """The default render variables for a new project."""
+    slug = _slug(name)
+    variables = {
+        "project_name": name,
+        "project_slug": slug,
+        "project_snake": slug.replace("-", "_"),
+        "project_title": " ".join(w.capitalize() for w in slug.split("-")),
+        "backend_port": "8000",
+        "frontend_port": "3000",
+    }
+    if extra:
+        variables.update(extra)
+    return variables
+
+
+def new_project(name: str, dest_parent, stack: str = "cloud-agnostic",
+                variables: dict | None = None, force: bool = False
+                ) -> tuple[Path, int, int]:
+    """Create ``<dest_parent>/<name>/`` from a stack template. Returns (root,
+    written, skipped). Refuses a non-empty target unless ``force``."""
+    src = STACKS / stack
+    if not (src / "stack.json").is_file():
+        raise FileNotFoundError(
+            f"unknown stack '{stack}'. Available: {', '.join(available_stacks()) or '—'}")
+    root = Path(dest_parent).resolve() / name
+    if root.exists() and any(root.iterdir()) and not force:
+        raise FileExistsError(f"{root} already exists and is not empty (use --force)")
+    root.mkdir(parents=True, exist_ok=True)
+    return (root, *_render_tree(src, root, scaffold_variables(name, variables), force))

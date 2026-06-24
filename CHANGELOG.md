@@ -3,6 +3,43 @@
 All notable changes to NX AI Engineer are documented here. Format:
 [Keep a Changelog]; versioning: [Semantic Versioning](https://semver.org).
 
+## [2.0.0] — 2026-06-24 · NX AI Engineer v2 — the Scaffolding Framework
+
+**NX AI Engineer becomes a scaffolding framework.** Beyond a library you add to a
+project, it now *creates* the project: one command lays down a complete,
+Cloud-Agnostic production foundation — the `create-next-app` / `django-admin
+startproject` moment for AI-native platforms. This is a product milestone (v2);
+the change is **additive** — every existing command is unchanged, no breaking API.
+
+### Added
+- **`nxai new <project>`** — scaffold a runs-anywhere foundation from a stack
+  template: FastAPI backend (Twelve-Factor, structured JSON logs, request-id
+  correlation, a **decoupled Supabase adapter** swappable to plain PostgreSQL via
+  one env flag), Next.js frontend (standalone output), Docker Compose (portable
+  base + dev override + prod), Dockerfiles (multi-stage, non-root, health-checked),
+  Makefile (`up/down/logs/build/shell/migrate/lint/test/clean`), `.env.example`,
+  `environments/`, `scripts/`, `configs/`, `supabase/` (migrations + RLS policies +
+  seed) and docs/ADRs. Then makes the project AI-ready via `.ai-project-assistant`.
+  **No business logic — only the foundation.**
+- **`nxai platform-audit`** — static production-readiness audit across **eight
+  dimensions** (Cloud-Agnostic · Twelve-Factor · Docker · Security · Scalability ·
+  Observability · Multi-Environment · Production-Ready), PASS/WARN/FAIL per check;
+  `--strict` fails on warnings (CI). A freshly generated foundation scores green
+  (25 checks, 0 failures).
+- **Scaffolding engine** in `nx_cli.bootstrap`: `{{ variable }}` rendering + a
+  `dot.` → dotfile convention + a pluggable `_stacks/<name>/` template system
+  (`available_stacks()`, `new_project()`). Add a stack by dropping in a folder.
+- **`cloud-agnostic` stack** (default): nothing depends on a proprietary cloud
+  service; everything is env-configured and Docker-orchestrated — ready for
+  GCP / Azure / AWS / Oracle Cloud / VPS / dedicated / Kubernetes / Docker Swarm.
+- **`SCAFFOLDING_GUIDE.md`** documentation.
+
+### Changed
+- The single `nx-ai-engineer` wheel now also bundles the `_stacks/` templates.
+- Optional service layers (Redis, Nginx, worker, scheduler, Mailhog, MinIO,
+  PgAdmin) and deep observability (OpenTelemetry) are documented as follow-up
+  overlays on this base.
+
 ## [1.0.1] — 2026-06-24 · single self-contained distribution
 
 **Packaging only — no behavior change.** The platform now publishes as **one
