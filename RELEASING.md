@@ -14,11 +14,37 @@ tag-driven GitHub Actions workflow (`.github/workflows/release.yml`).
 
 ## One-time setup
 
-- Create the GitHub repository and push.
-- Add a `PYPI_API_TOKEN` repository secret (a PyPI API token scoped to the
-  project). The release workflow publishes with it via `twine`.
-- (Optional, recommended later) switch to PyPI **trusted publishing** (OIDC) per
-  package and drop the token.
+- Create the GitHub repository and push. (Done — `erialvaro/nx-ai-engineer`.)
+- Create a GitHub **environment** named `pypi` (Settings → Environments). Optional:
+  add a required-reviewer protection rule so a human approves each publish.
+- Choose **one** PyPI auth method below. The workflow needs no change — it uses
+  Trusted Publishing by default and falls back to the token only if the secret exists.
+
+### Option A — Trusted Publishing / OIDC (recommended, no secrets)
+
+The platform ships **10 distributions** (the `nx-ai-engineer` metapackage + the 9
+`nx-*` packages). Since none exist on PyPI yet, register a **pending publisher** for
+each, once, at <https://pypi.org/manage/account/publishing/>:
+
+- **PyPI Project Name:** the distribution name — one of: `nx-ai-engineer`,
+  `nx-core`, `nx-workflow`, `nx-sdk`, `nx-packs`, `nx-providers`, `nx-obsidian`,
+  `nx-knowledge`, `nx-runtime`, `nx-cli`
+- **Owner:** `erialvaro` · **Repository:** `nx-ai-engineer`
+- **Workflow name:** `release.yml` · **Environment:** `pypi`
+
+(All 10 names were verified available.) After registration, tagging a release
+publishes with no token — GitHub mints a short-lived OIDC credential per project.
+
+### Option B — API token (simplest, 1 secret)
+
+1. Create a PyPI API token at <https://pypi.org/manage/account/token/> (account-
+   scoped for the first publish; re-scope to per-project tokens afterwards).
+2. Add it as a secret named `PYPI_API_TOKEN` in the **`pypi`** environment
+   (or repository) of `erialvaro/nx-ai-engineer`:
+   ```bash
+   gh secret set PYPI_API_TOKEN --repo erialvaro/nx-ai-engineer --env pypi
+   ```
+   The release workflow detects the secret and uses it instead of OIDC.
 
 ## Cutting a release
 
@@ -42,8 +68,9 @@ tag-driven GitHub Actions workflow (`.github/workflows/release.yml`).
 5. **Automation takes over** (`release.yml` on the `v*` tag):
    - re-runs the Quality Gate (release is blocked if it fails),
    - verifies the tag matches the package version,
-   - builds sdists + wheels for the metapackage and all 9 packages,
-   - `twine check` then `twine upload` to PyPI,
+   - builds sdists + wheels for the metapackage and all 9 packages (`twine check`),
+   - publishes them to PyPI via **Trusted Publishing (OIDC)** — or the
+     `PYPI_API_TOKEN` secret if set (token fallback),
    - creates a GitHub Release with generated notes and the artifacts.
 
 ## Publication checklist
@@ -54,8 +81,10 @@ tag-driven GitHub Actions workflow (`.github/workflows/release.yml`).
 - [ ] CHANGELOG has a dated section for the version
 - [ ] README / RELEASE_NOTES reflect the version and command surface
 - [ ] No third-party runtime dependency added to the core (stdlib-only)
-- [ ] `PYPI_API_TOKEN` secret configured
-- [ ] Tag `v<version>` pushed → release workflow green → package on PyPI + GitHub Release
+- [ ] `pypi` GitHub environment exists
+- [ ] PyPI auth configured — **either** trusted publishers for all 10 projects
+      (Option A) **or** the `PYPI_API_TOKEN` secret (Option B)
+- [ ] Tag `v<version>` pushed → release workflow green → packages on PyPI + GitHub Release
 
 ## Verifying a published release
 

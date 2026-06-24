@@ -32,10 +32,10 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/nx-ai-engineer/nx-ai-engineer"
-Documentation = "https://github.com/nx-ai-engineer/nx-ai-engineer/tree/main/packages/nx-cli/nx_cli/_template/docs"
-Repository = "https://github.com/nx-ai-engineer/nx-ai-engineer"
-Changelog = "https://github.com/nx-ai-engineer/nx-ai-engineer/blob/main/CHANGELOG.md"
+Homepage = "https://github.com/erialvaro/nx-ai-engineer"
+Documentation = "https://github.com/erialvaro/nx-ai-engineer/tree/main/packages/nx-cli/nx_cli/_template/docs"
+Repository = "https://github.com/erialvaro/nx-ai-engineer"
+Changelog = "https://github.com/erialvaro/nx-ai-engineer/blob/main/CHANGELOG.md"
 
 # The `nxai` (and legacy `nx`) console scripts are provided by the nx-cli package
 # this metapackage depends on — defined once, there, to avoid duplicate entry

@@ -1,11 +1,10 @@
 name: release
-# Publish to PyPI on a version tag (e.g. v1.0.0) and create a GitHub Release.
+# Publish all distributions to PyPI on a version tag (e.g. v1.0.0) and create a
+# GitHub Release. Uses PyPI Trusted Publishing (OIDC) by default — no secrets. If
+# a `PYPI_API_TOKEN` secret is set, it is used instead (token fallback).
 on:
   push:
     tags: ["v*"]
-
-permissions:
-  contents: write   # create the GitHub Release
 
 jobs:
   guard:
@@ -19,33 +18,52 @@ jobs:
       - name: Tag must match the package version
         run: |
           TAG="${GITHUB_REF_NAME#v}"
-          VER=$(python -c "import re,sys; print(re.search(r'version\\s*=\\s*\"([^\"]+)\"', open('pyproject.toml').read()).group(1))")
+          VER=$(python -c "import re; print(re.search(r'version\\s*=\\s*\"([^\"]+)\"', open('pyproject.toml').read()).group(1))")
           test "$TAG" = "$VER" || { echo "tag $TAG != version $VER"; exit 1; }
 
-  publish:
+  build:
     needs: guard
     runs-on: ubuntu-latest
-    environment: release
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: { python-version: "3.11" }
-      - name: Install build + twine
-        run: python -m pip install --upgrade build twine
-      - name: Build all distributions
+      - name: Build sdists + wheels for the metapackage and all 9 packages
         run: |
           set -e
-          mkdir -p dist_all
-          python -m build . --outdir dist_all
-          for pkg in packages/nx-*; do python -m build "$pkg" --outdir dist_all; done
-          python -m twine check dist_all/*
+          python -m pip install --upgrade build twine
+          python -m build . --outdir dist
+          for pkg in packages/nx-*; do python -m build "$pkg" --outdir dist; done
+          python -m twine check dist/*
+      - uses: actions/upload-artifact@v4
+        with: { name: dist, path: dist/ }
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: pypi          # add deployment protection rules here if desired
+    permissions:
+      id-token: write          # OIDC — PyPI Trusted Publishing (no token needed)
+    steps:
+      - uses: actions/download-artifact@v4
+        with: { name: dist, path: dist/ }
       - name: Publish to PyPI
-        env:
-          TWINE_USERNAME: __token__
-          TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
-        run: python -m twine upload --non-interactive --skip-existing dist_all/*
-      - name: Create GitHub Release
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          skip-existing: true
+          # Empty when no secret is set -> the action uses Trusted Publishing (OIDC).
+          password: ${{ secrets.PYPI_API_TOKEN }}
+
+  github-release:
+    needs: publish
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with: { name: dist, path: dist/ }
+      - name: Create the GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           generate_release_notes: true
-          files: dist_all/*
+          files: dist/*

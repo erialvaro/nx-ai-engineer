@@ -8,7 +8,19 @@ version = "1.0.0"
 description = "NX AI Engineer — Engineering Packs catalog (domain knowledge bundles: policies, patterns, checklists, ADRs, templates, context)."
 requires-python = ">=3.8"
 license = { text = "MIT" }
+readme = { text = "Part of **NX AI Engineer** — a stdlib-only Developer Infrastructure Platform for AI-assisted software development. See https://github.com/erialvaro/nx-ai-engineer", content-type = "text/markdown" }
+authors = [{ name = "NX AI Engineer" }]
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+]
 dependencies = ["nx-core==1.0.0"]
+
+[project.urls]
+Homepage = "https://github.com/erialvaro/nx-ai-engineer"
+Repository = "https://github.com/erialvaro/nx-ai-engineer"
 
 [tool.setuptools]
 include-package-data = true
