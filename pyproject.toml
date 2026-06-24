@@ -26,9 +26,9 @@ classifiers = [
 # The platform core depends on NOTHING third-party (stdlib-only). The metapackage
 # simply aggregates the workspace members.
 dependencies = [
-  "nx-core==1.0.0", "nx-workflow==1.0.0", "nx-sdk==1.0.0", "nx-providers==1.0.0",
-  "nx-obsidian==1.0.0", "nx-knowledge==1.0.0", "nx-runtime==1.0.0", "nx-cli==1.0.0",
-  "nx-packs==1.0.0",
+  "nxai-core==1.0.0", "nxai-workflow==1.0.0", "nxai-sdk==1.0.0", "nxai-providers==1.0.0",
+  "nxai-obsidian==1.0.0", "nxai-knowledge==1.0.0", "nxai-runtime==1.0.0", "nxai-cli==1.0.0",
+  "nxai-packs==1.0.0",
 ]
 
 [project.urls]

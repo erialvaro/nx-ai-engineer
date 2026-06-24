@@ -26,13 +26,15 @@ The platform ships **10 distributions** (the `nx-ai-engineer` metapackage + the 
 `nx-*` packages). Since none exist on PyPI yet, register a **pending publisher** for
 each, once, at <https://pypi.org/manage/account/publishing/>:
 
-- **PyPI Project Name:** the distribution name — one of: `nx-ai-engineer`,
-  `nx-core`, `nx-workflow`, `nx-sdk`, `nx-packs`, `nx-providers`, `nx-obsidian`,
-  `nx-knowledge`, `nx-runtime`, `nx-cli`
+- **PyPI Project Name:** the distribution name — one of: `nx-ai-engineer`
+  (the metapackage), `nxai-core`, `nxai-workflow`, `nxai-sdk`, `nxai-packs`,
+  `nxai-providers`, `nxai-obsidian`, `nxai-knowledge`, `nxai-runtime`, `nxai-cli`
 - **Owner:** `erialvaro` · **Repository:** `nx-ai-engineer`
 - **Workflow name:** `release.yml` · **Environment:** `pypi`
 
-(All 10 names were verified available.) After registration, tagging a release
+(All 10 names were verified available. The PyPI distribution names use the `nxai-`
+prefix; the import modules stay `nx_*` — e.g. `pip install nxai-core` ships
+`import nx_core`.) After registration, tagging a release
 publishes with no token — GitHub mints a short-lived OIDC credential per project.
 
 ### Option B — API token (simplest, 1 secret)

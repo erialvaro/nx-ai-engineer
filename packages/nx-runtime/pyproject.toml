@@ -3,7 +3,7 @@ requires = ["setuptools>=61"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "nx-runtime"
+name = "nxai-runtime"
 version = "1.0.0"
 description = "Execution runtime: schedulers (engine+cluster), adapters, intelligence, domain engines, the unified pipeline."
 requires-python = ">=3.8"
@@ -16,7 +16,7 @@ classifiers = [
   "License :: OSI Approved :: MIT License",
   "Programming Language :: Python :: 3",
 ]
-dependencies = ["nx-core==1.0.0", "nx-workflow==1.0.0", "nx-sdk==1.0.0", "nx-knowledge==1.0.0"]
+dependencies = ["nxai-core==1.0.0", "nxai-workflow==1.0.0", "nxai-sdk==1.0.0", "nxai-knowledge==1.0.0"]
 
 [project.urls]
 Homepage = "https://github.com/erialvaro/nx-ai-engineer"

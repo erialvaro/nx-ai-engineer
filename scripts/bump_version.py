@@ -68,8 +68,8 @@ def set_version(new: str) -> int:
     for p in _pyprojects():
         t = p.read_text(encoding="utf-8")
         n = re.sub(r'^(version\s*=\s*")[^"]+(")', rf'\g<1>{new}\g<2>', t, count=1, flags=re.M)
-        # re-pin intra-workspace dependency specifiers
-        n = re.sub(r'"(nx-[a-z]+)==[^"]+"', rf'"\g<1>=={new}"', n)
+        # re-pin intra-workspace dependency specifiers (distribution names: nxai-*)
+        n = re.sub(r'"(nxai-[a-z]+)==[^"]+"', rf'"\g<1>=={new}"', n)
         if n != t:
             p.write_text(n, encoding="utf-8"); changed += 1
     print(f"set version {new} across {changed} file(s).")
