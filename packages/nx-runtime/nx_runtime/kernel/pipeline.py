@@ -77,7 +77,7 @@ class Pipeline:
         self.telemetry = Telemetry(bus=self.bus)
         # Attach any SDK-registered third-party event handlers.
         try:
-            from nx_sdk import sdk
+            import nx_sdk as sdk
             sdk.apply_event_handlers(self.bus)
         except Exception as exc:
             self.bus.emit("sdk.handlers_error", {"error": repr(exc)})

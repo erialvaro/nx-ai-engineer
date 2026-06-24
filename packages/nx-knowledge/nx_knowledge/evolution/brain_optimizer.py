@@ -24,11 +24,15 @@ class BrainOptimizer:
 
     def optimize(self) -> dict[str, Any]:
         trimmed: dict[str, int] = {}
+        errors: dict[str, str] = {}
         for facet, keep in self._caps.items():
             try:
                 dropped = self.brain.trim_log(facet, keep)
                 if dropped:
                     trimmed[facet] = dropped
-            except Exception:
-                pass
-        return {"trimmed": trimmed, "version": self.brain.version()}
+            except Exception as exc:        # surface errors; don't report false success
+                errors[facet] = repr(exc)
+        result: dict[str, Any] = {"trimmed": trimmed, "version": self.brain.version()}
+        if errors:
+            result["errors"] = errors
+        return result

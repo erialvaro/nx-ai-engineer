@@ -60,11 +60,13 @@ def _layers(selections: list[AgentSelection]) -> list[list[str]]:
     sel = {s.agent: list(s.depends_on) for s in selections if s.selected}
     level: dict[str, int] = {}
 
-    def lvl(a: str) -> int:
+    def lvl(a: str, seen: frozenset = frozenset()) -> int:
         if a in level:
             return level[a]
+        if a in seen:                 # cycle guard: break a mutual dependency
+            return 0
         deps = [d for d in sel.get(a, []) if d in sel]
-        level[a] = 0 if not deps else 1 + max(lvl(d) for d in deps)
+        level[a] = 0 if not deps else 1 + max(lvl(d, seen | {a}) for d in deps)
         return level[a]
 
     for a in sel:

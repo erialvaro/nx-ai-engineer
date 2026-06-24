@@ -207,16 +207,37 @@ def scaffold_variables(name: str, extra: dict | None = None) -> dict:
     return variables
 
 
+def _validate_project_name(name: str) -> None:
+    """A project name must be a SINGLE safe directory segment — never a path.
+
+    Rejects separators, ``..``, absolute paths and drive letters so a name can
+    never make `nxai new` write outside the intended parent directory.
+    """
+    if not name or name.strip() in ("", ".", ".."):
+        raise ValueError("project name must be a non-empty directory name")
+    if "/" in name or "\\" in name or "\x00" in name:
+        raise ValueError("project name must not contain path separators")
+    p = Path(name)
+    if p.is_absolute() or p.drive or len(p.parts) != 1:
+        raise ValueError("project name must be a single directory segment, not a path")
+
+
 def new_project(name: str, dest_parent, stack: str = "cloud-agnostic",
                 variables: dict | None = None, force: bool = False
                 ) -> tuple[Path, int, int]:
     """Create ``<dest_parent>/<name>/`` from a stack template. Returns (root,
-    written, skipped). Refuses a non-empty target unless ``force``."""
+    written, skipped). Refuses a non-empty target unless ``force``, and refuses a
+    ``name`` that would escape ``dest_parent`` (path traversal)."""
     src = STACKS / stack
     if not (src / "stack.json").is_file():
         raise FileNotFoundError(
             f"unknown stack '{stack}'. Available: {', '.join(available_stacks()) or '—'}")
-    root = Path(dest_parent).resolve() / name
+    _validate_project_name(name)
+    parent = Path(dest_parent).resolve()
+    root = (parent / name).resolve()
+    # Defense in depth: the resolved project dir must sit directly under parent.
+    if root.parent != parent:
+        raise ValueError("project name escapes the target directory")
     if root.exists() and any(root.iterdir()) and not force:
         raise FileExistsError(f"{root} already exists and is not empty (use --force)")
     root.mkdir(parents=True, exist_ok=True)

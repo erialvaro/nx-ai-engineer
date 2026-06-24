@@ -78,6 +78,46 @@ class TestScaffoldNew(unittest.TestCase):
             with self.assertRaises(FileExistsError):
                 bootstrap.new_project("occupied", tmp, stack="cloud-agnostic")
 
+    def test_rejects_path_traversal_names(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            for bad in ("../escape", "..", "a/b", "a\\b", "C:/abs", "/abs", "."):
+                with self.assertRaises(ValueError, msg=f"accepted {bad!r}"):
+                    bootstrap.new_project(bad, tmp, stack="cloud-agnostic")
+            # nothing was written outside the parent
+            self.assertEqual(list(Path(tmp).rglob("*")), [])
+
+    def test_cmd_new_end_to_end(self):
+        import contextlib
+        import io
+        with tempfile.TemporaryDirectory() as tmp:
+            buf = io.StringIO()
+            with contextlib.redirect_stdout(buf):
+                rc = orchestrator.main(["new", "e2e-demo", "--path", tmp, "--no-init"])
+            self.assertEqual(rc, 0)
+            self.assertTrue((Path(tmp) / "e2e-demo" / "docker-compose.yml").is_file())
+            out = buf.getvalue()
+            self.assertIn("PRODUCTION-READY", out)        # post-scaffold audit ran green
+
+    def test_cmd_new_rejects_bad_name(self):
+        import contextlib
+        import io
+        with tempfile.TemporaryDirectory() as tmp:
+            with contextlib.redirect_stderr(io.StringIO()):
+                rc = orchestrator.main(["new", "../evil", "--path", tmp, "--no-init"])
+            self.assertEqual(rc, 2)
+
+    def test_platform_audit_fails_on_empty_project(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            checks = platform_audit.audit(tmp)
+            summary = platform_audit.summarize(checks)
+            self.assertFalse(summary["ok"])
+            self.assertGreater(summary["fail"], 0)
+            # the CLI command returns non-zero on a not-ready project
+            import argparse
+            rc = orchestrator.cmd_platform_audit(
+                argparse.Namespace(path=tmp, strict=False))
+            self.assertEqual(rc, 1)
+
     def test_cli_registers_new_and_platform_audit(self):
         parser = orchestrator.build_parser()
         choices: set = set()

@@ -16,4 +16,12 @@ for f in supabase/migrations/*.sql; do
   echo "[migrate] applying $f"
   psql "$conn" -v ON_ERROR_STOP=1 -f "$f"
 done
+
+# Apply RLS policies and seed AFTER the schema exists. Without policies, the
+# RLS-enabled tables deny all access — so this step is required, not optional.
+for extra in supabase/policies.sql supabase/seed.sql; do
+  [ -f "$extra" ] || continue
+  echo "[migrate] applying $extra"
+  psql "$conn" -v ON_ERROR_STOP=1 -f "$extra"
+done
 echo "[migrate] done"

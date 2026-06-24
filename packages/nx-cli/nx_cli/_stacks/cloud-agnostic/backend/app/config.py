@@ -7,6 +7,7 @@ from __future__ import annotations
 
 from functools import lru_cache
 
+from pydantic import model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -28,9 +29,23 @@ class Settings(BaseSettings):
     # Direct PostgreSQL (used when db_backend == "postgres")
     database_url: str = ""
 
+    # CORS: comma-separated allowed origins (empty = same-origin only). Set per env.
+    cors_allow_origins: str = ""
+
     @property
     def is_production(self) -> bool:
         return self.app_env.lower() == "production"
+
+    @property
+    def cors_origins(self) -> list[str]:
+        return [o.strip() for o in self.cors_allow_origins.split(",") if o.strip()]
+
+    @model_validator(mode="after")
+    def _require_prod_secret(self) -> "Settings":
+        # Fail closed: a production app must not boot with a default/empty secret.
+        if self.is_production and self.secret_key in ("", "changeme", "changeme-in-production"):
+            raise ValueError("SECRET_KEY must be set to a strong value in production")
+        return self
 
 
 @lru_cache

@@ -3,6 +3,51 @@
 All notable changes to NX AI Engineer are documented here. Format:
 [Keep a Changelog]; versioning: [Semantic Versioning](https://semver.org).
 
+## [2.0.1] — 2026-06-24 · full-audit remediation
+
+A complete audit of the framework (architecture, security, code quality,
+scaffolding output, tests, docs) drove this hardening release. No breaking
+changes; 250 tests green.
+
+### Security
+- **Path traversal in `nxai new`** — `new_project()` now validates the project
+  name (rejects path separators, `..`, absolute paths and drive letters) and
+  asserts the resolved directory stays under the target parent, so a crafted
+  name can no longer write files outside the intended folder.
+
+### Fixed
+- **SDK extension point was dead** — `pipeline.py` imported `from nx_sdk import
+  sdk` (nonexistent); the `ImportError` was swallowed, silently dropping every
+  `nx_sdk.on(...)` handler. Now `import nx_sdk as sdk`.
+- **Destructive-SQL guard precedence** — `policies.py` parenthesizes
+  `drop table` / `delete from … where` so the `where` guard applies correctly.
+- **`nxai doctor`** now checks `nx_packs` (was omitted from the import/version set).
+- **Atomic state writes** — `util.write_json` writes a temp file then
+  `os.replace`, so a crash or concurrent reader never sees a half-written file.
+- Engine robustness: cycle guard in the decision layering (no `RecursionError`),
+  unique node ids for duplicate-agent subtasks (+ skip `None` agents),
+  `RETRYING → BLOCKED` is now a legal transition (clean deadlock surfacing),
+  collision-proof Brain record ids, surfaced (not swallowed) Brain-trim errors,
+  Windows-path normalization in evolution stats, resolved Obsidian wikilink graph
+  edges, pytest `test_*.py` recognized by the review "without tests" check, and a
+  hardened cancel path in the Claude Code adapter.
+
+### Generated foundation (`nxai new`)
+- `make migrate` now also applies `supabase/policies.sql` + `seed.sql` (RLS tables
+  were left locked before).
+- Backend ships **env-driven CORS** and **fails closed** if `SECRET_KEY` is a
+  default in production; `platform-audit` gained a CORS check.
+- `NEXT_PUBLIC_API_URL` is passed as a **build arg** (it is baked at build time),
+  so the prod image points at the right API.
+- `wait-for.sh` uses a portable Python TCP probe (the `/dev/tcp` form failed under
+  `sh`/dash); frontend gains ESLint config + a `test` script.
+
+### Docs
+- Corrected the README header (v2.0.1 · 250 tests), reframed `RELEASE_NOTES` /
+  `ROADMAP` for 2.x, fixed the "8 → 9 packages" drift, removed dead
+  `[tool.nx.workspace]` config, and hardened the CLI quality gate to count only
+  top-level subcommands.
+
 ## [2.0.0] — 2026-06-24 · NX AI Engineer v2 — the Scaffolding Framework
 
 **NX AI Engineer becomes a scaffolding framework.** Beyond a library you add to a
@@ -123,7 +168,7 @@ packaging and the official product surface.
   `nxai docs` (read the bundled guides), `nxai execute` (full end-to-end flow) and
   `nxai version`. All 19 previous commands are preserved. The legacy `nx` console
   script remains as an alias.
-- **PyPI distribution.** `pip install nx-ai-engineer` installs the 8 `nx-*`
+- **PyPI distribution.** `pip install nx-ai-engineer` installs the 9 `nx-*`
   packages and the `nxai` script — **no manual file copying**. The deployable
   template (agent specs, doc/code templates, project rules, guides, config
   example) ships as **package data** inside `nx-cli` (`nx_cli/_template/`).
@@ -186,9 +231,9 @@ packaging and the official product surface.
 ## [Pre-1.0 development history]
 ### Added
 - **Monorepo** (`packages/` + `pyproject.toml` + `LICENSE` + `.github/ci.yml` +
-  `website/` + `installer/`): the platform is split into **8 acyclic packages**
+  `website/` + `installer/`): the platform is split into **9 acyclic packages**
   (nx-core, nx-workflow, nx-sdk, nx-providers, nx-obsidian, nx-knowledge,
-  nx-runtime, nx-cli), each an **independently importable** package.
+  nx-packs, nx-runtime, nx-cli), each an **independently importable** package.
   `scripts/verify_packages.py` enforces the acyclic graph (CI);
   `test_nx_packages.py` covers the package imports.
 

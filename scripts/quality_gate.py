@@ -195,7 +195,9 @@ def gate_cli() -> bool:
         parser = orchestrator.build_parser()
         registered = set()
         for action in parser._actions:
-            if hasattr(action, "choices") and action.choices:
+            # Only top-level subcommands, not sub-action choices (index/list/…),
+            # so a removed command can't be masked by a coincidental sub-choice.
+            if type(action).__name__ == "_SubParsersAction":
                 registered |= set(action.choices)
         missing = EXPECTED_CLI - registered
         return _ok("public-cli", not missing,

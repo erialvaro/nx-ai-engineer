@@ -32,7 +32,7 @@ _ALLOWED: dict[ExecutionState, set[ExecutionState]] = {
                              ExecutionState.CANCELLED},
     ExecutionState.BLOCKED: {ExecutionState.READY, ExecutionState.CANCELLED},
     ExecutionState.FAILED: {ExecutionState.RETRYING, ExecutionState.FAILED},
-    ExecutionState.RETRYING: {ExecutionState.READY},
+    ExecutionState.RETRYING: {ExecutionState.READY, ExecutionState.BLOCKED},
     ExecutionState.COMPLETED: set(),
     ExecutionState.SKIPPED: set(),
     ExecutionState.CANCELLED: set(),

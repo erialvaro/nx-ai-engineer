@@ -99,7 +99,15 @@ def read_json(path: Path, default: Any = None) -> Any:
 
 
 def write_json(path: Path, data: Any) -> Path:
-    return write_text(path, json.dumps(data, indent=2, ensure_ascii=False) + "\n")
+    """Atomically persist JSON: write a temp file then os.replace it in, so a
+    crash or a concurrent reader never observes a half-written state file."""
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    text = json.dumps(data, indent=2, ensure_ascii=False) + "\n"
+    tmp = path.with_name(f".{path.name}.{os.getpid()}.tmp")
+    tmp.write_text(text, encoding="utf-8")
+    os.replace(tmp, path)
+    return path
 
 
 # --------------------------------------------------------------------------- #

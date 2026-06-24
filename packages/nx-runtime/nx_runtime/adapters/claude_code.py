@@ -173,11 +173,18 @@ class ClaudeCodeAdapter:
         else:
             input_data = prompt
 
+        if self._cancelled:                 # don't launch if already cancelled
+            return 1, "", "cancelled before launch"
         self._proc = subprocess.Popen(
             cmd, stdin=subprocess.PIPE if input_data is not None else None,
             stdout=subprocess.PIPE, stderr=subprocess.PIPE,
             text=True, encoding="utf-8", errors="replace",
         )
+        if self._cancelled:                 # a cancel raced in during launch — kill now
+            try:
+                self._proc.kill()
+            except Exception:
+                pass
         try:
             out, err = self._proc.communicate(input=input_data, timeout=timeout)
             return self._proc.returncode, out, err

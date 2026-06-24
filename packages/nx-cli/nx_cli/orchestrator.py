@@ -680,7 +680,7 @@ def cmd_doctor(_: argparse.Namespace) -> int:
     vers = {}
     pkgs_ok = True
     for mod in ("nx_core", "nx_workflow", "nx_sdk", "nx_providers",
-                "nx_obsidian", "nx_knowledge", "nx_runtime", "nx_cli"):
+                "nx_obsidian", "nx_knowledge", "nx_packs", "nx_runtime", "nx_cli"):
         try:
             m = __import__(mod)
             vers[mod] = getattr(m, "__version__", "?")
@@ -892,7 +892,7 @@ def cmd_new(args: argparse.Namespace) -> int:
     try:
         root, written, skipped = bootstrap.new_project(
             args.name, parent, stack=args.stack, variables=extra, force=args.force)
-    except (FileExistsError, FileNotFoundError) as exc:
+    except (FileExistsError, FileNotFoundError, ValueError) as exc:
         util.eprint(f"error: {exc}")
         return 2
     print(util.banner(f"NXAI NEW — {args.name}"))

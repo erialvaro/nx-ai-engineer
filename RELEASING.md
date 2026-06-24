@@ -63,16 +63,16 @@ single `nx-ai-engineer` wheel ships `import nx_core`, `import nx_cli`, …)
 2. **Bump the version everywhere** (all `__init__` + every `pyproject.toml` +
    pinned intra-workspace deps, kept in lock-step):
    ```bash
-   python scripts/bump_version.py 1.1.0
+   python scripts/bump_version.py 2.1.0
    python scripts/bump_version.py --check     # confirms every string agrees
    ```
 3. **Update docs** — move the `[Unreleased]`/top notes into a dated
-   `## [1.1.0]` section of `CHANGELOG.md`; refresh `RELEASE_NOTES.md` and
+   `## [2.1.0]` section of `CHANGELOG.md`; refresh `RELEASE_NOTES.md` and
    `ROADMAP.md` if needed.
 4. **Commit & tag** — the tag must equal the version (the workflow guards this):
    ```bash
-   git commit -am "release: 1.1.0"
-   git tag v1.1.0
+   git commit -am "release: 2.1.0"
+   git tag v2.1.0
    git push && git push --tags
    ```
 5. **Automation takes over** (`release.yml` on the `v*` tag):

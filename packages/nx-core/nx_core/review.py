@@ -66,8 +66,15 @@ def build(base: str, config: dict[str, Any]) -> dict[str, Any]:
             protected_hits.append(f)
 
     # A source file "without tests" = no test file shares its stem/dir signal.
-    test_stems = {Path(t).stem.replace(".test", "").replace(".spec", "").replace("_test", "")
-                  for t in test_files}
+    # Normalize both the `foo.test`/`foo_test` and pytest `test_foo` conventions.
+    def _test_stem(name: str) -> str:
+        stem = Path(name).stem
+        for tok in (".test", ".spec", "_test"):
+            stem = stem.replace(tok, "")
+        if stem.startswith("test_"):
+            stem = stem[len("test_"):]
+        return stem
+    test_stems = {_test_stem(t) for t in test_files}
     for f in source_files:
         if Path(f).stem in test_stems:
             continue

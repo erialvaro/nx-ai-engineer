@@ -1,6 +1,6 @@
 # NX AI Engineer
 
-**v1.0.0** · stdlib-only · zero runtime dependencies · 238 tests green ·
+**v2.0.1** · stdlib-only · zero runtime dependencies · 250 tests green ·
 [CHANGELOG](CHANGELOG.md) · [ROADMAP](ROADMAP.md) · [RELEASE_NOTES](RELEASE_NOTES.md)
 
 **NX AI Engineer is a Developer Infrastructure Platform for AI-assisted software

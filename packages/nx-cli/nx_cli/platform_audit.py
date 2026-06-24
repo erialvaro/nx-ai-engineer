@@ -147,6 +147,13 @@ def audit(root: Path) -> list[Check]:
                      for p in root.glob("supabase/**/*.sql"))
     add("Security", "database RLS policies defined", PASS if rls else WARN,
         "RLS present" if rls else "no RLS policies found (Supabase)")
+    _flat = blob.replace(" ", "")
+    cors_present = "corsmiddleware" in blob.lower()
+    cors_wild = 'allow_origins=["*"]' in _flat or "allow_origins=['*']" in _flat
+    add("Security", "CORS configured (no wildcard)",
+        PASS if cors_present and not cors_wild else WARN,
+        "env-driven CORS" if cors_present and not cors_wild
+        else ("wildcard CORS" if cors_wild else "no CORS configuration"))
 
     # ---- Scalability ------------------------------------------------------ #
     restart = "restart:" in prod_blob or "restart_policy" in prod_blob

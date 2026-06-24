@@ -14,7 +14,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "nx-ai-engineer"
-version = "2.0.0"
+version = "2.0.1"
 description = "Developer Infrastructure Platform for AI-assisted development: knowledge-driven, multi-agent, stdlib-only."
 requires-python = ">=3.8"
 license = { text = "MIT" }
@@ -76,10 +76,5 @@ namespaces = false
 nx_cli = ["_template/**/*", "_stacks/**/*"]
 nx_packs = ["catalog/**/*"]
 
-[tool.nx.workspace]
-# Acyclic dependency order (lower -> higher); enforced by the quality gate.
-members = [
-  "packages/nx-core", "packages/nx-workflow", "packages/nx-sdk",
-  "packages/nx-providers", "packages/nx-obsidian", "packages/nx-knowledge",
-  "packages/nx-runtime", "packages/nx-cli", "packages/nx-packs",
-]
+# The acyclic package order is derived and enforced by scripts/verify_packages.py
+# (declared + real-import graphs); it is not duplicated here.

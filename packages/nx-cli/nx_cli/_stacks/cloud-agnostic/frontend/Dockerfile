@@ -19,6 +19,10 @@ CMD ["npm", "run", "dev"]
 FROM node:20-slim AS build
 WORKDIR /app
 ENV NEXT_TELEMETRY_DISABLED=1
+# NEXT_PUBLIC_* is compiled into the client bundle at build time. Supply it as a
+# build arg (compose passes it) so the prod image points at the right API URL.
+ARG NEXT_PUBLIC_API_URL=http://localhost:{{backend_port}}
+ENV NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 RUN npm run build

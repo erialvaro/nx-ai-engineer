@@ -28,7 +28,7 @@ def violations(text: str, config: dict[str, Any] | None = None) -> list[str]:
     as a lightweight advisory, not a substitute for review."""
     flags = []
     low = (text or "").lower()
-    if "drop table" in low or "delete from" in low and "where" not in low:
+    if ("drop table" in low) or ("delete from" in low and "where" not in low):
         flags.append("possible destructive data operation")
     if "auth" in low and "test" not in low:
         flags.append("auth change without an obvious test reference")

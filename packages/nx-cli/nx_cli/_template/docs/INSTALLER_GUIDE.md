@@ -9,9 +9,10 @@ single `nxai` CLI. There is **no manual file copying**.
 pip install nx-ai-engineer
 ```
 
-This installs the 8 `nx-*` packages and the `nxai` console script (the legacy
-`nx` alias is also installed). The platform is **stdlib-only** — it pulls in no
-third-party runtime dependencies.
+This installs the single `nx-ai-engineer` distribution — one wheel that bundles
+all 9 `nx_*` modules and the `nxai` console script (the legacy `nx` alias is also
+installed). The platform is **stdlib-only** — it pulls in no third-party runtime
+dependencies.
 
 Verify:
 

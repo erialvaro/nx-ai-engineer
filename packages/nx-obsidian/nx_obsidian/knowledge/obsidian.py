@@ -56,13 +56,24 @@ class ObsidianProvider(KnowledgeProvider):
     def index(self) -> int:
         items: list[KnowledgeItem] = []
         if self.vault and self.vault.exists():
-            for p in self.vault.rglob("*.md"):
+            paths = list(self.vault.rglob("*.md"))
+            # Resolve `[[wikilinks]]` (which use a note's name) to the real note
+            # ref/id, so the relationship graph actually connects (not dangling).
+            by_name: dict[str, str] = {}
+            for p in paths:
+                rel = util.rel(p, self.vault)
+                by_name.setdefault(rel, rel)
+                by_name.setdefault(Path(rel).stem, rel)
+            for p in paths:
                 rel = util.rel(p, self.vault)
                 text = util.read_text(p)
                 tags = sorted({t for t in _TAG.findall(text)})
                 links = _WIKILINK.findall(text)
-                rels = [Relationship(f"obs:{rel}", f"obs:{ln.split('|')[0].strip()}", "wikilink")
-                        for ln in links]
+                rels = []
+                for ln in links:
+                    name = ln.split("|")[0].strip()
+                    target = by_name.get(name) or by_name.get(Path(name).stem, name)
+                    rels.append(Relationship(f"obs:{rel}", f"obs:{target}", "wikilink"))
                 items.append(KnowledgeItem(
                     id=f"obs:{rel}", provider=self.name, kind="note", ref=rel,
                     title=first_heading(text) or p.stem,

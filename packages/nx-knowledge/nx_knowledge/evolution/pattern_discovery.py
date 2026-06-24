@@ -23,7 +23,7 @@ class PatternDiscovery:
                 for a in agents:
                     failure_prone[a] += 1
             for f in r.get("files_changed", []) or []:
-                top = f.split("/")[0] if "/" in f else f
+                top = f.replace("\\", "/").split("/")[0]   # normalize Windows paths
                 file_areas[top] += 1
         return {
             "agent_sets": [{"agents": list(k), "count": v} for k, v in agent_sets.most_common(5)],

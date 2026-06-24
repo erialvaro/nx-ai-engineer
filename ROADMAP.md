@@ -3,7 +3,14 @@
 Direction for the platform. Items are intentionally additive — the core (Kernel,
 Engine contract, SDK) should not need structural refactoring.
 
-## 1.0.0 (current — first public platform release)
+## 2.0.0 (current — Scaffolding Framework)
+- ✅ `nxai new` — one-command, Cloud-Agnostic project foundation (FastAPI +
+  Next.js + Docker Compose + a decoupled Supabase adapter + multi-env): the
+  `create-next-app` moment for AI-native platforms.
+- ✅ `nxai platform-audit` — 8-dimension production-readiness audit.
+- ✅ Single self-contained wheel bundling all 9 `nx_*` modules.
+
+## 1.0.0 — first public platform release
 - ✅ Developer Infrastructure Platform: PyPI distribution, official `nxai` CLI,
   data-only `.ai-project-assistant`, package-data template, `init`/`update`/`doctor`/`docs`.
 - ✅ Obsidian vault official numbered structure (`00 Dashboard` … `14 Retrospectives`).

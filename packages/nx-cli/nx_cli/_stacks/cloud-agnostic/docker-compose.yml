@@ -27,6 +27,10 @@ services:
     build:
       context: ./frontend
       target: prod
+      args:
+        # NEXT_PUBLIC_* is baked at BUILD time into the client bundle, so the
+        # API URL must be supplied here (not only at runtime) for the prod image.
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:{{backend_port}}}
     image: {{project_slug}}-frontend:local
     env_file: [.env]
     environment:

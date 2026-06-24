@@ -105,12 +105,19 @@ def subtasks_from_plan(plan: Any) -> list[Subtask]:
     if raw is None and isinstance(plan, dict):
         raw = plan.get("subtasks", [])
     out: list[Subtask] = []
+    seen_ids: set = set()
     for s in raw or []:
         agent = getattr(s, "agent", None) if not isinstance(s, dict) else s.get("agent")
+        if not agent:                      # skip malformed subtasks with no agent
+            continue
         objective = getattr(s, "objective", "") if not isinstance(s, dict) else s.get("objective", "")
         areas = getattr(s, "areas", []) if not isinstance(s, dict) else s.get("areas", [])
         deps = getattr(s, "depends_on", []) if not isinstance(s, dict) else s.get("depends_on", [])
         acc = getattr(s, "acceptance", []) if not isinstance(s, dict) else s.get("acceptance", [])
-        out.append(Subtask(id=agent, agent=agent, objective=objective,
+        node_id, n = agent, 2
+        while node_id in seen_ids:         # de-dup duplicate-agent subtasks
+            node_id, n = f"{agent}#{n}", n + 1
+        seen_ids.add(node_id)
+        out.append(Subtask(id=node_id, agent=agent, objective=objective,
                            areas=list(areas), depends_on=list(deps), acceptance=list(acc)))
     return out

@@ -1,4 +1,4 @@
-# Release Notes — NX AI Engineer 1.0.0
+# Release Notes — NX AI Engineer
 
 **NX AI Engineer** is a Developer Infrastructure Platform for AI-assisted
 software development. It organizes **knowledge, context and execution** so that
@@ -6,8 +6,12 @@ software development. It organizes **knowledge, context and execution** so that
 does not replace Claude Code, GPT, Gemini or any model. **All intelligence
 belongs to the model; all organization belongs to NX.**
 
-1.0.0 is the first public release: distributable via PyPI, installable with a
-single `nxai` CLI, and prepared for long-term open-source evolution.
+As of **2.x** it is also a **scaffolding framework**: `nxai new` creates a
+complete, Cloud-Agnostic project foundation in one command (FastAPI + Next.js +
+Docker Compose + a decoupled Supabase adapter), and `nxai platform-audit` scores
+it across eight production dimensions. It ships as a single self-contained wheel
+(`pip install nx-ai-engineer`), installable with the `nxai` CLI, with no
+third-party runtime dependencies.
 
 ## Install
 

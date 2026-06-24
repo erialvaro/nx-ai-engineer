@@ -6,6 +6,7 @@ records; `history` is append-only. The Brain stores **knowledge, never code**.
 """
 from __future__ import annotations
 
+import uuid
 from pathlib import Path
 from typing import Any, Optional
 
@@ -64,7 +65,7 @@ class ProjectBrain:
     # -- append-only facets (history, retrospectives, bugs, decisions) ---- #
     def append(self, facet: str, record: dict[str, Any]) -> str:
         rec = {**_sanitize(record), "ts": util.now_iso(),
-               "id": util.short_hash(util.now_iso() + repr(record))}
+               "id": util.short_hash(util.now_iso() + repr(record) + uuid.uuid4().hex)}
         log = self._facet(facet) / "log.jsonl"
         with open(log, "a", encoding="utf-8") as fh:
             import json

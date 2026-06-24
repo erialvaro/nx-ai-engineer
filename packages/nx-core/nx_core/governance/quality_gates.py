@@ -42,7 +42,7 @@ def tests_present_gate(review: dict) -> GateResult:
 
 def no_failed_nodes_gate(run: dict) -> GateResult:
     nodes = run.get("nodes", [])
-    failed = [n["id"] for n in nodes if n.get("state") == "FAILED"]
+    failed = [n.get("id", "?") for n in nodes if n.get("state") == "FAILED"]
     if failed:
         return GateResult("no-failed-nodes", False, f"failed nodes: {', '.join(failed)}")
     return GateResult("no-failed-nodes", True, "all nodes succeeded")
