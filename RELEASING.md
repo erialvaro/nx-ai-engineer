@@ -1,8 +1,20 @@
 # Releasing NX AI Engineer
 
-The platform is **9 stdlib-only packages** released together under one version,
-following [Semantic Versioning](https://semver.org). Releases are automated by a
-tag-driven GitHub Actions workflow (`.github/workflows/release.yml`).
+The platform ships as **one self-contained distribution** — `nx-ai-engineer` — a
+single wheel that bundles every `nx_*` module. For development the code lives in
+**9 acyclic, stdlib-only packages** under `packages/` (each with its own
+`pyproject`, tests and dependency edges, verified by `scripts/verify_packages.py`);
+for distribution the root `pyproject.toml` builds them all into one artifact. So
+`pip install nx-ai-engineer` carries the whole platform — there are **no
+sub-distributions on PyPI**. Versioning follows
+[SemVer](https://semver.org); releases are automated by a tag-driven GitHub
+Actions workflow (`.github/workflows/release.yml`).
+
+> **Why one package?** PyPI rate-limits *new project creation* per source IP, and
+> GitHub Actions runners share IPs — so publishing many brand-new projects at once
+> reliably hits `429 Too many new projects created`. A single distribution sidesteps
+> this entirely: every release after the first is just an *update* to an existing
+> project, which is never rate-limited.
 
 ## Versioning policy
 
@@ -22,20 +34,16 @@ tag-driven GitHub Actions workflow (`.github/workflows/release.yml`).
 
 ### Option A — Trusted Publishing / OIDC (recommended, no secrets)
 
-The platform ships **10 distributions** (the `nx-ai-engineer` metapackage + the 9
-`nx-*` packages). Since none exist on PyPI yet, register a **pending publisher** for
-each, once, at <https://pypi.org/manage/account/publishing/>:
+There is **one distribution** to publish: `nx-ai-engineer`. Register a single
+trusted publisher, once, at <https://pypi.org/manage/account/publishing/>:
 
-- **PyPI Project Name:** the distribution name — one of: `nx-ai-engineer`
-  (the metapackage), `nxai-core`, `nxai-workflow`, `nxai-sdk`, `nxai-packs`,
-  `nxai-providers`, `nxai-obsidian`, `nxai-knowledge`, `nxai-runtime`, `nxai-cli`
+- **PyPI Project Name:** `nx-ai-engineer`
 - **Owner:** `erialvaro` · **Repository:** `nx-ai-engineer`
 - **Workflow name:** `release.yml` · **Environment:** `pypi`
 
-(All 10 names were verified available. The PyPI distribution names use the `nxai-`
-prefix; the import modules stay `nx_*` — e.g. `pip install nxai-core` ships
-`import nx_core`.) After registration, tagging a release
-publishes with no token — GitHub mints a short-lived OIDC credential per project.
+After registration, tagging a release publishes with no token — GitHub mints a
+short-lived OIDC credential. (The bundled import modules stay `nx_*` — e.g. the
+single `nx-ai-engineer` wheel ships `import nx_core`, `import nx_cli`, …)
 
 ### Option B — API token (simplest, 1 secret)
 
@@ -70,8 +78,8 @@ publishes with no token — GitHub mints a short-lived OIDC credential per proje
 5. **Automation takes over** (`release.yml` on the `v*` tag):
    - re-runs the Quality Gate (release is blocked if it fails),
    - verifies the tag matches the package version,
-   - builds sdists + wheels for the metapackage and all 9 packages (`twine check`),
-   - publishes them to PyPI via **Trusted Publishing (OIDC)** — or the
+   - builds the single self-contained sdist + wheel (`twine check`),
+   - publishes it to PyPI via **Trusted Publishing (OIDC)** — or the
      `PYPI_API_TOKEN` secret if set (token fallback),
    - creates a GitHub Release with generated notes and the artifacts.
 
@@ -84,9 +92,9 @@ publishes with no token — GitHub mints a short-lived OIDC credential per proje
 - [ ] README / RELEASE_NOTES reflect the version and command surface
 - [ ] No third-party runtime dependency added to the core (stdlib-only)
 - [ ] `pypi` GitHub environment exists
-- [ ] PyPI auth configured — **either** trusted publishers for all 10 projects
+- [ ] PyPI auth configured — **either** a trusted publisher for `nx-ai-engineer`
       (Option A) **or** the `PYPI_API_TOKEN` secret (Option B)
-- [ ] Tag `v<version>` pushed → release workflow green → packages on PyPI + GitHub Release
+- [ ] Tag `v<version>` pushed → release workflow green → package on PyPI + GitHub Release
 
 ## Verifying a published release
 

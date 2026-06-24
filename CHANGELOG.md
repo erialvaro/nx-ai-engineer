@@ -3,6 +3,27 @@
 All notable changes to NX AI Engineer are documented here. Format:
 [Keep a Changelog]; versioning: [Semantic Versioning](https://semver.org).
 
+## [1.0.1] — 2026-06-24 · single self-contained distribution
+
+**Packaging only — no behavior change.** The platform now publishes as **one
+self-contained distribution**: a single `nx-ai-engineer` wheel that bundles every
+`nx_*` module. `pip install nx-ai-engineer` carries the whole platform with no
+sub-distributions on PyPI.
+
+### Changed
+- The root `pyproject.toml` builds one wheel that bundles all nine `nx_*` modules
+  (via per-module `package-dir`) and owns the `nxai`/`nx` console scripts —
+  replacing the previous metapackage that depended on nine separate `nxai-*`
+  projects. Development still uses the 9-package `packages/` layout (verified by
+  `scripts/verify_packages.py`); only the published artifact changed.
+- `release.yml` builds and publishes only the single distribution.
+
+### Fixed
+- Publishing reliability: a single project means every release after the first is
+  an *update*, never a brand-new-project creation — sidestepping PyPI's per-IP
+  `429 Too many new projects created` limit that blocks publishing many new
+  projects from shared GitHub Actions runner IPs.
+
 ## [1.0.0] — 2026-06-23 · first public platform release
 
 **NX AI Engineer becomes a Developer Infrastructure Platform** — distributable via

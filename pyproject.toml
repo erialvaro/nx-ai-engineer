@@ -1,15 +1,20 @@
-# nx-ai-engineer — monorepo workspace.
+# nx-ai-engineer — the single, self-contained distribution.
+#
 # A Developer Infrastructure Platform for AI-assisted software development.
-# The platform is split into 8 acyclic, stdlib-only packages under packages/.
+# For DEVELOPMENT the platform is split into 9 acyclic, stdlib-only packages
+# under packages/ (each with its own pyproject, tests and dependency edges —
+# verified by scripts/verify_packages.py). For DISTRIBUTION, this root builds
+# ONE wheel that bundles every nx_* module, so `pip install nx-ai-engineer`
+# carries the whole platform — no sub-distributions, no metapackage fan-out.
 # All intelligence belongs to the AI model; NX organizes knowledge, context and
-# execution. See docs/ARCHITECTURE.md and docs/MIGRATION_PLAN.md.
+# execution. See docs/ARCHITECTURE.md.
 [build-system]
 requires = ["setuptools>=61"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "nx-ai-engineer"
-version = "1.0.0"
+version = "1.0.1"
 description = "Developer Infrastructure Platform for AI-assisted development: knowledge-driven, multi-agent, stdlib-only."
 requires-python = ">=3.8"
 license = { text = "MIT" }
@@ -23,13 +28,14 @@ classifiers = [
   "Programming Language :: Python :: 3",
   "Topic :: Software Development :: Build Tools",
 ]
-# The platform core depends on NOTHING third-party (stdlib-only). The metapackage
-# simply aggregates the workspace members.
-dependencies = [
-  "nxai-core==1.0.0", "nxai-workflow==1.0.0", "nxai-sdk==1.0.0", "nxai-providers==1.0.0",
-  "nxai-obsidian==1.0.0", "nxai-knowledge==1.0.0", "nxai-runtime==1.0.0", "nxai-cli==1.0.0",
-  "nxai-packs==1.0.0",
-]
+# Stdlib-only: the whole platform depends on NOTHING third-party. Every nx_*
+# module is bundled into this one wheel (see [tool.setuptools] below), so there
+# are no intra-workspace dependencies to declare.
+dependencies = []
+
+[project.scripts]
+nxai = "nx_cli.orchestrator:main"
+nx = "nx_cli.orchestrator:main"
 
 [project.urls]
 Homepage = "https://github.com/erialvaro/nx-ai-engineer"
@@ -37,14 +43,38 @@ Documentation = "https://github.com/erialvaro/nx-ai-engineer/tree/main/packages/
 Repository = "https://github.com/erialvaro/nx-ai-engineer"
 Changelog = "https://github.com/erialvaro/nx-ai-engineer/blob/main/CHANGELOG.md"
 
-# The `nxai` (and legacy `nx`) console scripts are provided by the nx-cli package
-# this metapackage depends on — defined once, there, to avoid duplicate entry
-# points across distributions.
-
-# The root distribution is a pure metapackage (no importable modules of its own);
-# it only aggregates the workspace members as dependencies.
+# Bundle every nx_* module from its workspace directory into the single wheel.
+# Each top-level module is mapped to its real location; setuptools discovers the
+# subpackages beneath each one automatically.
 [tool.setuptools]
-packages = []
+include-package-data = true
+
+[tool.setuptools.package-dir]
+nx_core = "packages/nx-core/nx_core"
+nx_workflow = "packages/nx-workflow/nx_workflow"
+nx_sdk = "packages/nx-sdk/nx_sdk"
+nx_packs = "packages/nx-packs/nx_packs"
+nx_providers = "packages/nx-providers/nx_providers"
+nx_obsidian = "packages/nx-obsidian/nx_obsidian"
+nx_knowledge = "packages/nx-knowledge/nx_knowledge"
+nx_runtime = "packages/nx-runtime/nx_runtime"
+nx_cli = "packages/nx-cli/nx_cli"
+
+[tool.setuptools.packages.find]
+where = [
+  "packages/nx-core", "packages/nx-workflow", "packages/nx-sdk",
+  "packages/nx-packs", "packages/nx-providers", "packages/nx-obsidian",
+  "packages/nx-knowledge", "packages/nx-runtime", "packages/nx-cli",
+]
+include = ["nx_*"]
+namespaces = false
+
+# Ship the deployable CLI template and the built-in pack catalog as package data
+# so a plain `pip install` carries them and `nxai init` / `nxai pack add` work
+# offline — no manual file copying.
+[tool.setuptools.package-data]
+nx_cli = ["_template/**/*"]
+nx_packs = ["catalog/**/*"]
 
 [tool.nx.workspace]
 # Acyclic dependency order (lower -> higher); enforced by the quality gate.

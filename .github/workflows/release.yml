@@ -1,7 +1,9 @@
 name: release
-# Publish all distributions to PyPI on a version tag (e.g. v1.0.0) and create a
-# GitHub Release. Uses PyPI Trusted Publishing (OIDC) by default — no secrets. If
-# a `PYPI_API_TOKEN` secret is set, it is used instead (token fallback).
+# Publish the single self-contained `nx-ai-engineer` distribution to PyPI on a
+# version tag (e.g. v1.0.1) and create a GitHub Release. The one wheel bundles
+# every nx_* module — there are no sub-distributions to publish. Uses PyPI
+# Trusted Publishing (OIDC) by default — no secrets. If a `PYPI_API_TOKEN` secret
+# is set, it is used instead (token fallback).
 on:
   push:
     tags: ["v*"]
@@ -28,12 +30,11 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: { python-version: "3.11" }
-      - name: Build sdists + wheels for the metapackage and all 9 packages
+      - name: Build the single self-contained sdist + wheel (bundles all nx_* modules)
         run: |
           set -e
           python -m pip install --upgrade build twine
           python -m build . --outdir dist
-          for pkg in packages/nx-*; do python -m build "$pkg" --outdir dist; done
           python -m twine check dist/*
       - uses: actions/upload-artifact@v4
         with: { name: dist, path: dist/ }
