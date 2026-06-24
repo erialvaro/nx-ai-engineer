@@ -1,0 +1,45 @@
+{
+  "name": "cassandra",
+  "title": "Cassandra",
+  "version": "1.0.0",
+  "domain": "database",
+  "category": "database",
+  "status": "scaffold",
+  "summary": "Wide-column modeling on Cassandra: query-first partition/cluster keys.",
+  "tags": [
+    "database",
+    "nosql",
+    "cassandra",
+    "wide-column"
+  ],
+  "applies_to": [
+    "database",
+    "database-nosql",
+    "database-reviewer",
+    "backend"
+  ],
+  "provides": [
+    "context.md",
+    "policies.md",
+    "checklists.md"
+  ],
+  "required_adrs": [],
+  "mandatory_tests": [],
+  "validations": [],
+  "brain_facets": [
+    "database",
+    "services",
+    "decisions"
+  ],
+  "files": [
+    "README.md",
+    "context.md",
+    "policies.md",
+    "checklists.md",
+    "patterns.md",
+    "anti-patterns.md",
+    "performance.md",
+    "security.md",
+    "architecture.md"
+  ]
+}

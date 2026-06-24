@@ -17,7 +17,8 @@ from typing import Any, Optional
 # agents come first, quality/delivery last. Imported by the planner, dispatcher
 # and execution scheduler so the ordering can never diverge.
 CANON_ORDER = [
-    "architect", "database", "security", "backend", "ai",
+    "architect", "database", "database-relational", "database-nosql",
+    "database-reviewer", "security", "backend", "ai",
     "frontend", "devops", "qa", "reviewer", "delivery", "docs",
 ]
 
@@ -85,6 +86,36 @@ _BUILTIN: list[Agent] = [
             "**/schema/**", "**/*.prisma", "**/alembic/**", "**/repositories/**",
         ],
         keywords=["database", "schema", "migration", "table", "query", "index", "model", "entity"],
+    ),
+    # Specialist database agents. They EXECUTE using the Database Engineering Packs
+    # (postgres/mongodb/…), which auto-attach via `applies_to`. The generic
+    # `database` agent remains the default file owner (it is earlier in CANON_ORDER);
+    # these specialists are selected by the dispatcher/contract for focused work.
+    Agent(
+        "database-relational", "Relational Database",
+        "Relational modeling & migrations using the relational Engineering Packs.",
+        route_globs=[
+            "**/migrations/**", "**/*.sql", "**/models/**", "**/entities/**",
+            "**/schema/**", "**/*.prisma", "**/alembic/**", "**/repositories/**",
+        ],
+        keywords=["relational", "postgres", "postgresql", "mysql", "sql server", "oracle",
+                  "sqlite", "normalization", "foreign key", "index", "explain", "migration"],
+    ),
+    Agent(
+        "database-nosql", "NoSQL Database",
+        "Document/key-value/graph modeling using the NoSQL Engineering Packs.",
+        route_globs=[
+            "**/models/**", "**/schemas/**", "**/*.mongo.*", "**/repositories/**",
+        ],
+        keywords=["nosql", "mongo", "mongodb", "document", "embedding", "referencing",
+                  "redis", "cassandra", "elasticsearch", "neo4j", "graph", "shard"],
+    ),
+    Agent(
+        "database-reviewer", "Database Reviewer",
+        "Reviews data models/migrations; never implements — asks and blocks.",
+        keywords=["database review", "schema review", "migration review", "model review",
+                  "anti-pattern", "redundancy", "duplicate table"],
+        read_only=True,
     ),
     Agent(
         "ai", "AI", "Prompts, RAG, embeddings, model selection, agent tools.",

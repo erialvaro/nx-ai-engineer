@@ -1,0 +1,45 @@
+{
+  "name": "sqlite",
+  "title": "SQLite",
+  "version": "1.0.0",
+  "domain": "database",
+  "category": "database",
+  "status": "scaffold",
+  "summary": "Relational modeling on SQLite: pragmatic schemas for embedded/edge.",
+  "tags": [
+    "database",
+    "relational",
+    "sqlite",
+    "embedded"
+  ],
+  "applies_to": [
+    "database",
+    "database-relational",
+    "database-reviewer",
+    "backend"
+  ],
+  "provides": [
+    "context.md",
+    "policies.md",
+    "checklists.md"
+  ],
+  "required_adrs": [],
+  "mandatory_tests": [],
+  "validations": [],
+  "brain_facets": [
+    "database",
+    "services",
+    "decisions"
+  ],
+  "files": [
+    "README.md",
+    "context.md",
+    "policies.md",
+    "checklists.md",
+    "patterns.md",
+    "anti-patterns.md",
+    "performance.md",
+    "security.md",
+    "architecture.md"
+  ]
+}

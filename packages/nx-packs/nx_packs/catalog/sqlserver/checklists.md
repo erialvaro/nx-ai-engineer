@@ -1,0 +1,9 @@
+# Checklist — SQL Server
+
+Review gate for any schema/data change.
+
+- [ ] 1NF/2NF/3NF
+- [ ] PK/FK/Unique
+- [ ] Indexes
+- [ ] Execution plan validated
+- [ ] Migration reversible

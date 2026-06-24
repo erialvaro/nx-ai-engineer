@@ -763,10 +763,15 @@ def cmd_pack(args: argparse.Namespace) -> int:
     if args.action == "list":
         have = installed()
         print(util.banner("ENGINEERING PACKS"))
-        print()
+        # group by category (e.g. "database"); uncategorized first.
+        by_cat: dict = {}
         for m in nx_packs.catalog():
-            mark = "[installed]" if m["name"] in have else "          "
-            print(f"  {mark} {m['name']:16} {m.get('status',''):9} {m.get('summary','')[:60]}")
+            by_cat.setdefault(m.get("category", ""), []).append(m)
+        for cat in sorted(by_cat, key=lambda c: (c != "", c)):
+            print(f"\n  {cat or 'general'}:")
+            for m in by_cat[cat]:
+                mark = "[installed]" if m["name"] in have else "          "
+                print(f"    {mark} {m['name']:16} {m.get('status',''):9} {m.get('summary','')[:56]}")
         extra = sorted(have - set(nx_packs.names()))
         for name in extra:
             print(f"  [installed] {name:16} (local)")

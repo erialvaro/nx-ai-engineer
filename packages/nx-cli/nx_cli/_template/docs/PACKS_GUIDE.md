@@ -84,6 +84,45 @@ Every pack is a directory with a `pack.json` manifest and these files:
 The three **context surfaces** (`context.md`, `policies.md`, `checklists.md`) are
 what the Pack Provider exposes to agent context.
 
+## Packs (knowledge) × Specialist Agents (execution)
+
+A pack is **knowledge**; a **Specialist Agent** *executes* using it. They are two
+layers — the agent is disposable, the knowledge is the asset:
+
+```
+Database Engineering Pack (postgres)  →  knowledge (rules/patterns/anti-patterns/…)
+        ↓ applies_to
+Relational Database Agent             →  executes using that knowledge
+```
+
+The **same pack serves many agents** (Relational, Reviewer, Migration, Performance)
+— no duplicated knowledge. The Engineering Contract decides which packs and which
+agents each task involves (`applies_to` + `config.json` overrides).
+
+### The Database category
+
+`nxai pack list` groups packs by `category`. The **database** category ships:
+
+| Pack | Engine | Status |
+|---|---|---|
+| `postgres` | PostgreSQL (relational) | **stable** |
+| `mongodb` | MongoDB (NoSQL/document) | **stable** |
+| `mysql`, `sqlserver`, `oracle`, `sqlite` | relational | scaffold |
+| `redis`, `cassandra`, `elastic`, `neo4j` | key-value / wide-column / search / graph | scaffold |
+
+Each database pack adds engine-specific knowledge beyond the standard files:
+`patterns.md`, `anti-patterns.md`, `performance.md`, `security.md`,
+`templates/migration.md` and `prompts/specialist.md`.
+
+Specialist agents: **database-relational**, **database-nosql**, and a read-only
+**database-reviewer** that runs the mandatory **Database Review** before any
+migration — it never implements; it asks (similar table? similar index? composite
+PK? redundancy? anti-pattern?) and **blocks** when a pack rule is violated:
+
+```
+Task → Database Review → Engineering Contract → Agent → Migration → Reviewer → EXPLAIN ANALYZE → Deliver
+```
+
 ## Authoring a pack
 
 1. Create a directory with the layout above and a valid `pack.json`

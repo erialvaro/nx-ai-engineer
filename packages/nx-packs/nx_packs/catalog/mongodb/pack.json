@@ -1,0 +1,53 @@
+{
+  "name": "mongodb",
+  "title": "MongoDB",
+  "version": "1.0.0",
+  "domain": "database",
+  "category": "database",
+  "status": "stable",
+  "summary": "Document data modeling and MongoDB engineering: embedding vs referencing, access-pattern-driven schemas, aggregation/index strategy and sharding.",
+  "tags": [
+    "database",
+    "nosql",
+    "document",
+    "mongodb"
+  ],
+  "applies_to": [
+    "database",
+    "database-nosql",
+    "database-reviewer",
+    "backend"
+  ],
+  "provides": [
+    "context.md",
+    "policies.md",
+    "checklists.md"
+  ],
+  "required_adrs": [],
+  "mandatory_tests": [
+    "Hot queries are index-covered (explain: IXSCAN, not COLLSCAN)",
+    "Documents stay within a bounded size"
+  ],
+  "validations": [
+    "Embedding vs referencing justified",
+    "Shard key spreads load",
+    "No unbounded arrays",
+    "Indexes match query shape"
+  ],
+  "brain_facets": [
+    "database",
+    "services",
+    "decisions"
+  ],
+  "files": [
+    "README.md",
+    "context.md",
+    "policies.md",
+    "checklists.md",
+    "patterns.md",
+    "anti-patterns.md",
+    "performance.md",
+    "security.md",
+    "architecture.md"
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "name": "neo4j",
+  "title": "Neo4j",
+  "version": "1.0.0",
+  "domain": "database",
+  "category": "database",
+  "status": "scaffold",
+  "summary": "Graph modeling on Neo4j: nodes/relationships, traversal performance.",
+  "tags": [
+    "database",
+    "nosql",
+    "neo4j",
+    "graph",
+    "cypher"
+  ],
+  "applies_to": [
+    "database",
+    "database-nosql",
+    "database-reviewer",
+    "backend"
+  ],
+  "provides": [
+    "context.md",
+    "policies.md",
+    "checklists.md"
+  ],
+  "required_adrs": [],
+  "mandatory_tests": [],
+  "validations": [],
+  "brain_facets": [
+    "database",
+    "services",
+    "decisions"
+  ],
+  "files": [
+    "README.md",
+    "context.md",
+    "policies.md",
+    "checklists.md",
+    "patterns.md",
+    "anti-patterns.md",
+    "performance.md",
+    "security.md",
+    "architecture.md"
+  ]
+}

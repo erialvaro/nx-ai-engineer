@@ -1,6 +1,6 @@
 # NX AI Engineer
 
-**v1.0.0** · stdlib-only · zero runtime dependencies · 236 tests green ·
+**v1.0.0** · stdlib-only · zero runtime dependencies · 238 tests green ·
 [CHANGELOG](CHANGELOG.md) · [ROADMAP](ROADMAP.md) · [RELEASE_NOTES](RELEASE_NOTES.md)
 
 **NX AI Engineer is a Developer Infrastructure Platform for AI-assisted software
@@ -144,6 +144,23 @@ policies/checklists/context to the agents working in that domain. Packs contain
 **no code and no AI**. See the
 [Packs Guide](packages/nx-cli/nx_cli/_template/docs/PACKS_GUIDE.md); third parties
 can publish their own (the pack Marketplace).
+
+### Packs (knowledge) × Specialist Agents (execution)
+
+The knowledge lives in the **Pack**; a **Specialist Agent** just executes using it
+— *the agent is disposable, the knowledge is not*. The **Database** category ships
+`postgres` and `mongodb` (full: rules, patterns, anti-patterns, performance,
+checklists, security) plus mysql/sqlserver/oracle/sqlite/redis/cassandra/elastic/
+neo4j, with specialist agents **database-relational**, **database-nosql** and a
+read-only **database-reviewer** (never implements — it asks and *blocks* on
+duplicate tables, redundant indexes, anti-patterns). The Engineering Contract
+auto-attaches the right pack to each agent, so the *same* PostgreSQL knowledge
+serves the relational, reviewer and migration work without duplication.
+
+```bash
+nxai pack add postgres
+nxai contract --agent database-relational "Add an orders table"   # postgres pack auto-attached
+```
 
 ### Standardize a repository
 

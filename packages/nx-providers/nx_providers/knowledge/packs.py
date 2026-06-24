@@ -67,6 +67,7 @@ class PackProvider(KnowledgeProvider):
                 title=mf.get("title", name),
                 metadata={
                     "name": name, "domain": mf.get("domain", ""),
+                    "category": mf.get("category", ""),
                     "summary": mf.get("summary", ""), "tags": mf.get("tags", []),
                     "status": mf.get("status", ""),
                     "policies": policies, "checklists": checklist,

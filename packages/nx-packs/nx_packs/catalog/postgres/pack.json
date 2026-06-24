@@ -1,0 +1,55 @@
+{
+  "name": "postgres",
+  "title": "PostgreSQL",
+  "version": "1.0.0",
+  "domain": "database",
+  "category": "database",
+  "status": "stable",
+  "summary": "Relational data modeling and PostgreSQL engineering: normalization, relationships, indexing strategy, query performance (EXPLAIN/cost) and safe migrations.",
+  "tags": [
+    "database",
+    "relational",
+    "sql",
+    "postgres"
+  ],
+  "applies_to": [
+    "database",
+    "database-relational",
+    "database-reviewer",
+    "backend"
+  ],
+  "provides": [
+    "context.md",
+    "policies.md",
+    "checklists.md"
+  ],
+  "required_adrs": [],
+  "mandatory_tests": [
+    "Migration is reversible (up/down) on a copy",
+    "Hot queries validated with EXPLAIN (no unexpected Seq Scan)"
+  ],
+  "validations": [
+    "No duplicate table for an existing concept",
+    "No redundant index",
+    "Foreign keys present",
+    "Normalization validated",
+    "EXPLAIN/cost acceptable"
+  ],
+  "brain_facets": [
+    "database",
+    "services",
+    "apis",
+    "decisions"
+  ],
+  "files": [
+    "README.md",
+    "context.md",
+    "policies.md",
+    "checklists.md",
+    "patterns.md",
+    "anti-patterns.md",
+    "performance.md",
+    "security.md",
+    "architecture.md"
+  ]
+}

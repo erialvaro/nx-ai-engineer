@@ -10,7 +10,8 @@ from nx_providers.knowledge.packs import PackProvider
 from nx_cli import orchestrator
 
 EXPECTED = {"lgpd", "security", "owasp", "ai", "cloud", "docker", "multi-tenant",
-            "observability", "testing", "billing", "authentication", "repo-standards"}
+            "observability", "testing", "billing", "authentication", "repo-standards",
+            "postgres", "mongodb"}
 
 
 class TestCatalog(unittest.TestCase):
@@ -38,6 +39,18 @@ class TestCatalog(unittest.TestCase):
     def test_unknown_pack_raises(self):
         with self.assertRaises(KeyError):
             nx_packs.pack_dir("does-not-exist")
+
+    def test_database_category_and_rich_files(self):
+        db = [m for m in nx_packs.catalog() if m.get("category") == "database"]
+        names = {m["name"] for m in db}
+        self.assertTrue({"postgres", "mongodb"} <= names)            # reference packs
+        self.assertGreaterEqual(len(db), 8)                          # a whole category
+        for ref in ("postgres", "mongodb"):
+            self.assertEqual(nx_packs.manifest(ref)["status"], "stable")
+            d = nx_packs.pack_dir(ref)
+            for f in ("anti-patterns.md", "performance.md", "security.md",
+                      "prompts/specialist.md", "templates/migration.md"):
+                self.assertTrue((d / f).is_file(), f"{ref} missing {f}")
 
 
 class TestInstallAndProvider(unittest.TestCase):

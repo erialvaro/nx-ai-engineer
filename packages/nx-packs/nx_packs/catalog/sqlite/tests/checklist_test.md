@@ -1,0 +1,4 @@
+# Test guidance — SQLite
+
+Turn the checklist into checks where possible: schema lints,
+migration reversibility tests, EXPLAIN/cost assertions on hot queries.

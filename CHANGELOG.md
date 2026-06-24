@@ -11,6 +11,16 @@ evolution. No engine behavior was removed; this release is about distribution,
 packaging and the official product surface.
 
 ### Added
+- **Database Engineering — Packs × Specialist Agents** (ADR-0021): a `database`
+  pack category with `postgres` and `mongodb` authored in full (rules, patterns,
+  **anti-patterns**, **performance**, security, checklists, migration template, agent
+  prompt) plus mysql/sqlserver/oracle/sqlite/redis/cassandra/elastic/neo4j scaffolds.
+  New **specialist agents** — `database-relational`, `database-nosql` and a
+  read-only `database-reviewer` that runs a mandatory **Database Review** and
+  **blocks** on duplicate tables, redundant indexes or anti-patterns. The same pack
+  serves many agents via `applies_to` (knowledge reused, never duplicated); the
+  agent executes, the pack holds the knowledge. `nxai pack list` now groups by
+  category. Packs remain knowledge-only (no code, no AI).
 - **Engineering Contract** — the concept that ties Brain/Knowledge/Context/Providers/
   Packs together and makes delivery to the agent *predictable*. An agent receives a
   declarative **contract** (`context · knowledge · engineering · constraints ·

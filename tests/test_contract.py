@@ -46,6 +46,20 @@ class TestAutoApplication(unittest.TestCase):
             self.assertIn("cloud", devops)
             self.assertNotIn("multi-tenant", devops)
 
+    def test_database_packs_attach_to_specialist_agents(self):
+        with _Home(["postgres", "mongodb"]):
+            cb = ContractBuilder(config={}, registry=default_registry())
+            rel = set(cb.build("Add orders table", "database-relational").packs())
+            self.assertIn("postgres", rel)        # relational pack -> relational agent
+            self.assertNotIn("mongodb", rel)      # nosql pack does not attach to relational
+            nosql = set(cb.build("Model orders documents", "database-nosql").packs())
+            self.assertIn("mongodb", nosql)
+            self.assertNotIn("postgres", nosql)
+            # the same pack also serves the Database Reviewer (shared knowledge)
+            rev = set(cb.build("Review schema", "database-reviewer").packs())
+            self.assertIn("postgres", rev)
+            self.assertIn("mongodb", rev)
+
     def test_config_override_adds_and_excludes(self):
         with _Home(["billing", "ai"]):
             cfg = {"contracts": {"agents": {"backend": {"packs": ["ai"], "exclude": ["billing"]}}}}
