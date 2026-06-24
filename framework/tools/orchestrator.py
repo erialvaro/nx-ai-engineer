@@ -1,7 +1,7 @@
 """Thin entrypoint shim — all CLI logic lives in nx_cli.orchestrator.
 
 Works both in the repo (packages/ at the repo root) and after deployment via
-init_aies.py (packages/ copied to .ai-project/packages/). It locates the engine
+init_aies.py (packages/ copied to .ai-project-assistant/packages/). It locates the engine
 packages by walking up from this file until it finds a `packages/` dir holding
 the nx_* packages, then delegates to nx_cli.orchestrator.
 """

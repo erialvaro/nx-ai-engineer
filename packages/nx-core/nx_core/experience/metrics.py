@@ -2,7 +2,7 @@
 
 Subscribes to the event bus and records indicators (time, rework/retries,
 failures, success, agent-selection precision, context reduction) to
-`.ai-project/experience/`. Distinct from Observability (runtime plumbing):
+`.ai-project-assistant/experience/`. Distinct from Observability (runtime plumbing):
 Experience is the *aggregated, over-time* view used for continuous improvement.
 """
 from __future__ import annotations

@@ -3,7 +3,7 @@
 Surfaces what a reviewer needs at a glance: which files changed, who owns them,
 which have no accompanying tests, which are unusually large, which are
 security/data sensitive, and where active locks overlap the diff. It never
-edits code — it produces a report saved under `.ai-project/reviews/`.
+edits code — it produces a report saved under `.ai-project-assistant/reviews/`.
 """
 from __future__ import annotations
 
@@ -18,7 +18,7 @@ _CRITICAL_TOKENS = ["auth", "security", "payment", "billing", "migration",
                     "secret", "token", "password", "crypto", "tenant", "delete"]
 _TEST_TOKENS = ["test", "spec", "__tests__", "e2e"]
 # AIES's own bookkeeping is not product code — never report on it.
-_IGNORE_TOKENS = [".ai-project/", "__pycache__/", ".pyc"]
+_IGNORE_TOKENS = [".ai-project-assistant/", "__pycache__/", ".pyc"]
 
 
 def _ignored(path: str) -> bool:

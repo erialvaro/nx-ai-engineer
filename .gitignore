@@ -14,8 +14,8 @@ build/
 venv/
 env/
 
-# Deployed/runtime data — never commit a project's .ai-project
-.ai-project/
+# Deployed/runtime data — never commit a project's .ai-project-assistant
+.ai-project-assistant/
 
 # Generated website output
 website/site/

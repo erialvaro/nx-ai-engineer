@@ -18,7 +18,7 @@ offline, stdlib-only, and cheap to recompute.
    builder keeps the top-N per category and assembles a minimal `AgentContext`.
 3. Report an **estimated context reduction** (fraction of the repo omitted) and
    publish it via `context.built`.
-4. **Cache** results (`memory/cache.py`, under `.ai-project/context-cache/`).
+4. **Cache** results (`memory/cache.py`, under `.ai-project-assistant/context-cache/`).
    The cache key embeds a **version** (git HEAD, or a file-mtime signature when
    not a repo), so a changed project yields a new key — invalidation is by
    construction.

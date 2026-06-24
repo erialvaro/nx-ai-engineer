@@ -20,7 +20,7 @@ nxai doctor
 Then, from any repository:
 
 ```bash
-nxai init                      # scaffold .ai-project + audit + Brain + Knowledge + Vault
+nxai init                      # scaffold .ai-project-assistant + audit + Brain + Knowledge + Vault
 nxai plan "Add OAuth login"
 nxai execute "Add OAuth login" # full flow, Dry Run -> Test -> Execute (dry-run by default)
 nxai review
@@ -34,7 +34,7 @@ nxai docs                      # the bundled guides
 - **PyPI distribution** — 8 acyclic, **stdlib-only** packages (no third-party
   runtime deps). The deployable template ships as package data; **no manual file
   copying**.
-- **Data-only `.ai-project/`** — platform code lives in the installed packages;
+- **Data-only `.ai-project-assistant/`** — platform code lives in the installed packages;
   your project keeps only data (config + Project Brain + Obsidian vault +
   knowledge + working state). `nxai update` refreshes template assets and **never**
   touches your Brain/Vault/Knowledge/config/history.

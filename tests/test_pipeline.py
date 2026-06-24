@@ -22,9 +22,9 @@ class _Project:
         for args in (["init", "-q"], ["add", "-A"],
                      ["-c", "user.email=a@b.c", "-c", "user.name=t", "commit", "-qm", "i"]):
             subprocess.run(["git", *args], cwd=root, capture_output=True)
-        (root / ".ai-project").mkdir()
+        (root / ".ai-project-assistant").mkdir()
         self._old = os.environ.get("AIES_HOME")
-        os.environ["AIES_HOME"] = str(root / ".ai-project")
+        os.environ["AIES_HOME"] = str(root / ".ai-project-assistant")
         return root
 
     def __exit__(self, *a):
@@ -71,7 +71,7 @@ class TestPipeline(unittest.TestCase):
     def test_experience_persisted(self):
         with _Project() as root:
             Pipeline().run("Add a small util", mode=ExecutionMode.DRY_RUN)
-            self.assertTrue((root / ".ai-project" / "experience" / "summary.json").exists())
+            self.assertTrue((root / ".ai-project-assistant" / "experience" / "summary.json").exists())
 
 
 if __name__ == "__main__":

@@ -101,7 +101,7 @@ Logo: `Kernel → Workflow → Schedulers`.
 
 ## 2. Princípios e decisões
 
-1. **Compatibilidade total.** CLI, comandos e `.ai-project/` atuais intactos;
+1. **Compatibilidade total.** CLI, comandos e `.ai-project-assistant/` atuais intactos;
    tudo novo é aditivo.
 2. **Stdlib-only.** Sem dependências externas (Python 3.8+).
 3. **Independência de modelo.** Núcleo fala com `AgentAdapter`, nunca com um
@@ -176,9 +176,9 @@ framework/tools/aies/
 └── tests/                 # unittest stdlib (cresce a cada PR)
 ```
 
-Artefatos em disco (todos aditivos sob `.ai-project/`):
+Artefatos em disco (todos aditivos sob `.ai-project-assistant/`):
 ```
-.ai-project/
+.ai-project-assistant/
 ├── tasks/ reviews/ locks/ memory/          # já existem
 ├── runs/                                    # estado de execução (2.0)
 ├── brain/  (diretórios especializados — §9.3)
@@ -297,7 +297,7 @@ class ExecutionEngine(BaseEngine):
     def cancel(self, node_id=None) -> None
     def progress(self) -> dict
 ```
-- Persiste `Run` em `.ai-project/runs/<id>.json` (retomável/auditável).
+- Persiste `Run` em `.ai-project-assistant/runs/<id>.json` (retomável/auditável).
 - Retries/falhas/cancelamento/progresso via estados (§6.2).
 - Comando: `orchestrator.py run --plan <task-id> [--mode dry_run|test|execute]`
   (default `dry_run`).
@@ -399,7 +399,7 @@ interpreta código ou substitui o raciocínio do modelo**. CLI: `knowledge graph
 
 **Obsidian como representação visual (ADR-0014):** além do provider leitor, o
 `ObsidianSync` projeta o **estado atual do Project Brain** num vault navegável
-(`.ai-project/obsidian/`) — uma nota por categoria (ADRs, Architecture, Roadmap,
+(`.ai-project-assistant/obsidian/`) — uma nota por categoria (ADRs, Architecture, Roadmap,
 Features, Services, APIs, Modules, Dependencies, Known Bugs, Decisions,
 Retrospectives, Lessons Learned), **índice de navegação** (Home/MOC), **mapa de
 relacionamentos** (Mermaid) e **backlinks** entre ADRs. **Nunca é fonte da
@@ -411,7 +411,7 @@ verdade** (reflete o Brain), **não duplica** (linka/sumariza), é **incremental
 Nenhum agente recebe o projeto inteiro. A **lista de arquivos vem do Filesystem
 Provider** (§9.0, sem `os.walk` no engine); `ContextBuilder` + resolvers (Files,
 Services, APIs, Tests, Docs, Dependencies) + **ranking de relevância** + **cache**
-(`.ai-project/context-cache/`, chave = agent+hash(subtask)+versão) + **invalidação**
+(`.ai-project-assistant/context-cache/`, chave = agent+hash(subtask)+versão) + **invalidação**
 (HEAD/mtime). Docs são enriquecidos pelos providers Markdown/ADR e patterns pelo
 Project-Brain. Publica `context.built` com `estimated_reduction`.
 
@@ -425,7 +425,7 @@ um retrospecto mais rico.*
 ### 9.3 Project Brain — diretórios especializados (decisão #6)
 Substitui o `architecture.json` monolítico por uma árvore:
 ```
-.ai-project/brain/
+.ai-project-assistant/brain/
 ├── architecture/   # visão de arquitetura (snapshots versionados)
 ├── modules/        # módulos/workspaces descobertos
 ├── services/       # serviços e seus contratos
@@ -497,7 +497,7 @@ O Pipeline usa o `SelfImprovementEngine` no lugar do `LearningEngine` básico. C
 ## 10. Governance — ADR, políticas, quality gates, checklists, regras, segurança (decisão #4)
 
 `governance/`. Camada transversal que **escuta eventos** e aplica regras.
-- **adr.py** — gera `.ai-project/brain/adr/ADR-NNNN-*.md` a cada decisão
+- **adr.py** — gera `.ai-project-assistant/brain/adr/ADR-NNNN-*.md` a cada decisão
   (eventos `*.decided`/`adr.created`).
 - **policies.py** — regras arquiteturais e `domain_rules` (tenant/PII), versionadas.
 - **quality_gates.py** — gates booleanos: testes presentes, `protected_paths`
@@ -516,7 +516,7 @@ framework **aprender com o próprio uso**:
 tempo por etapa/agente, **retrabalho** (reexecuções/retries), performance, taxa
 de falhas/sucesso, qualidade (cobertura, findings de review), precisão da seleção
 de agentes (selecionados vs. usados), redução de contexto.
-Persistência em `.ai-project/experience/` (séries append-only). Alimentado **só
+Persistência em `.ai-project-assistant/experience/` (séries append-only). Alimentado **só
 por eventos**. Distingue-se de Observability: Observability = encanamento de
 runtime (bus/logs/telemetria); Experience = **indicadores agregados ao longo do
 tempo** para aprendizado.
@@ -526,7 +526,7 @@ tempo** para aprendizado.
 ## 12. Observability — event bus, logs, telemetria
 
 `observability/`. `events.py` (EventBus pub/sub stdlib, síncrono, nunca lança),
-`logging.py` (JSONL em `.ai-project/logs/<run_id>.jsonl`), `telemetry.py`
+`logging.py` (JSONL em `.ai-project-assistant/logs/<run_id>.jsonl`), `telemetry.py`
 (exportação/snapshot de métricas). Assinantes padrão: logging (tudo), Experience,
 Governance, Learning.
 
@@ -632,7 +632,7 @@ Comando: `orchestrator.py pipeline "<objetivo>" [--mode dry_run|test|execute]`.
 |-------|-----------|
 | `from aies import …` | `aies/__init__.py` reexporta tudo (atual + novo) |
 | Comandos do CLI | preservados; `run/deliver/pipeline` são **adicionados** |
-| `.ai-project/` | inalterado; novas pastas são aditivas |
+| `.ai-project-assistant/` | inalterado; novas pastas são aditivas |
 | `brain/` dir-based vs. `memory/architecture.json` | migração automática lê o antigo e popula o novo; antigo mantido |
 | `config.json` | novas chaves opcionais com default |
 | Mutação acidental de código | **Dry Run default** + gate de modos (decisão #2) |

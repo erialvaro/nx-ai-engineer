@@ -91,7 +91,7 @@ see the [Plugin Guide](PLUGIN_GUIDE.md) and [SDK Guide](SDK_GUIDE.md).
 ## Engineering Packs are a provider, too
 
 The **Pack Provider** (`nx_providers.knowledge.packs.PackProvider`) catalogs the
-Engineering Packs installed under `.ai-project/packs/`. Authoring a pack is the
+Engineering Packs installed under `.ai-project-assistant/packs/`. Authoring a pack is the
 no-code way to add domain knowledge — see the [Packs Guide](PACKS_GUIDE.md). To
 ship packs to others, follow the catalog convention in the
 [Marketplace](MARKETPLACE.md).

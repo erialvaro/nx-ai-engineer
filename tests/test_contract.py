@@ -17,7 +17,7 @@ class _Home:
 
     def __enter__(self):
         self.tmp = tempfile.TemporaryDirectory()
-        root = Path(self.tmp.name) / ".ai-project"
+        root = Path(self.tmp.name) / ".ai-project-assistant"
         (root / "packs").mkdir(parents=True)
         for p in self.packs:
             nx_packs.install(p, root / "packs")

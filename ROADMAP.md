@@ -5,7 +5,7 @@ Engine contract, SDK) should not need structural refactoring.
 
 ## 1.0.0 (current — first public platform release)
 - ✅ Developer Infrastructure Platform: PyPI distribution, official `nxai` CLI,
-  data-only `.ai-project`, package-data template, `init`/`update`/`doctor`/`docs`.
+  data-only `.ai-project-assistant`, package-data template, `init`/`update`/`doctor`/`docs`.
 - ✅ Obsidian vault official numbered structure (`00 Dashboard` … `14 Retrospectives`).
 - ✅ Open-source infra: CI matrix + wheel build, tag-driven PyPI release, issue/PR
   templates, Installer/Upgrade guides.

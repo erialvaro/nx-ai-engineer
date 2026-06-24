@@ -1,7 +1,7 @@
 """Pack Provider — surfaces installed Engineering Packs as structured knowledge.
 
 An Engineering Pack is domain knowledge (policies, checklists, patterns, context)
-installed under `.ai-project/packs/<name>/`. This provider catalogs each installed
+installed under `.ai-project-assistant/packs/<name>/`. This provider catalogs each installed
 pack so the Context Engine can enrich an agent's context with the relevant
 domain's policies/checklists — exactly like any other Knowledge Provider.
 

@@ -32,7 +32,7 @@ def _tokens(text: str) -> set[str]:
 
 
 class NullSemanticIndex:
-    """Keyword-overlap index. Persists to `.ai-project/brain/knowledge/semantic.json`
+    """Keyword-overlap index. Persists to `.ai-project-assistant/brain/knowledge/semantic.json`
     so it survives runs; swap for a vector index later via the SDK."""
 
     def __init__(self, persist: bool = False) -> None:

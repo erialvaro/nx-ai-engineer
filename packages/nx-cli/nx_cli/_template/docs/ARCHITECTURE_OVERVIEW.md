@@ -41,7 +41,7 @@ Foundation    util · config
   only subscribe — so they can be added without touching domain engines.
 
 ## On-disk contract (per project)
-`.ai-project/` — `tasks/ reviews/ locks/ runs/ memory/ brain/ knowledge/
+`.ai-project-assistant/` — `tasks/ reviews/ locks/ runs/ memory/ brain/ knowledge/
 context-cache/ experience/ logs/ metrics/`, plus `agents/ docs/ templates/
 tools/` and `config.json`.
 

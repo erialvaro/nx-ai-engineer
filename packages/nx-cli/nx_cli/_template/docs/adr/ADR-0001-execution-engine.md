@@ -42,7 +42,7 @@ real change.
 ## Consequences
 - New CLI command: `orchestrator.py run --plan <id> [--mode dry_run|test|execute]`
   (default `dry_run`).
-- Runs persist to `.ai-project/runs/<id>.json` (resumable, auditable).
+- Runs persist to `.ai-project-assistant/runs/<id>.json` (resumable, auditable).
 - The mode gate is enforced centrally, so future engines inherit the safety
   guarantee for free.
 - Backward compatible: all prior commands and imports unchanged; everything here

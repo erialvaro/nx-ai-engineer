@@ -128,9 +128,9 @@ when all are done, remove `aies` (SemVer major) and point the skill at `nx_cli`.
 - ✅ **Website generator wired** — `website/generate.py` (stdlib-only) renders the
   docs/ADRs/per-package index into a static site; covered by `tests/test_website.py`.
 - ✅ **Deployment fixed (critical).** `scripts/init_aies.py` now copies **both**
-  `framework/` and `packages/` into `<target>/.ai-project/`, and the deployed
+  `framework/` and `packages/` into `<target>/.ai-project-assistant/`, and the deployed
   `tools/orchestrator.py` shim locates `packages/` by walking up from itself — so
-  `python .ai-project/tools/orchestrator.py <cmd>` works post-migration (verified
+  `python .ai-project-assistant/tools/orchestrator.py <cmd>` works post-migration (verified
   end-to-end: audit, full pipeline dry-run, knowledge, status).
 
 #### Why `framework/` is NOT flattened into top-level `docs/`+`templates/`
@@ -138,7 +138,7 @@ The repo has a deliberate **two-tier** layout, not an inconsistency:
 - **Top level** (`packages/ docs/ examples/ tests/ website/ scripts/ installer/`)
   is the **monorepo** — for contributors, CI and publishing.
 - **`framework/`** is the **deployable template** that `init_aies.py` copies into a
-  consumer project's `.ai-project/` (agents, in-project docs, config, the
+  consumer project's `.ai-project-assistant/` (agents, in-project docs, config, the
   orchestrator shim). Its `docs/`+`templates/` are the *end-user's* in-project
   reference material — distinct from the repo's contributor `docs/`.
 Flattening `framework/docs`+`framework/templates` to the top level would conflate

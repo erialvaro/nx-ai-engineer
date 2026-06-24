@@ -1,7 +1,7 @@
 # Framework Memory
 
 The framework keeps **persistent, project-specific memory** under
-`.ai-project/memory/` so each run reuses what was learned instead of
+`.ai-project-assistant/memory/` so each run reuses what was learned instead of
 re-discovering it.
 
 ## Files
@@ -17,9 +17,9 @@ re-discovering it.
 ## Extending memory
 Add your own notes as additional JSON/Markdown files here. Anything an engine
 should reuse across runs belongs in memory; anything that matters only to a
-single task belongs in that task file under `.ai-project/tasks/`.
+single task belongs in that task file under `.ai-project-assistant/tasks/`.
 
 ## Privacy
 Memory is committed with the repo by default. Do not store secrets or PII here.
-Use `.ai-project/.gitignore` to exclude volatile files (locks, generated
+Use `.ai-project-assistant/.gitignore` to exclude volatile files (locks, generated
 reports) if you prefer to keep them local.

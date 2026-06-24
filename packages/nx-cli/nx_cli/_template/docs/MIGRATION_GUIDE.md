@@ -6,7 +6,7 @@ commands keep working. This guide records how to upgrade and what (if anything)
 changes.
 
 ## Upgrading an installed project
-`.ai-project/` is a portable copy of `framework/`. To pick up a new framework
+`.ai-project-assistant/` is a portable copy of `framework/`. To pick up a new framework
 version without losing your data:
 
 ```bash
@@ -45,7 +45,7 @@ nxai init
   here. Deprecations will warn for one minor cycle before removal.
 
 ## Rollback
-The framework writes only inside `.ai-project/` and creates git
+The framework writes only inside `.ai-project-assistant/` and creates git
 worktrees/branches on request. To roll back, restore the previous
-`.ai-project/tools/` (or re-run `nxai update` from the previous framework copy);
+`.ai-project-assistant/tools/` (or re-run `nxai update` from the previous framework copy);
 your tasks/brain remain intact.

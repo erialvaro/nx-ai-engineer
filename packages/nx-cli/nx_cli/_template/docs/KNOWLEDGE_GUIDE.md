@@ -19,8 +19,8 @@ coordination + access point. It unifies and synchronizes the three memories:
 
 | Memory | Role | Backed by |
 |--------|------|-----------|
-| **Project Brain** | operational (current state) | `.ai-project/brain/` |
-| **Obsidian** | organizational (navigable view) | `.ai-project/obsidian/` |
+| **Project Brain** | operational (current state) | `.ai-project-assistant/brain/` |
+| **Obsidian** | organizational (navigable view) | `.ai-project-assistant/obsidian/` |
 | **Git** | historical (immutable record) | the repository |
 
 Canonical flow:
@@ -115,7 +115,7 @@ orchestrator.py knowledge retrieve --query "oauth" --provider adr --limit 10
 
 Obsidian is a **view**, never the source of truth. `ObsidianSync`
 (`knowledge/obsidian_sync.py`) projects the current Project Brain into a vault
-(default `.ai-project/obsidian/`):
+(default `.ai-project-assistant/obsidian/`):
 - the official numbered structure — folders `00 Dashboard`, `01 Architecture`,
   `02 ADR`, `03 Decisions`, `04 Features`, `05 APIs`, `06 Services`,
   `07 Database`, `08 Workflows`, `09 Bugs`, `10 Lessons Learned`, `11 Roadmap`,

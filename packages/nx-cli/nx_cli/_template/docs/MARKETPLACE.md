@@ -40,7 +40,7 @@ nx_pack_fintech/
 ```
 
 `catalog()` returns each pack's `pack.json`; `install(name, packs_root)` copies a
-pack into a project's `.ai-project/packs/`. Reuse the reference implementation in
+pack into a project's `.ai-project-assistant/packs/`. Reuse the reference implementation in
 `nx_packs/__init__.py` (it is ~60 lines of stdlib). A pack package depends on
 nothing but the standard library.
 

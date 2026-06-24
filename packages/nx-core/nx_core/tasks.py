@@ -1,7 +1,7 @@
 """Task Engine — render a Plan into a durable Markdown task file.
 
 Task files are the contract handed to executing agents. They live under
-`.ai-project/tasks/<id>.md` and embed a machine-readable JSON block so the
+`.ai-project-assistant/tasks/<id>.md` and embed a machine-readable JSON block so the
 orchestrator (review, status) can re-read them without re-planning.
 """
 from __future__ import annotations
@@ -81,7 +81,7 @@ def render(plan: Plan, task_id: str, conflicts: list[dict[str, Any]]) -> str:
 
     a("## Checklist")
     for step in [
-        "Re-read the relevant agent spec(s) in `.ai-project/agents/`",
+        "Re-read the relevant agent spec(s) in `.ai-project-assistant/agents/`",
         "Confirm no forbidden files are touched",
         "Implement incrementally",
         "Run tests",

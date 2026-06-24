@@ -11,7 +11,7 @@ visible across all concurrent lanes. (Operationalized by the orchestrator's
 - Ensure every active task has an owner and a worktree lane if needed.
 
 ## Scope — allowed paths
-- `.ai-project/tasks/`, `.ai-project/locks/` only.
+- `.ai-project-assistant/tasks/`, `.ai-project-assistant/locks/` only.
 
 ## Scope — forbidden paths
 - All product/source code.

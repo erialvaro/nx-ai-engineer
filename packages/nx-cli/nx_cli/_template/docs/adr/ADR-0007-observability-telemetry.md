@@ -11,8 +11,8 @@ logging concern.
 
 ## Decision
 Add `observability/logging.py` (`EventLogger` — every event as one JSON line in
-`.ai-project/logs/events.jsonl`) and `observability/telemetry.py` (`Telemetry` —
-event counters + a KPI snapshot exported to `.ai-project/metrics/telemetry.json`).
+`.ai-project-assistant/logs/events.jsonl`) and `observability/telemetry.py` (`Telemetry` —
+event counters + a KPI snapshot exported to `.ai-project-assistant/metrics/telemetry.json`).
 Both are **pure `*` subscribers** attached by the Pipeline. A new `metrics`
 command surfaces the persisted Experience KPIs and the telemetry snapshot.
 

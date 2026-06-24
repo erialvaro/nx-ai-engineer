@@ -608,13 +608,13 @@ def cmd_report(_: argparse.Namespace) -> int:
 
 
 def cmd_init(args: argparse.Namespace) -> int:
-    """Initialize a project: scaffold .ai-project (data only) from the bundled
+    """Initialize a project: scaffold .ai-project-assistant (data only) from the bundled
     template, then audit -> Project Brain -> Knowledge Engine -> Obsidian vault."""
     from nx_cli import bootstrap
     target = Path(args.path).resolve()
     root, copied, skipped = bootstrap.init(target, force=args.force)
     print(util.banner(f"NXAI INIT — {target.name}"))
-    print(f"\n  .ai-project: {root}")
+    print(f"\n  .ai-project-assistant: {root}")
     print(f"  template:    {copied} file(s) written, {skipped} kept")
     # Point the engines at the freshly created home.
     os.environ["AIES_HOME"] = str(root)
@@ -653,7 +653,7 @@ def cmd_init(args: argparse.Namespace) -> int:
 
 def cmd_update(args: argparse.Namespace) -> int:
     """Refresh the template assets (framework/SDK/providers/templates) in an
-    existing .ai-project. Never touches Brain/Vault/Knowledge/config/history."""
+    existing .ai-project-assistant. Never touches Brain/Vault/Knowledge/config/history."""
     from nx_cli import bootstrap
     target = Path(args.path).resolve()
     try:
@@ -662,7 +662,7 @@ def cmd_update(args: argparse.Namespace) -> int:
         util.eprint(f"error: {exc}")
         return 2
     print(util.banner(f"NXAI UPDATE — {target.name}"))
-    print(f"\n  .ai-project: {root}")
+    print(f"\n  .ai-project-assistant: {root}")
     print(f"  refreshed:   {copied} template file(s)")
     print("  preserved:   config.json, brain/, obsidian/, knowledge/, tasks/, history (untouched)")
     return 0
@@ -695,22 +695,22 @@ def cmd_doctor(_: argparse.Namespace) -> int:
         f"{len(list((tpl / 'agents').glob('*.md')))} agent specs" if tpl.is_dir() else str(tpl))
     import shutil as _sh
     add("git available", bool(_sh.which("git")), _sh.which("git") or "not on PATH", warn=True)
-    # project (.ai-project)
+    # project (.ai-project-assistant)
     try:
         root = util.config_root()
         has_proj = (root / "config.json").exists() or (root / "brain").is_dir()
     except Exception:
         root, has_proj = None, False
     if has_proj:
-        add(".ai-project present", True, str(root))
+        add(".ai-project-assistant present", True, str(root))
         try:
             json.loads((root / "config.json").read_text(encoding="utf-8")) if (root / "config.json").exists() else {}
             add("config.json valid", True, "ok")
         except Exception as exc:
             add("config.json valid", False, str(exc))
-        add(".ai-project writable", os.access(root, os.W_OK), "writable")
+        add(".ai-project-assistant writable", os.access(root, os.W_OK), "writable")
     else:
-        add(".ai-project present", False, "run `nxai init` in your project", warn=True)
+        add(".ai-project-assistant present", False, "run `nxai init` in your project", warn=True)
 
     print(util.banner("NXAI DOCTOR"))
     print()
@@ -911,7 +911,7 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("-V", "--version", action="version", version=f"nx-ai-engineer {_version()}")
     sub = p.add_subparsers(dest="command", required=True)
 
-    sp = sub.add_parser("init", help="Initialize .ai-project (scaffold + audit + brain + vault)")
+    sp = sub.add_parser("init", help="Initialize .ai-project-assistant (scaffold + audit + brain + vault)")
     sp.add_argument("path", nargs="?", default=".", help="Project dir (default: current)")
     sp.add_argument("--force", action="store_true", help="Overwrite existing template files")
     sp.add_argument("--no-audit", action="store_true", help="Scaffold only; skip audit/brain/vault")

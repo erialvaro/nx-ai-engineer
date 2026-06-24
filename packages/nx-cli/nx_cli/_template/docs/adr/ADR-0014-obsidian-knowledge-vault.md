@@ -13,7 +13,7 @@ without becoming a second source of truth or duplicating knowledge.
 
 ## Decision
 Add an **`ObsidianSync`** writer (`knowledge/obsidian_sync.py`) that projects the
-current Brain state into an Obsidian vault (default `.ai-project/obsidian/`):
+current Brain state into an Obsidian vault (default `.ai-project-assistant/obsidian/`):
 - One note per knowledge **area** in the official numbered structure
   (`00 Dashboard` … `14 Retrospectives` — see ADR-0019). Superseded the original
   flat 12-category layout; Modules/Dependencies are folded into Architecture.
@@ -47,7 +47,7 @@ imports Memory — no cycle. New CLI: `obsidian sync|status`.
   per run). We sync on `pipeline.completed` / `adr.created` (significant changes).
 
 ## Consequences
-- After each pipeline run (or ADR creation), `.ai-project/obsidian/` mirrors the
+- After each pipeline run (or ADR creation), `.ai-project-assistant/obsidian/` mirrors the
   Brain: navigable, backlinked, with a relationship graph — openable in Obsidian.
 - The Obsidian **provider** (reader) defaults to this generated vault, closing
   the loop (the platform can re-read what it rendered).

@@ -1,7 +1,7 @@
 """Project Analyzer + Audit Engine.
 
 Discovers, at runtime, *what kind of project this is* without assuming any
-technology. The result is persisted to `.ai-project/memory/architecture.json`
+technology. The result is persisted to `.ai-project-assistant/memory/architecture.json`
 and reused by every later stage (planner, locks, review, agents).
 
 The audit step layers risk/quality signals on top of the raw discovery.
@@ -20,7 +20,7 @@ from . import util
 _SKIP_DIRS = {
     ".git", "node_modules", ".venv", "venv", "__pycache__", "dist", "build",
     ".next", ".nuxt", "out", "target", "coverage", ".terraform", ".idea",
-    ".vscode", ".ai-project", "vendor", ".cache", ".pytest_cache", ".mypy_cache",
+    ".vscode", ".ai-project-assistant", "vendor", ".cache", ".pytest_cache", ".mypy_cache",
 }
 
 # Manifest file -> (stack label, ecosystem).

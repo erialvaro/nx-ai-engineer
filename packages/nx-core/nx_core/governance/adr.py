@@ -1,7 +1,7 @@
 """ADR engine — auto-generates Architecture Decision Records.
 
 Governance listens for decision events and writes an ADR to the Project Brain
-(`.ai-project/brain/adr/`, falling back to `.ai-project/knowledge/adr/`). ADRs
+(`.ai-project-assistant/brain/adr/`, falling back to `.ai-project-assistant/knowledge/adr/`). ADRs
 are knowledge, never code. The numbering is monotonic and gap-free.
 """
 from __future__ import annotations

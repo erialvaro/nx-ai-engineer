@@ -2,12 +2,12 @@
 
 > This file is a **placeholder + index**. The framework discovers the real
 > architecture at runtime and writes it to
-> `.ai-project/memory/architecture.json` (run `python tools/orchestrator.py
+> `.ai-project-assistant/memory/architecture.json` (run `python tools/orchestrator.py
 > audit`). If your project already has an architecture doc, **link it here and
 > do not duplicate it.**
 
 ## Discovered architecture
-See `.ai-project/memory/architecture.json` and `.ai-project/memory/audit.json`
+See `.ai-project-assistant/memory/architecture.json` and `.ai-project-assistant/memory/audit.json`
 for the latest machine-generated view (stacks, frameworks, monorepo layout,
 tests, CI, languages, risks).
 

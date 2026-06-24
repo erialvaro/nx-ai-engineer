@@ -2,7 +2,7 @@
 
 Observability is the runtime plumbing (counts now); Experience is the durable,
 aggregated-over-time view. Telemetry exports a point-in-time snapshot to
-`.ai-project/metrics/`.
+`.ai-project-assistant/metrics/`.
 """
 from __future__ import annotations
 

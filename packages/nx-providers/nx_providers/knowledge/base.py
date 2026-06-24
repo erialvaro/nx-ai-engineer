@@ -29,7 +29,7 @@ from typing import Any, Optional
 SKIP_DIRS = {
     ".git", "node_modules", ".venv", "venv", "__pycache__", "dist", "build",
     ".next", ".nuxt", "out", "target", "coverage", ".terraform", ".idea",
-    ".vscode", ".ai-project", "vendor", ".cache", ".pytest_cache", ".mypy_cache",
+    ".vscode", ".ai-project-assistant", "vendor", ".cache", ".pytest_cache", ".mypy_cache",
 }
 
 LANG_BY_EXT = {

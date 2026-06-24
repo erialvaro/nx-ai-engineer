@@ -45,7 +45,7 @@ nxai doctor     # confirm packages align and the project is healthy
 ```
 
 `nxai doctor` flags a version mismatch between packages, an unreadable
-`config.json`, or a missing/locked `.ai-project/`.
+`config.json`, or a missing/locked `.ai-project-assistant/`.
 
 ## Semantic Versioning
 
@@ -59,7 +59,7 @@ NX AI Engineer follows [SemVer](https://semver.org):
 ## Rolling back
 
 Because the code lives in the installed packages and your data lives in
-`.ai-project/`, rolling back the platform is just:
+`.ai-project-assistant/`, rolling back the platform is just:
 
 ```bash
 pip install nx-ai-engineer==<previous-version>

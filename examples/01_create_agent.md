@@ -4,7 +4,7 @@ An agent is defined by (a) a human/Claude-facing spec and (b) a machine-routable
 entry (globs/keywords). Two ways:
 
 ## A. Via config (no code) — recommended
-Edit `.ai-project/config.json`:
+Edit `.ai-project-assistant/config.json`:
 ```json
 {
   "extra_agents": {
@@ -19,7 +19,7 @@ Edit `.ai-project/config.json`:
   }
 }
 ```
-Then add a spec at `.ai-project/agents/pentester.md` (copy `_TEMPLATE.md`).
+Then add a spec at `.ai-project-assistant/agents/pentester.md` (copy `_TEMPLATE.md`).
 The Dispatcher/Decision Engine will now consider `pentester` for relevant goals:
 ```bash
 nxai decide "Pentest the OAuth flow"

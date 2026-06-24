@@ -1,12 +1,12 @@
 # Example 6 — Integrate a new project (under 5 minutes)
 
-AIES installs into any repository as a single `.ai-project/` folder.
+AIES installs into any repository as a single `.ai-project-assistant/` folder.
 
 ## 1. Install (idempotent)
 ```bash
 nxai init
 ```
-This copies the framework template into `<project>/.ai-project/` and seeds
+This copies the framework template into `<project>/.ai-project-assistant/` and seeds
 `config.json`. Re-running is safe — it never clobbers your config/brain/tasks.
 
 ## 2. Audit (always first — discovers your stack, no assumptions)
@@ -16,7 +16,7 @@ nxai audit
 ```
 
 ## 3. Configure invariants (optional)
-Edit `.ai-project/config.json`:
+Edit `.ai-project-assistant/config.json`:
 ```json
 {
   "domain_rules": ["Never read or write another tenant's data", "Never log PII"],

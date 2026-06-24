@@ -22,7 +22,7 @@ _TAG = re.compile(r"(?:^|\s)#([A-Za-z0-9_/-]{2,})")
 
 def default_vault(config: Optional[dict] = None) -> Path:
     """Where the generated vault lives: `config.obsidian_vault` or, by default,
-    `.ai-project/obsidian/` (a self-contained vault that travels with the project)."""
+    `.ai-project-assistant/obsidian/` (a self-contained vault that travels with the project)."""
     v = (config or {}).get("obsidian_vault")
     if v:
         return Path(v).expanduser()
@@ -42,7 +42,7 @@ class ObsidianProvider(KnowledgeProvider):
             self.vault = Path(cfg["obsidian_vault"]).expanduser()
         else:
             # Prefer the project-local generated vault; else auto-detect a vault.
-            local = self.root / ".ai-project" / "obsidian"
+            local = self.root / ".ai-project-assistant" / "obsidian"
             self.vault = local if local.exists() else self._detect()
         self._items: Optional[list[KnowledgeItem]] = None
 

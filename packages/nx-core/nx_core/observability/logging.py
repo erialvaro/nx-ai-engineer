@@ -1,4 +1,4 @@
-"""Structured logging — every event as one JSON line under `.ai-project/logs/`.
+"""Structured logging — every event as one JSON line under `.ai-project-assistant/logs/`.
 
 A pure event subscriber; attaching/removing it changes nothing in the domain
 engines. Logs are append-only and machine-readable.

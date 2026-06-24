@@ -12,7 +12,7 @@ applies a domain's rules correctly: NX organizes the knowledge; the model reason
 ```bash
 nxai pack list                 # browse the catalog (installed packs are marked)
 nxai pack show security        # read a pack's manifest + README
-nxai pack add lgpd             # install into .ai-project/packs/lgpd/
+nxai pack add lgpd             # install into .ai-project-assistant/packs/lgpd/
 nxai pack add security
 nxai pack remove lgpd          # uninstall
 ```
@@ -20,7 +20,7 @@ nxai pack remove lgpd          # uninstall
 Once installed, the **Pack Provider** (`nx_providers.knowledge.packs`) catalogs the
 pack and the Context Engine feeds its **policies / checklists / context** to the
 agents working in that domain — and reviewers can gate changes against the pack's
-checklist. Installed packs live under `.ai-project/packs/<name>/` and are **data**
+checklist. Installed packs live under `.ai-project-assistant/packs/<name>/` and are **data**
 (never code), so `nxai update` and your project's git history treat them like any
 other knowledge.
 

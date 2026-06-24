@@ -1,6 +1,6 @@
 ---
 name: nx-ai-engineer
-description: NX AI Engineer — a Developer Infrastructure Platform for AI-assisted development (installed CLI `nxai`). Use when the user wants to plan/execute a development goal through a disciplined audit→plan→implement→review pipeline, coordinate multiple AI agents (backend/frontend/db/ai/security/devops/qa/reviewer) on one codebase, set up `.ai-project`, or asks to "use NX AI Engineer / nxai / the platform / orchestrator / AIES / multi-agent workflow / plan a feature safely". Works on any stack (Node, Python, Go, monorepos/Nx, etc.) — it auto-discovers the architecture.
+description: NX AI Engineer — a Developer Infrastructure Platform for AI-assisted development (installed CLI `nxai`). Use when the user wants to plan/execute a development goal through a disciplined audit→plan→implement→review pipeline, coordinate multiple AI agents (backend/frontend/db/ai/security/devops/qa/reviewer) on one codebase, set up `.ai-project-assistant`, or asks to "use NX AI Engineer / nxai / the platform / orchestrator / AIES / multi-agent workflow / plan a feature safely". Works on any stack (Node, Python, Go, monorepos/Nx, etc.) — it auto-discovers the architecture.
 ---
 
 # NX AI Engineer
@@ -8,7 +8,7 @@ description: NX AI Engineer — a Developer Infrastructure Platform for AI-assis
 A Developer Infrastructure Platform that turns any AI model into a coordinated,
 multi-agent development team. It is **project-agnostic**: it discovers the stack at
 runtime and never assumes any technology. The platform installs as the `nxai` CLI;
-each project keeps a single **data-only** `.ai-project/` folder.
+each project keeps a single **data-only** `.ai-project-assistant/` folder.
 
 ## ⛔ MANDATORY RULE — never implement immediately
 
@@ -38,7 +38,7 @@ work audited, scoped, coordinated and reviewed.
 - The user gives a development goal and wants it planned/executed safely
   ("implement OAuth", "add export to CSV", "refactor the billing module").
 - The user mentions: AIES, the framework, the orchestrator, multi-agent
-  workflow, `.ai-project`, agent lanes, "plan a feature", "audit the project".
+  workflow, `.ai-project-assistant`, agent lanes, "plan a feature", "audit the project".
 - Any non-trivial change to an unfamiliar or shared codebase where scope
   discipline and review matter.
 
@@ -48,7 +48,7 @@ For a one-line answer or a trivial edit, you don't need the full pipeline.
 
 ### 0. Locate or install the platform
 - Preferred (installed): `pip install nx-ai-engineer`, then run `nxai` from the
-  project root. If the project has no `.ai-project/` yet, run `nxai init`.
+  project root. If the project has no `.ai-project-assistant/` yet, run `nxai init`.
 - From this skill checkout (no install): use the in-repo shim, e.g.
   `python <skill>/framework/tools/orchestrator.py <command>`, or bootstrap with
   `python <skill>/scripts/init_aies.py <project-dir>` (delegates to `nxai init`).
@@ -60,13 +60,13 @@ For a one-line answer or a trivial edit, you don't need the full pipeline.
 nxai audit
 ```
 Discovers stack/frameworks/monorepo/tests/CI and writes
-`.ai-project/memory/`. Read the strengths and risks before planning.
+`.ai-project-assistant/memory/`. Read the strengths and risks before planning.
 
 ### 2. Plan a goal
 ```
 nxai plan "Add OAuth login with Google"
 ```
-Creates a task under `.ai-project/tasks/<id>.md` with: involved agents,
+Creates a task under `.ai-project-assistant/tasks/<id>.md` with: involved agents,
 dependency-ordered subtasks, candidate files, risks, acceptance criteria, and
 advisory file locks (with conflict detection).
 
@@ -77,8 +77,8 @@ nxai worktree --plan <task-id>
 Creates one git worktree per implementing agent (`feature/<agent>`). Idempotent.
 
 ### 4. Implement
-For each subtask in order, **read the agent's spec** in `.ai-project/agents/<agent>.md`,
-stay inside its allowed paths, and follow `.ai-project/PROJECT_RULES.md`. Spawn a
+For each subtask in order, **read the agent's spec** in `.ai-project-assistant/agents/<agent>.md`,
+stay inside its allowed paths, and follow `.ai-project-assistant/PROJECT_RULES.md`. Spawn a
 subagent per lane if working in parallel.
 
 ### 5. Review
@@ -86,7 +86,7 @@ subagent per lane if working in parallel.
 nxai review
 ```
 Consolidated report: ownership, untested changes, large files, sensitive
-changes, protected-path violations, lock overlap. Saved to `.ai-project/reviews/`.
+changes, protected-path violations, lock overlap. Saved to `.ai-project-assistant/reviews/`.
 
 ### 6. Consolidate, document, report
 Integrate lanes, update docs, release locks
@@ -168,14 +168,14 @@ PR and updates the Project Brain.
   `docs/sdk.md`). Extend without touching the core.
 
 ## Configuration
-`.ai-project/config.json` (optional, all keys have defaults):
+`.ai-project-assistant/config.json` (optional, all keys have defaults):
 - `domain_rules` — project invariants surfaced into every plan (e.g. tenant
   isolation, PII handling).
 - `protected_paths` — globs no agent may modify (review blocks on them).
 - `extra_agents` / `disabled_agents` — extend or trim the agent roster.
 - `branch_prefix`, `default_base`, `large_file_loc`.
 
-## Layout of `.ai-project/`
+## Layout of `.ai-project-assistant/`
 - `agents/` — one spec per agent (responsibilities, allowed/forbidden paths,
   checklist). `tools/aies/agents.py` holds the machine-routable globs/keywords.
 - `engines` — `tools/aies/`: analyzer, planner, dependency, tasks, locks,

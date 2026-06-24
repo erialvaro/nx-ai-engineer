@@ -1,7 +1,7 @@
 # Project Brain
 
 The **Project Brain** is the platform's persistent, project-specific knowledge,
-stored as specialized directories under `.ai-project/brain/`. It holds
+stored as specialized directories under `.ai-project-assistant/brain/`. It holds
 **knowledge, never code** — a `looks_like_code` guard drops any code-like value.
 
 > Related: [memory.md](memory.md) (memory subsystem overview), ADR-0004 (Brain),
@@ -9,7 +9,7 @@ stored as specialized directories under `.ai-project/brain/`. It holds
 
 ## Layout (facets)
 ```
-.ai-project/brain/
+.ai-project-assistant/brain/
 ├── architecture/   discovered stack/frameworks (snapshots)
 ├── modules/        modules/workspaces
 ├── services/       services + contracts

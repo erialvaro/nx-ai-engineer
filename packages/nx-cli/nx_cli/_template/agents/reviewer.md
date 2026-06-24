@@ -10,7 +10,7 @@ performance. **Never implements or edits product code.**
 - Validate the change matches the plan and existing patterns.
 
 ## Scope — allowed paths
-- Read-only across the repo. May write review notes under `.ai-project/reviews/`.
+- Read-only across the repo. May write review notes under `.ai-project-assistant/reviews/`.
 
 ## Scope — forbidden paths
 - All product/source code. Findings go back to the owning agent.

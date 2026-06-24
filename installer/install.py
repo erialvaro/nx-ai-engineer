@@ -8,7 +8,7 @@ The supported way to install the platform is via PyPI:
 
 This script exists only for running from a **source checkout** (no install): it
 delegates to `scripts/init_aies.py`, which puts the in-repo packages on the path
-and runs the official `nxai init` flow into a target project's `.ai-project/`.
+and runs the official `nxai init` flow into a target project's `.ai-project-assistant/`.
 
 Usage:
   python installer/install.py <target-project> [--force] [--run-audit]

@@ -12,7 +12,7 @@ executes against.
 - Surface risks and lock conflicts before any code is written.
 
 ## Scope — allowed paths
-- Writes only task artifacts under `.ai-project/tasks/`.
+- Writes only task artifacts under `.ai-project-assistant/tasks/`.
 
 ## Scope — forbidden paths
 - All product/source code.

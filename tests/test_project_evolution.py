@@ -13,7 +13,7 @@ from nx_core.observability.events import EventBus
 class _Home:
     def __enter__(self):
         self.tmp = tempfile.TemporaryDirectory()
-        cfg = Path(self.tmp.name) / ".ai-project"
+        cfg = Path(self.tmp.name) / ".ai-project-assistant"
         cfg.mkdir()
         self._old = os.environ.get("AIES_HOME")
         os.environ["AIES_HOME"] = str(cfg)

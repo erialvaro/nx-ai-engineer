@@ -19,9 +19,9 @@ class _Repo:
         for args in (["init", "-q"], ["add", "-A"],
                      ["-c", "user.email=a@b.c", "-c", "user.name=t", "commit", "-qm", "init"]):
             subprocess.run(["git", *args], cwd=r, capture_output=True)
-        (r / ".ai-project").mkdir()
+        (r / ".ai-project-assistant").mkdir()
         self._old = os.environ.get("AIES_HOME")
-        os.environ["AIES_HOME"] = str(r / ".ai-project")
+        os.environ["AIES_HOME"] = str(r / ".ai-project-assistant")
         self.root = r
         return r
 

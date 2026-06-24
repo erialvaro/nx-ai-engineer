@@ -137,8 +137,8 @@ class ClaudeCodeAdapter:
     def _build_prompt(self, agent: str, context: AgentContext, instructions: str,
                       mode: ExecutionMode) -> str:
         lines = [
-            f"You are the AIES '{agent}' agent. Follow .ai-project/PROJECT_RULES.md "
-            f"and .ai-project/agents/{agent}.md strictly.",
+            f"You are the AIES '{agent}' agent. Follow .ai-project-assistant/PROJECT_RULES.md "
+            f"and .ai-project-assistant/agents/{agent}.md strictly.",
             "",
             f"## Objective\n{instructions}",
         ]

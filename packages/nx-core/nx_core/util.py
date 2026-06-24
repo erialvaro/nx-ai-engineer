@@ -16,20 +16,20 @@ from pathlib import Path
 from typing import Any, Optional
 
 # --- Marker that identifies the framework root inside a target project --------
-CONFIG_DIRNAME = ".ai-project"
+CONFIG_DIRNAME = ".ai-project-assistant"
 
 
 # --------------------------------------------------------------------------- #
 # Paths
 # --------------------------------------------------------------------------- #
 def config_root(start: Optional[Path] = None) -> Path:
-    """Return the absolute path to the `.ai-project` directory.
+    """Return the absolute path to the `.ai-project-assistant` directory.
 
     Resolution order:
       1. AIES_HOME environment variable (if set and valid).
-      2. Walk up from `start` (or this file) looking for a `.ai-project` dir.
-      3. Walk up looking for a directory that *is* `.ai-project`.
-      4. Fall back to `<cwd>/.ai-project` — the project the user is running in.
+      2. Walk up from `start` (or this file) looking for a `.ai-project-assistant` dir.
+      3. Walk up looking for a directory that *is* `.ai-project-assistant`.
+      4. Fall back to `<cwd>/.ai-project-assistant` — the project the user is running in.
     """
     env = os.environ.get("AIES_HOME")
     if env:
@@ -54,7 +54,7 @@ def config_root(start: Optional[Path] = None) -> Path:
 
 
 def project_root(start: Optional[Path] = None) -> Path:
-    """The actual project being managed = parent of `.ai-project`."""
+    """The actual project being managed = parent of `.ai-project-assistant`."""
     return config_root(start).parent
 
 

@@ -1,6 +1,6 @@
 """Configuration loading.
 
-Config lives at `.ai-project/config.json` and is fully optional — every value
+Config lives at `.ai-project-assistant/config.json` and is fully optional — every value
 has a sane default so the framework works the moment the folder is copied in.
 Projects override only what they need (extra agents, custom domain rules,
 protected paths, branch prefix, etc.).
@@ -28,7 +28,7 @@ DEFAULTS: dict[str, Any] = {
     "disabled_agents": [],
     # Obsidian: auto-sync a visual vault from the Project Brain (knowledge view).
     "obsidian_sync": True,
-    "obsidian_vault": None,   # path; null => .ai-project/obsidian
+    "obsidian_vault": None,   # path; null => .ai-project-assistant/obsidian
     # Knowledge Engine: opt-in commit of brain+obsidian to Git (historical memory).
     "knowledge_git_snapshot": False,
     # Engineering Contracts: per-agent overrides for pack auto-application, e.g.

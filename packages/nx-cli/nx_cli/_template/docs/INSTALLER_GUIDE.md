@@ -22,7 +22,7 @@ nxai doctor
 
 `nxai doctor` checks the Python version, that every `nx_*` package imports with an
 aligned version, that the bundled template is present, whether `git` is on PATH,
-and — if you are inside a project — that `.ai-project/` is valid and writable.
+and — if you are inside a project — that `.ai-project-assistant/` is valid and writable.
 
 ## Initialize a project
 
@@ -34,7 +34,7 @@ nxai init
 
 `init` is idempotent and performs the official bootstrap flow:
 
-1. **Scaffold** `.ai-project/` — **data only** (the code stays in the installed
+1. **Scaffold** `.ai-project-assistant/` — **data only** (the code stays in the installed
    packages). It lays down the deployable template (agent specs, templates,
    project rules, `config.example.json`) and creates the empty data dirs
    (`brain/ knowledge/ obsidian/ tasks/ locks/ reviews/ logs/ memory/`).
@@ -55,8 +55,8 @@ Options:
 | Location | Owner | Contents |
 |---|---|---|
 | site-packages (`nx_*`) | the install | All platform code. Upgraded via `pip`. |
-| `.ai-project/` | your project | **Data only**: config, Project Brain, Obsidian vault, knowledge, tasks, locks, reviews, history. |
-| `.ai-project/agents`, `templates`, `PROJECT_RULES.md` | the template | Refreshed by `nxai update`; safe to customize (your edits to non-template files are never touched). |
+| `.ai-project-assistant/` | your project | **Data only**: config, Project Brain, Obsidian vault, knowledge, tasks, locks, reviews, history. |
+| `.ai-project-assistant/agents`, `templates`, `PROJECT_RULES.md` | the template | Refreshed by `nxai update`; safe to customize (your edits to non-template files are never touched). |
 
 ## Daily use
 

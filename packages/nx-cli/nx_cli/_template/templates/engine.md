@@ -10,7 +10,7 @@ One sentence — the single thing this engine does.
 ## Public functions
 - `build(...) -> dict` — pure computation, returns data.
 - `render(report) -> str` — (optional) human-readable output.
-- `run_and_persist(...) -> dict` — orchestrate + write to `.ai-project/...`.
+- `run_and_persist(...) -> dict` — orchestrate + write to `.ai-project-assistant/...`.
 
 ## Rules
 - Stdlib only. No network, no third-party deps.

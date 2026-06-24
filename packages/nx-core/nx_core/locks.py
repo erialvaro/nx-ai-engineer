@@ -1,6 +1,6 @@
 """Lock Engine — cooperative file locking across concurrent agents/tasks.
 
-Locks live as one JSON file per logical lock under `.ai-project/locks/`.
+Locks live as one JSON file per logical lock under `.ai-project-assistant/locks/`.
 They are advisory: agents (human or AI) consult them before claiming files so
 two parallel tasks don't fight over the same code. Nothing enforces them at the
 filesystem level — the value is visibility, surfaced in every task report.

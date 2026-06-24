@@ -6,7 +6,7 @@ examples and a distilled *context* file. A pack contains **no product code and n
 AI**: it organizes domain knowledge so that *any* model applies it correctly.
 
 The built-in catalog ships as package data. `nxai pack add <name>` installs a
-pack into a project's `.ai-project/packs/<name>/`, where the Pack Provider
+pack into a project's `.ai-project-assistant/packs/<name>/`, where the Pack Provider
 (`nx_providers.knowledge.packs`) catalogs it and the Context Builder feeds its
 policies/checklists/context to the agents working in that domain.
 

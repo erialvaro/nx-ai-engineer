@@ -22,7 +22,7 @@ def note(vault: Path, title: str) -> Path:
 class _Home:
     def __enter__(self):
         self.tmp = tempfile.TemporaryDirectory()
-        cfg = Path(self.tmp.name) / ".ai-project"
+        cfg = Path(self.tmp.name) / ".ai-project-assistant"
         (cfg / "docs" / "adr").mkdir(parents=True)
         (cfg / "docs" / "adr" / "ADR-0001-a.md").write_text(
             "# ADR-0001: Use OAuth\n- **Status:** Accepted\nrelated ADR-0002\n", encoding="utf-8")

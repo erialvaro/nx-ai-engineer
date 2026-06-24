@@ -1,6 +1,6 @@
-"""Project bootstrap & maintenance for the `.ai-project/` working directory.
+"""Project bootstrap & maintenance for the `.ai-project-assistant/` working directory.
 
-The platform code ships as installed packages; a project's `.ai-project/` holds
+The platform code ships as installed packages; a project's `.ai-project-assistant/` holds
 ONLY data + the deployable template assets. This module powers `nxai init`
 (create/scaffold) and `nxai update` (refresh template assets, never user data).
 
@@ -19,7 +19,7 @@ from __future__ import annotations
 import shutil
 from pathlib import Path
 
-CONFIG_DIRNAME = ".ai-project"
+CONFIG_DIRNAME = ".ai-project-assistant"
 TEMPLATE = Path(__file__).resolve().parent / "_template"
 
 # Template assets laid down on init AND refreshed on update
@@ -80,7 +80,7 @@ def _lay_assets(root: Path, force: bool) -> tuple[int, int]:
 
 
 def init(target, force: bool = False) -> tuple[Path, int, int]:
-    """Create/scaffold `<target>/.ai-project/`. Returns (root, copied, skipped).
+    """Create/scaffold `<target>/.ai-project-assistant/`. Returns (root, copied, skipped).
 
     Idempotent: existing files are preserved unless ``force`` is set. Always
     creates the empty DATA dirs and seeds `config.json` from the example if the
@@ -105,7 +105,7 @@ def init(target, force: bool = False) -> tuple[Path, int, int]:
 
 
 def update(target) -> tuple[Path, int, int]:
-    """Refresh template assets in an existing `.ai-project/` (force-overwrite).
+    """Refresh template assets in an existing `.ai-project-assistant/` (force-overwrite).
 
     Updates only the framework/SDK/providers/templates assets + the config
     example. Never touches `config.json` or any data dir (Brain/Vault/Knowledge/

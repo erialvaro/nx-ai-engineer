@@ -1,4 +1,4 @@
-# ADR-0019: Distribution as a platform — pip + `nxai` CLI + data-only `.ai-project`
+# ADR-0019: Distribution as a platform — pip + `nxai` CLI + data-only `.ai-project-assistant`
 
 - **Status:** Accepted
 - **Date:** 2026-06-23
@@ -7,7 +7,7 @@
 
 ## Context
 The project matured from a copy-based framework (a `framework/` template copied
-into `<project>/.ai-project/`, run via `python .ai-project/tools/orchestrator.py`)
+into `<project>/.ai-project-assistant/`, run via `python .ai-project-assistant/tools/orchestrator.py`)
 into a product that must be **installable, versioned and upgradable** like any
 modern developer tool. The copy-based model coupled the engine *code* to each
 project, made upgrades a manual re-copy, and could not ship via PyPI.
@@ -24,11 +24,11 @@ never risks the user's accumulated knowledge during upgrades.
    project rules, the config example and the guides live under
    `nx_cli/_template/` and ship inside the `nx-cli` wheel — so `nxai init`/`update`
    need **no manual file copying**.
-3. **`.ai-project/` is data-only.** The engine code lives in the installed
-   packages; a project's `.ai-project/` holds only **data**: `config.json`, the
+3. **`.ai-project-assistant/` is data-only.** The engine code lives in the installed
+   packages; a project's `.ai-project-assistant/` holds only **data**: `config.json`, the
    Project Brain (`brain/`), the Obsidian vault (`obsidian/`), knowledge, and
    working state (`tasks/ locks/ reviews/ logs/ memory/`).
-4. **`nxai init`** scaffolds `.ai-project/` (data dirs + template assets + seeded
+4. **`nxai init`** scaffolds `.ai-project-assistant/` (data dirs + template assets + seeded
    config) and runs the official flow: **audit → Project Brain → Knowledge Engine
    → Obsidian Vault**. It is idempotent and never clobbers user data.
 5. **`nxai update`** refreshes only the template-derived assets

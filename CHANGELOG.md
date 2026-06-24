@@ -30,7 +30,7 @@ packaging and the official product surface.
   context) for engineering domains. Two reference packs are authored in full
   (**lgpd**, **security**/OWASP) plus structured scaffolds for owasp, ai, cloud,
   docker, multi-tenant, observability, testing, billing, authentication. Managed
-  via `nxai pack <list|show|add|remove>`; once installed under `.ai-project/packs/`,
+  via `nxai pack <list|show|add|remove>`; once installed under `.ai-project-assistant/packs/`,
   a new **Pack Provider** feeds the pack's policies/checklists/context to the
   agents working in that domain. Packs contain **no code and no AI** (enforced by
   the test suite). Third parties can publish their own packs (the Marketplace).
@@ -59,8 +59,8 @@ packaging and the official product surface.
   packages and the `nxai` script — **no manual file copying**. The deployable
   template (agent specs, doc/code templates, project rules, guides, config
   example) ships as **package data** inside `nx-cli` (`nx_cli/_template/`).
-- **Data-only `.ai-project/`.** The platform code lives in the installed packages;
-  a project's `.ai-project/` holds **only data** (config + Brain + Vault +
+- **Data-only `.ai-project-assistant/`.** The platform code lives in the installed packages;
+  a project's `.ai-project-assistant/` holds **only data** (config + Brain + Vault +
   Knowledge + tasks/locks/reviews/history). `nxai init` scaffolds it; `nxai update`
   refreshes template assets while **never** touching Brain/Vault/Knowledge/config/
   history.
@@ -99,7 +99,7 @@ packaging and the official product surface.
 - **Deployment cleanup (post-audit):** removed the repo-layout `sys.path`
   injection from every installed package `__init__` and the CLI (relied on
   ordinary package resolution — no more shadowing site-packages); `config_root()`
-  now falls back to `<cwd>/.ai-project` instead of pointing into the install tree;
+  now falls back to `<cwd>/.ai-project-assistant` instead of pointing into the install tree;
   pinned intra-workspace dependencies to `==1.0.0` and de-duplicated the console
   scripts to the `nx-cli` package; surfaced previously-silent failures as bus
   events (`lock.check_error`, `knowledge.unavailable/index_error/obsidian_error`,
@@ -136,7 +136,7 @@ packaging and the official product surface.
 - **Test-suite** moved to top-level `tests/` (210 tests) and the **examples**
   rewritten to import `nx_*` directly.
 - **Deployment** (`scripts/init_aies.py`) now installs both `framework/` and
-  `packages/` into `<target>/.ai-project/`, and the deployed orchestrator shim
+  `packages/` into `<target>/.ai-project-assistant/`, and the deployed orchestrator shim
   locates `packages/` by walking up from itself — so the copy-based install keeps
   working after the split (verified end-to-end).
 

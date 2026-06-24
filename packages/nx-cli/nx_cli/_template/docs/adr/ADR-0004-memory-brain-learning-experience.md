@@ -22,7 +22,7 @@ storing source code.
    into the Brain, emitting `brain.updated`.
 3. **Experience** (`experience/metrics.py`) subscribes to the bus and aggregates
    KPIs (success rate, rework/retries, context reduction, …) to
-   `.ai-project/experience/`.
+   `.ai-project-assistant/experience/`.
 4. **Semantic Knowledge** (`memory/semantic.py`) ships the `SemanticIndex`
    protocol and a dependency-free `NullSemanticIndex` (keyword/Jaccard). A real
    vector index registers later via the SDK with zero caller changes.
@@ -34,7 +34,7 @@ storing source code.
   the Semantic interface.
 
 ## Consequences
-- Memory now spans `.ai-project/brain/` and `.ai-project/experience/`; the legacy
+- Memory now spans `.ai-project-assistant/brain/` and `.ai-project-assistant/experience/`; the legacy
   file still works and is migrated on demand.
 - Learning and Experience are pure event subscribers — adding them changed no
   domain engine (Open/Closed).

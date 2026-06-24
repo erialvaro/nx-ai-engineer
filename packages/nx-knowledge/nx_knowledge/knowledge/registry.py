@@ -81,7 +81,7 @@ def default_registry(*, root: Optional[Path] = None, config: Optional[dict] = No
     reg.register(MarkdownProvider(root))
     reg.register(ADRProvider(root))
     reg.register(ObsidianProvider(root, config=config))
-    # Packs live in the data home (.ai-project/packs), not the project source root.
+    # Packs live in the data home (.ai-project-assistant/packs), not the project source root.
     reg.register(PackProvider(util.config_root()))
     if brain is not None:
         reg.register(ProjectBrainProvider(brain))

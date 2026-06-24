@@ -12,7 +12,7 @@ project already uses, and decide trade-offs — without writing product code.
 
 ## Scope — allowed paths
 - Read-only across the whole repo. May write only design notes under `docs/` or
-  `.ai-project/reviews/` (ADRs, decision records).
+  `.ai-project-assistant/reviews/` (ADRs, decision records).
 
 ## Scope — forbidden paths
 - All product/source code. The architect proposes; implementers dispose.
@@ -23,7 +23,7 @@ project already uses, and decide trade-offs — without writing product code.
 - The design minimizes blast radius and preserves existing contracts.
 
 ## Checklist (run before handing off)
-- [ ] Read the architecture memory (`.ai-project/memory/architecture.json`)
+- [ ] Read the architecture memory (`.ai-project-assistant/memory/architecture.json`)
 - [ ] Listed impacted modules and their dependencies
 - [ ] Named reusable components implementers should not re-create
 - [ ] Recorded the decision (ADR) when it is non-obvious

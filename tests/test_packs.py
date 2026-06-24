@@ -43,12 +43,12 @@ class TestCatalog(unittest.TestCase):
 class TestInstallAndProvider(unittest.TestCase):
     def test_install_then_provider_catalogs_it(self):
         with tempfile.TemporaryDirectory() as tmp:
-            packs_root = Path(tmp) / ".ai-project" / "packs"
+            packs_root = Path(tmp) / ".ai-project-assistant" / "packs"
             dst = nx_packs.install("lgpd", packs_root)
             self.assertTrue((dst / "pack.json").is_file())
             self.assertEqual(list(dst.rglob("*.py")), [])  # no code installed
 
-            prov = PackProvider(root=Path(tmp) / ".ai-project")
+            prov = PackProvider(root=Path(tmp) / ".ai-project-assistant")
             self.assertEqual(prov.index(), 1)
             items = prov.catalog()
             self.assertEqual(items[0].kind, "pack")
@@ -61,7 +61,7 @@ class TestInstallAndProvider(unittest.TestCase):
 
     def test_provider_empty_when_no_packs(self):
         with tempfile.TemporaryDirectory() as tmp:
-            prov = PackProvider(root=Path(tmp) / ".ai-project")
+            prov = PackProvider(root=Path(tmp) / ".ai-project-assistant")
             self.assertEqual(prov.index(), 0)
             self.assertEqual(prov.catalog(), [])
 
@@ -70,7 +70,7 @@ class TestPackCLI(unittest.TestCase):
     def setUp(self):
         self._home = os.environ.get("AIES_HOME")
         self.tmp = tempfile.TemporaryDirectory()
-        root = Path(self.tmp.name) / ".ai-project"
+        root = Path(self.tmp.name) / ".ai-project-assistant"
         root.mkdir()
         os.environ["AIES_HOME"] = str(root)
 

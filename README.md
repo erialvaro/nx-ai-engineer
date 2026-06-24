@@ -1,6 +1,6 @@
 # NX AI Engineer
 
-**v1.0.0** · stdlib-only · zero runtime dependencies · 218 tests green ·
+**v1.0.0** · stdlib-only · zero runtime dependencies · 236 tests green ·
 [CHANGELOG](CHANGELOG.md) · [ROADMAP](ROADMAP.md) · [RELEASE_NOTES](RELEASE_NOTES.md)
 
 **NX AI Engineer is a Developer Infrastructure Platform for AI-assisted software
@@ -35,14 +35,14 @@ nxai doctor
 ```
 
 No manual file copying, ever. The platform code lives in the installed packages;
-your project's `.ai-project/` holds **data only**.
+your project's `.ai-project-assistant/` holds **data only**.
 
 ## Quickstart
 
 From the root of any repository:
 
 ```bash
-nxai init                      # scaffold .ai-project + audit + Brain + Knowledge + Vault
+nxai init                      # scaffold .ai-project-assistant + audit + Brain + Knowledge + Vault
 nxai plan "Add OAuth login"    # plan a goal into a task (agents, order, locks)
 nxai execute "Add OAuth login" # full end-to-end flow (Dry Run -> Test -> Execute; dry-run by default)
 nxai review                    # consolidated diff review
@@ -105,7 +105,7 @@ nxai contract --agent backend "Implement Google login" --files auth.py --areas a
 
 | Command | Purpose |
 |---|---|
-| `nxai init` | Initialize `.ai-project` (scaffold + audit + Brain + Knowledge + Vault) |
+| `nxai init` | Initialize `.ai-project-assistant` (scaffold + audit + Brain + Knowledge + Vault) |
 | `nxai audit` | Discover & persist the architecture |
 | `nxai plan "<goal>"` | Plan a goal into a task |
 | `nxai execute "<goal>"` | Full end-to-end flow (alias of `pipeline`) |

@@ -13,7 +13,7 @@ from nx_core.observability.events import EventBus
 
 
 class _Sandbox:
-    """Create a throwaway project and point AIES_HOME at its .ai-project."""
+    """Create a throwaway project and point AIES_HOME at its .ai-project-assistant."""
     def __enter__(self):
         self.tmp = tempfile.TemporaryDirectory()
         root = Path(self.tmp.name)
@@ -27,9 +27,9 @@ class _Sandbox:
         (root / "tests/test_auth.py").write_text("x=1", encoding="utf-8")
         (root / "docs/auth.md").write_text("x", encoding="utf-8")
         (root / "pyproject.toml").write_text("[project]", encoding="utf-8")
-        (root / ".ai-project").mkdir()
+        (root / ".ai-project-assistant").mkdir()
         self._old = os.environ.get("AIES_HOME")
-        os.environ["AIES_HOME"] = str(root / ".ai-project")
+        os.environ["AIES_HOME"] = str(root / ".ai-project-assistant")
         return root
 
     def __exit__(self, *a):

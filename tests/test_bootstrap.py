@@ -12,7 +12,7 @@ class TestBootstrap(unittest.TestCase):
     def test_init_scaffolds_data_only_project(self):
         with tempfile.TemporaryDirectory() as tmp:
             root, copied, _ = bootstrap.init(tmp)
-            self.assertTrue(root.name == ".ai-project")
+            self.assertTrue(root.name == ".ai-project-assistant")
             # template assets laid down
             self.assertTrue((root / "agents").is_dir())
             self.assertTrue((root / "PROJECT_RULES.md").exists())
@@ -86,7 +86,7 @@ class TestNewCommands(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             rc = orchestrator.main(["init", tmp, "--no-audit"])
             self.assertEqual(rc, 0)
-            self.assertTrue((Path(tmp) / ".ai-project" / "config.json").exists())
+            self.assertTrue((Path(tmp) / ".ai-project-assistant" / "config.json").exists())
 
     def test_doctor_runs(self):
         ns = orchestrator.build_parser().parse_args(["doctor"])
