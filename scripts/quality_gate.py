@@ -83,6 +83,12 @@ def gate_tests() -> bool:
     out = (proc.stderr or "") + (proc.stdout or "")
     passed = proc.returncode == 0 and "OK" in out
     ran = next((l for l in out.splitlines() if l.startswith("Ran ")), "")
+    if not passed:
+        # Surface the actual failures (so a CI failure is debuggable, not hidden).
+        fails = [l for l in out.splitlines()
+                 if l.startswith(("FAIL:", "ERROR:")) or "AssertionError" in l]
+        for l in fails[:25]:
+            print("        " + l)
     return _ok("tests", passed, ran)
 
 

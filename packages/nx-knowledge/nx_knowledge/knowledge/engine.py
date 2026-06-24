@@ -198,8 +198,12 @@ class KnowledgeEngine:
             return False
         cfg = util.config_root()
         util.git(["add", str(cfg / "brain"), str(cfg / "obsidian")], self.root)
+        # Attribute the snapshot to the tool and supply an identity inline, so the
+        # commit succeeds even where no global git user.name/email is configured
+        # (e.g. CI runners) — it never depends on the user's git config.
         code, _, _ = util.git(
-            ["commit", "-m", "chore(aies): knowledge snapshot"], self.root)
+            ["-c", "user.name=nx-ai-engineer", "-c", "user.email=nxai@local",
+             "commit", "-m", "chore(nxai): knowledge snapshot"], self.root)
         return code == 0
 
     def _git_head(self) -> Optional[str]:
