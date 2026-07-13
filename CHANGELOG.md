@@ -3,6 +3,24 @@
 All notable changes to NX AI Engineer are documented here. Format:
 [Keep a Changelog]; versioning: [Semantic Versioning](https://semver.org).
 
+## [2.3.1] — 2026-07-13 · index ADRs in brain/decisions + surface Brain docs
+
+### Fixed
+- **ADRs placed in `brain/decisions/` are now indexed.** The ADR provider scanned
+  `brain/adr/` but not `brain/decisions/` — yet `decisions` is also a Brain facet
+  name, so an ADR-`*.md` dropped there was silently ignored. Added
+  `brain/decisions/` to the scanned roots (only `ADR-*.md` matches, so no false
+  hits). `nxai` still writes its own ADRs to `brain/adr/`; this just also honors
+  the intuitive folder. (Note: `nxai init` does not create `brain/decisions/`;
+  facet dirs are created on write.)
+
+### Added
+- **Free-form Brain markdown docs are now retrievable.** Briefs, requirements and
+  context notes dropped under `.ai-project-assistant/brain/**/*.md` are surfaced by
+  the Project Brain provider (kind `brain-doc`) — so they appear in
+  `nxai knowledge list/retrieve`, even though the generic markdown/filesystem
+  providers intentionally skip the AI's data home. ADRs remain the ADR provider's job.
+
 ## [2.3.0] — 2026-07-13 · ambient auto-recording (on by default)
 
 ### Added

@@ -9,9 +9,10 @@ It only surfaces stored knowledge; it never re-derives or interprets it.
 """
 from __future__ import annotations
 
+from pathlib import Path
 from typing import Any
 
-from .base import KnowledgeItem, KnowledgeProvider
+from .base import KnowledgeItem, KnowledgeProvider, first_heading
 
 
 class ProjectBrainProvider(KnowledgeProvider):
@@ -49,6 +50,25 @@ class ProjectBrainProvider(KnowledgeProvider):
                 ref=str(r.get("id", "")), title=str(r.get("request", ""))[:60],
                 metadata={"status": r.get("status"), "workflow": r.get("workflow"),
                           "agents": r.get("agents_used"), "success": r.get("strategy_success")}))
+
+        # Free-form knowledge docs dropped into the Brain (briefs, requirements,
+        # context notes). Surfaced here — and thus retrievable — because the
+        # generic markdown/filesystem providers intentionally skip the
+        # `.ai-project-assistant` home. ADRs stay the ADR provider's job.
+        brain_dir = getattr(self.brain, "dir", None)
+        if brain_dir is not None:
+            for p in sorted(Path(brain_dir).rglob("*.md")):
+                if p.name.startswith("ADR-") or "__pycache__" in p.parts:
+                    continue
+                try:
+                    text = p.read_text(encoding="utf-8", errors="ignore")
+                except OSError:
+                    continue
+                ref = p.relative_to(brain_dir).as_posix()
+                items.append(KnowledgeItem(
+                    id=f"brain:doc:{ref}", provider=self.name, kind="brain-doc",
+                    ref=ref, title=first_heading(text) or p.stem,
+                    metadata={"words": len(text.split())}))
 
         self._items = items
         return len(items)

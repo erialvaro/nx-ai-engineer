@@ -27,6 +27,9 @@ class ADRProvider(KnowledgeProvider):
             self.root / "docs" / "adr",
             cfg / "docs" / "adr",
             cfg / "brain" / "adr",
+            # `decisions` is also a Brain facet name; users naturally drop an ADR
+            # there, so index it too (only ADR-*.md files match — no false hits).
+            cfg / "brain" / "decisions",
             cfg / "knowledge" / "adr",
         ]
 
