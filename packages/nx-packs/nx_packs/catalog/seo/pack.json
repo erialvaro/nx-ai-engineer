@@ -1,0 +1,61 @@
+{
+  "name": "seo",
+  "title": "SEO & AI Discoverability",
+  "version": "1.0.0",
+  "domain": "web",
+  "category": "seo",
+  "status": "stable",
+  "summary": "End-to-end SEO engineering: crawlability/indexability, on-page relevance, schema.org structured data, Core Web Vitals, internationalization — plus AI/LLM discoverability (llms.txt, GEO, E-E-A-T) for AI Overviews and answer engines.",
+  "tags": [
+    "seo",
+    "indexing",
+    "structured-data",
+    "core-web-vitals",
+    "ai-search",
+    "geo",
+    "web"
+  ],
+  "applies_to": [
+    "seo",
+    "frontend",
+    "docs"
+  ],
+  "provides": [
+    "context.md",
+    "policies.md",
+    "checklists.md"
+  ],
+  "required_adrs": [],
+  "mandatory_tests": [
+    "Rich Results / structured-data validation passes for each templated page type",
+    "robots.txt is valid and does not block CSS/JS; an XML sitemap exists and is referenced",
+    "Core Web Vitals within thresholds on key templates (LCP < 2.5s, INP < 200ms, CLS < 0.1)"
+  ],
+  "validations": [
+    "Every indexable page has a unique title and meta description",
+    "Exactly one self-referential canonical per page; no conflicting canonicals",
+    "No stray noindex on pages meant to rank",
+    "Primary content is present in the server-rendered HTML (not JS-only)",
+    "JSON-LD is valid and matches the visible content",
+    "hreflang is reciprocal and valid for every locale (with x-default)",
+    "Open Graph + Twitter cards present",
+    "llms.txt present and an explicit AI-crawler policy is set"
+  ],
+  "brain_facets": [
+    "decisions",
+    "patterns",
+    "services"
+  ],
+  "files": [
+    "README.md",
+    "context.md",
+    "policies.md",
+    "checklists.md",
+    "patterns.md",
+    "anti-patterns.md",
+    "performance.md",
+    "structured-data.md",
+    "ai-discoverability.md",
+    "architecture.md"
+  ]
+}

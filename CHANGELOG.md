@@ -3,6 +3,27 @@
 All notable changes to NX AI Engineer are documented here. Format:
 [Keep a Changelog]; versioning: [Semantic Versioning](https://semver.org).
 
+## [2.1.0] — 2026-07-13 · SEO & AI-discoverability specialist
+
+### Added
+- **`seo` specialist agent + `seo` Engineering Pack** (the two-layer pattern:
+  the agent executes, the pack holds the knowledge). It makes web apps/sites
+  standards-compliant across the whole SEO surface **and** discoverable by AI
+  answer engines:
+  - **Crawlability/indexability** — `robots.txt` (never blocking CSS/JS),
+    one self-referential canonical, correct status codes, XML sitemaps.
+  - **Rendering for bots** — SSR/SSG/ISR so primary content is in the server HTML.
+  - **On-page** — unique title/meta, single H1, semantic HTML, Open Graph/Twitter.
+  - **Structured data** — valid schema.org **JSON-LD** matching visible content.
+  - **Core Web Vitals** — LCP<2.5s / INP<200ms / CLS<0.1 budgets as release gates.
+  - **Internationalization** — reciprocal `hreflang` + `x-default`.
+  - **AI/LLM discoverability (GEO)** — `llms.txt`, answer-first structured content,
+    E-E-A-T, entity clarity (`sameAs`), and a **deliberate AI-crawler policy**
+    (GPTBot / ClaudeBot / PerplexityBot / Google-Extended).
+  The pack auto-attaches to the `seo` / `frontend` / `docs` agents via
+  `applies_to`; `nxai pack list` groups it under a new **`seo`** category. The
+  agent slots into `CANON_ORDER` right after `frontend`.
+
 ## [2.0.1] — 2026-06-24 · full-audit remediation
 
 A complete audit of the framework (architecture, security, code quality,

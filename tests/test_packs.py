@@ -11,7 +11,7 @@ from nx_cli import orchestrator
 
 EXPECTED = {"lgpd", "security", "owasp", "ai", "cloud", "docker", "multi-tenant",
             "observability", "testing", "billing", "authentication", "repo-standards",
-            "postgres", "mongodb"}
+            "postgres", "mongodb", "seo"}
 
 
 class TestCatalog(unittest.TestCase):
@@ -25,6 +25,23 @@ class TestCatalog(unittest.TestCase):
             m = nx_packs.manifest(name)
             for k in ("name", "title", "domain", "summary", "status"):
                 self.assertIn(k, m)
+
+    def test_seo_pack_and_agent(self):
+        m = nx_packs.manifest("seo")
+        self.assertEqual(m["category"], "seo")
+        self.assertEqual(m["status"], "stable")
+        self.assertIn("seo", m["applies_to"])
+        d = nx_packs.pack_dir("seo")
+        for f in ("structured-data.md", "ai-discoverability.md", "performance.md",
+                  "anti-patterns.md", "prompts/specialist.md", "templates/audit.md"):
+            self.assertTrue((d / f).is_file(), f"seo pack missing {f}")
+        # the executor agent is registered, ordered, and owns SEO-dedicated files
+        from nx_core import agents
+        reg = agents.registry()
+        self.assertIn("seo", reg)
+        self.assertIn("seo", agents.CANON_ORDER)
+        self.assertTrue(reg["seo"].owns("app/robots.txt"))       # SEO-dedicated file
+        self.assertFalse(reg["seo"].owns("app/api/users.ts"))    # forbidden (backend)
 
     def test_reference_packs_are_stable(self):
         self.assertEqual(nx_packs.manifest("lgpd")["status"], "stable")

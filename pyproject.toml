@@ -14,7 +14,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "nx-ai-engineer"
-version = "2.0.1"
+version = "2.1.0"
 description = "Developer Infrastructure Platform for AI-assisted development: knowledge-driven, multi-agent, stdlib-only."
 requires-python = ">=3.8"
 license = { text = "MIT" }

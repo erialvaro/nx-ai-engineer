@@ -19,7 +19,7 @@ from typing import Any, Optional
 CANON_ORDER = [
     "architect", "database", "database-relational", "database-nosql",
     "database-reviewer", "security", "backend", "ai",
-    "frontend", "devops", "qa", "reviewer", "delivery", "docs",
+    "frontend", "seo", "devops", "qa", "reviewer", "delivery", "docs",
 ]
 
 
@@ -78,6 +78,27 @@ _BUILTIN: list[Agent] = [
         ],
         forbidden_globs=["**/*.sql", "**/migrations/**"],
         keywords=["ui", "component", "frontend", "page", "screen", "css", "styling", "form", "client"],
+    ),
+    # SEO specialist. EXECUTES using the `seo` Engineering Pack (technical +
+    # on-page SEO, structured data, Core Web Vitals, and AI/LLM discoverability),
+    # which auto-attaches via `applies_to`. Owns SEO-dedicated files (robots,
+    # sitemaps, structured data, llms.txt); page meta stays shared with frontend.
+    Agent(
+        "seo", "SEO",
+        "Technical & on-page SEO, indexability, structured data, and AI/LLM discoverability.",
+        route_globs=[
+            "**/robots.txt", "**/robots.ts", "**/sitemap*.xml", "**/sitemap*.ts",
+            "**/llms.txt", "**/llms-full.txt", "**/*.jsonld", "**/structured-data/**",
+            "**/seo/**", "**/*sitemap*", "**/site.webmanifest", "**/manifest.webmanifest",
+            "**/humans.txt",
+        ],
+        forbidden_globs=["**/*.sql", "**/migrations/**", "**/api/**", "**/server/**"],
+        keywords=["seo", "search engine optimization", "indexing", "indexation",
+                  "sitemap", "robots.txt", "canonical", "meta description", "meta tags",
+                  "structured data", "schema.org", "json-ld", "rich results", "hreflang",
+                  "open graph", "core web vitals", "lcp", "inp", "cls", "lighthouse",
+                  "crawl", "googlebot", "serp", "llms.txt", "ai search", "e-e-a-t",
+                  "generative engine optimization", "geo", "ai overview", "discoverability"],
     ),
     Agent(
         "database", "Database", "Schema, migrations, queries, data integrity.",
