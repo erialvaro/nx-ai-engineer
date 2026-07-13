@@ -11,7 +11,7 @@ from nx_cli import orchestrator
 
 EXPECTED = {"lgpd", "security", "owasp", "ai", "cloud", "docker", "multi-tenant",
             "observability", "testing", "billing", "authentication", "repo-standards",
-            "postgres", "mongodb", "seo"}
+            "postgres", "mongodb", "seo", "copywriter"}
 
 
 class TestCatalog(unittest.TestCase):
@@ -45,6 +45,26 @@ class TestCatalog(unittest.TestCase):
         self.assertIn("seo", agents.CANON_ORDER)
         self.assertTrue(reg["seo"].owns("app/robots.txt"))       # SEO-dedicated file
         self.assertFalse(reg["seo"].owns("app/api/users.ts"))    # forbidden (backend)
+
+    def test_copywriter_pack_and_agent(self):
+        m = nx_packs.manifest("copywriter")
+        self.assertEqual(m["category"], "content")
+        self.assertEqual(m["status"], "stable")
+        self.assertIn("copywriter", m["applies_to"])
+        d = nx_packs.pack_dir("copywriter")
+        for f in ("anti-patterns.md", "voice-and-tone.md", "frameworks.md",
+                  "tech-domain.md", "seo-writing.md", "prompts/specialist.md",
+                  "templates/brief.md"):
+            self.assertTrue((d / f).is_file(), f"copywriter pack missing {f}")
+        # the seo pack now also feeds the copywriter agent
+        self.assertIn("copywriter", nx_packs.manifest("seo")["applies_to"])
+        # the agent is registered, ordered, and owns content copy (not code)
+        from nx_core import agents
+        reg = agents.registry()
+        self.assertIn("copywriter", reg)
+        self.assertIn("copywriter", agents.CANON_ORDER)
+        self.assertTrue(reg["copywriter"].owns("content/blog/post.mdx"))
+        self.assertFalse(reg["copywriter"].owns("web/App.tsx"))       # forbidden (frontend)
 
     def test_reference_packs_are_stable(self):
         self.assertEqual(nx_packs.manifest("lgpd")["status"], "stable")

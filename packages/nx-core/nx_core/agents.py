@@ -19,7 +19,7 @@ from typing import Any, Optional
 CANON_ORDER = [
     "architect", "database", "database-relational", "database-nosql",
     "database-reviewer", "security", "backend", "ai",
-    "frontend", "seo", "devops", "qa", "reviewer", "delivery", "docs",
+    "frontend", "seo", "copywriter", "devops", "qa", "reviewer", "delivery", "docs",
 ]
 
 
@@ -99,6 +99,26 @@ _BUILTIN: list[Agent] = [
                   "open graph", "core web vitals", "lcp", "inp", "cls", "lighthouse",
                   "crawl", "googlebot", "serp", "llms.txt", "ai search", "e-e-a-t",
                   "generative engine optimization", "geo", "ai overview", "discoverability"],
+    ),
+    # Copywriter specialist. EXECUTES using the `copywriter` Engineering Pack
+    # (human-sounding writing, tech/innovation fluency, SEO-optimized copy) — which
+    # auto-attaches via `applies_to`, together with the `seo` pack. Owns marketing/
+    # content copy (blog, landing, articles); technical docs stay with `docs`.
+    Agent(
+        "copywriter", "Copywriter",
+        "Professional, human-sounding copy for tech & innovation — SEO-optimized.",
+        route_globs=[
+            "**/content/**", "**/copy/**", "**/copywriting/**", "**/blog/**",
+            "**/posts/**", "**/articles/**", "**/marketing/**", "**/landing/**",
+            "**/cms/**", "**/*.mdx",
+        ],
+        forbidden_globs=["**/*.sql", "**/migrations/**", "**/api/**",
+                         "**/server/**", "**/*.tsx"],
+        keywords=["copy", "copywriter", "copywriting", "redator", "redação",
+                  "conteúdo", "content", "blog", "artigo", "article", "post",
+                  "landing page", "headline", "cta", "call to action", "storytelling",
+                  "tom de voz", "tone of voice", "persuasão", "persuasion", "marketing",
+                  "newsletter", "product copy", "tagline", "hero copy"],
     ),
     Agent(
         "database", "Database", "Schema, migrations, queries, data integrity.",

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "nxai-workflow"
-version = "2.1.1"
+version = "2.2.0"
 description = "Reusable execution pipelines (Workflow/Step/Registry + builtins)."
 requires-python = ">=3.8"
 license = { text = "MIT" }
@@ -16,7 +16,7 @@ classifiers = [
   "License :: OSI Approved :: MIT License",
   "Programming Language :: Python :: 3",
 ]
-dependencies = ["nxai-core==2.1.1"]
+dependencies = ["nxai-core==2.2.0"]
 
 [project.urls]
 Homepage = "https://github.com/erialvaro/nx-ai-engineer"

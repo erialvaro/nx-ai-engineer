@@ -1,0 +1,61 @@
+{
+  "name": "copywriter",
+  "title": "Copywriter — Tech & Innovation",
+  "version": "1.0.0",
+  "domain": "content",
+  "category": "content",
+  "status": "stable",
+  "summary": "Professional, human-sounding copywriting for technology & innovation audiences: natural voice (no AI tells), fluency in the tech universe (AI, cloud, SaaS, devtools, startups, security), persuasion frameworks, and SEO-optimized writing — pairs with the seo pack.",
+  "tags": [
+    "copywriting",
+    "content",
+    "marketing",
+    "tech",
+    "innovation",
+    "seo",
+    "human-writing"
+  ],
+  "applies_to": [
+    "copywriter",
+    "docs",
+    "frontend"
+  ],
+  "provides": [
+    "context.md",
+    "policies.md",
+    "checklists.md"
+  ],
+  "required_adrs": [],
+  "mandatory_tests": [
+    "Copy passes the AI-tells / cliché screen (anti-patterns.md)",
+    "Every technical fact/spec/number is verified — nothing fabricated",
+    "SEO: search intent matched; primary term in title/H1/intro; title + meta description present"
+  ],
+  "validations": [
+    "Reads human: varied rhythm, active voice, concrete specifics, a real point of view",
+    "No AI clichés, hedging boilerplate, or buzzword salad",
+    "Technical terminology is precise and current",
+    "One clear CTA; one idea per section; scannable structure",
+    "Search intent matched; internal links intentional; title + meta description supplied",
+    "No fabricated claims, stats, or capabilities",
+    "Brand voice and audience language (PT-BR / EN) respected"
+  ],
+  "brain_facets": [
+    "decisions",
+    "patterns",
+    "services"
+  ],
+  "files": [
+    "README.md",
+    "context.md",
+    "policies.md",
+    "checklists.md",
+    "patterns.md",
+    "anti-patterns.md",
+    "voice-and-tone.md",
+    "frameworks.md",
+    "tech-domain.md",
+    "seo-writing.md",
+    "architecture.md"
+  ]
+}

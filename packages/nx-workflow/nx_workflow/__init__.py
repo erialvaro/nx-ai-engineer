@@ -1,4 +1,4 @@
 """nx_workflow — nx-ai-engineer monorepo package."""
-__version__ = "2.1.1"
+__version__ = "2.2.0"
 
 from . import builtin  # noqa: F401  (register builtin workflows)

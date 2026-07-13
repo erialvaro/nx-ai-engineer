@@ -18,7 +18,8 @@
   "applies_to": [
     "seo",
     "frontend",
-    "docs"
+    "docs",
+    "copywriter"
   ],
   "provides": [
     "context.md",

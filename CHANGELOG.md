@@ -3,6 +3,27 @@
 All notable changes to NX AI Engineer are documented here. Format:
 [Keep a Changelog]; versioning: [Semantic Versioning](https://semver.org).
 
+## [2.2.0] — 2026-07-13 · Copywriter specialist (tech & innovation, SEO-optimized)
+
+### Added
+- **`copywriter` specialist agent + `copywriter` Engineering Pack** (two-layer
+  pattern: agent executes, pack holds the knowledge). Writes professional,
+  **human-sounding** copy for **technology & innovation** audiences, **optimized
+  for SEO**:
+  - **Human voice** — a full `anti-patterns.md` screen of AI tells & clichés to
+    avoid (throat-clearing openings, "delve/leverage/seamless", listicle tics,
+    hedging boilerplate), plus `voice-and-tone.md` (varied rhythm, active voice,
+    concrete specifics, a real point of view).
+  - **Tech fluency** — `tech-domain.md` maps the tech universe (AI/LLMs, cloud,
+    SaaS, devtools, startups, security) with a "precision over hype, never
+    fabricate specs/numbers" rule.
+  - **Persuasion** — `frameworks.md` (AIDA / PAS / BAB / FAB, headlines, CTAs).
+  - **SEO writing** — `seo-writing.md` (search intent, answer-first, title +
+    meta, internal links) that **pairs with the `seo` pack** — whose `applies_to`
+    now also feeds the copywriter, so the agent gets both standards. Ships a copy
+    brief template and a quality gate.
+  Grouped under a new **`content`** category; slots into `CANON_ORDER` after `seo`.
+
 ## [2.1.1] — 2026-07-13 · SEO reports via PageSpeed Insights
 
 ### Changed
