@@ -27,9 +27,14 @@ def config_root(start: Optional[Path] = None) -> Path:
 
     Resolution order:
       1. AIES_HOME environment variable (if set and valid).
-      2. Walk up from `start` (or this file) looking for a `.ai-project-assistant` dir.
-      3. Walk up looking for a directory that *is* `.ai-project-assistant`.
-      4. Fall back to `<cwd>/.ai-project-assistant` — the project the user is running in.
+      2. Walk up from `start` (if given) or the **current working directory** —
+         i.e. the project the user is running in — for a `.ai-project-assistant`.
+      3. Fall back to `<cwd>/.ai-project-assistant`.
+
+    It deliberately does NOT search up from this module's install location: a
+    stray `.ai-project-assistant` in a parent of the install (e.g. the user's home
+    directory) must never hijack resolution to an unrelated — and possibly huge —
+    project root (which would make the whole project scan/sync hang).
     """
     env = os.environ.get("AIES_HOME")
     if env:
@@ -40,16 +45,15 @@ def config_root(start: Optional[Path] = None) -> Path:
         if candidate.is_dir():
             return candidate
 
-    here = (start or Path(__file__)).resolve()
-    for parent in [here, *here.parents]:
+    base = (Path(start) if start is not None else Path.cwd()).resolve()
+    for parent in [base, *base.parents]:
         if parent.name == CONFIG_DIRNAME and parent.is_dir():
             return parent
         candidate = parent / CONFIG_DIRNAME
         if candidate.is_dir():
             return candidate
 
-    # Nothing found: default to the project the user is running in. Never point
-    # into the install tree (this module may live in site-packages).
+    # Nothing found: default to the project the user is running in.
     return Path.cwd() / CONFIG_DIRNAME
 
 

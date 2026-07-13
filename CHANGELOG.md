@@ -3,6 +3,25 @@
 All notable changes to NX AI Engineer are documented here. Format:
 [Keep a Changelog]; versioning: [Semantic Versioning](https://semver.org).
 
+## [2.2.1] — 2026-07-13 · fix: knowledge sync hang + AI starts from project memory
+
+### Fixed
+- **`nxai knowledge` (sync/list/index) could hang** (and surface 0 items, even for
+  the framework's own ADRs). Root cause: `config_root()` searched **up from the
+  install location**, so a stray `.ai-project-assistant` in a parent (e.g. the
+  user's home directory) hijacked project resolution to an unrelated, huge tree —
+  which the **unbounded** Obsidian vault detection then walked ~forever. Now
+  `config_root()` resolves from the **current project** (cwd / explicit start),
+  never the install location, and the vault scan is **bounded**. Result:
+  `knowledge index/list/sync` runs in ~1–2s and surfaces filesystem, git, ADRs and
+  all three memories. Regression tests added.
+
+### Changed
+- `PROJECT_RULES.md` (laid down by `nxai init`) now instructs the AI to **start
+  from the project's memory** (Project Brain / ADRs / knowledge / git history) and
+  to **record decisions** via ADRs + `nxai knowledge sync` — additive snapshots
+  that never rewrite the project's own Git history.
+
 ## [2.2.0] — 2026-07-13 · Copywriter specialist (tech & innovation, SEO-optimized)
 
 ### Added

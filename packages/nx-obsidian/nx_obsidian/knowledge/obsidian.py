@@ -47,10 +47,16 @@ class ObsidianProvider(KnowledgeProvider):
         self._items: Optional[list[KnowledgeItem]] = None
 
     def _detect(self) -> Optional[Path]:
+        # A vault sits at/near the project root — bound the search so a wrong or
+        # huge root (e.g. a home dir) can never make this scan hang.
+        seen = 0
         for dirpath, dirnames, _ in os.walk(self.root):
             dirnames[:] = [d for d in dirnames if d not in SKIP_DIRS and not d.startswith(".git")]
             if ".obsidian" in dirnames:
                 return Path(dirpath)
+            seen += 1
+            if seen > 4000:
+                return None
         return None
 
     def index(self) -> int:
