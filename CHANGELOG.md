@@ -3,6 +3,16 @@
 All notable changes to NX AI Engineer are documented here. Format:
 [Keep a Changelog]; versioning: [Semantic Versioning](https://semver.org).
 
+## [2.2.2] — 2026-07-13 · skip modern edge/build output dirs
+
+### Fixed
+- File-based knowledge providers and the project analyzer now skip modern JS/edge
+  **build outputs** — `.open-next`, `.wrangler`, `.vercel`, `.turbo`,
+  `.svelte-kit`, `.output`, `.astro`, `.parcel-cache`, `.angular` — which can hold
+  thousands of generated files and bloated the filesystem index (e.g. `.open-next`
+  alone added ~1.4k entries on a Cloudflare/OpenNext project). Added to `SKIP_DIRS`
+  (`base.py`) and the analyzer's skip set; regression test added.
+
 ## [2.2.1] — 2026-07-13 · fix: knowledge sync hang + AI starts from project memory
 
 ### Fixed

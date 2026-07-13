@@ -63,5 +63,24 @@ class TestObsidianDetectBounded(unittest.TestCase):
             self.assertIsNone(ObsidianProvider(root=root)._detect())
 
 
+class TestModernBuildDirsSkipped(unittest.TestCase):
+    def test_edge_build_outputs_are_not_indexed(self):
+        from nx_providers.knowledge.base import SKIP_DIRS
+        from nx_providers.knowledge.filesystem import FilesystemProvider
+        for d in (".open-next", ".wrangler", ".vercel", ".turbo", ".svelte-kit", ".output"):
+            self.assertIn(d, SKIP_DIRS)
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / "src").mkdir()
+            (root / "src" / "a.py").write_text("x", encoding="utf-8")
+            bloat = root / ".open-next" / "assets"
+            bloat.mkdir(parents=True)
+            for i in range(20):
+                (bloat / f"c{i}.js").write_text("x", encoding="utf-8")
+            refs = [it.ref for it in FilesystemProvider(root=root).catalog()]
+            self.assertTrue(any("a.py" in r for r in refs))
+            self.assertFalse(any(".open-next" in r for r in refs), "indexed .open-next bloat")
+
+
 if __name__ == "__main__":
     unittest.main()

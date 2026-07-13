@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "nxai-obsidian"
-version = "2.2.1"
+version = "2.2.2"
 description = "Obsidian knowledge: provider (reader) + ObsidianSync (visual vault, incremental)."
 requires-python = ">=3.8"
 license = { text = "MIT" }
@@ -16,7 +16,7 @@ classifiers = [
   "License :: OSI Approved :: MIT License",
   "Programming Language :: Python :: 3",
 ]
-dependencies = ["nxai-core==2.2.1", "nxai-providers==2.2.1"]
+dependencies = ["nxai-core==2.2.2", "nxai-providers==2.2.2"]
 
 [project.urls]
 Homepage = "https://github.com/erialvaro/nx-ai-engineer"

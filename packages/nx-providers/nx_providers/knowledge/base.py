@@ -30,6 +30,9 @@ SKIP_DIRS = {
     ".git", "node_modules", ".venv", "venv", "__pycache__", "dist", "build",
     ".next", ".nuxt", "out", "target", "coverage", ".terraform", ".idea",
     ".vscode", ".ai-project-assistant", "vendor", ".cache", ".pytest_cache", ".mypy_cache",
+    # modern JS / edge build outputs — can hold thousands of generated files
+    ".open-next", ".wrangler", ".vercel", ".turbo", ".svelte-kit", ".output",
+    ".astro", ".parcel-cache", ".angular",
 }
 
 LANG_BY_EXT = {
