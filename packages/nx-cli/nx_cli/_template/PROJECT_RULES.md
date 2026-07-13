@@ -37,10 +37,12 @@ mechanically; the rest are on you. Project-specific invariants live in
   `nxai knowledge status` / `nxai knowledge list`, and read the **Project Brain**
   (`.ai-project-assistant/brain/`), the **ADRs** (`docs/adr/`) and the git history.
   `nxai contract --agent <a> "<task>"` assembles this context for an agent.
-- **Record decisions.** Capture non-obvious choices as **ADRs**, then run
-  `nxai knowledge sync` so the Project Brain (operational), the Obsidian vault
-  (organizational) and — opt-in — a Git snapshot (historical) stay current. This
-  is how the platform helps future sessions: decisions, agents and outcomes accrue.
+- **Recording is automatic.** With `auto_record` on (the default), every
+  knowledge-producing command (`plan` / `execute` / `run` / `deliver`) persists to
+  the Project Brain and syncs the vault **on its own** — you never need a manual
+  `nxai knowledge sync`. Still capture non-obvious **decisions** as **ADRs** so the
+  rationale is preserved. Requirements, decisions, agents and outcomes accrue for
+  future sessions (opt-in Git snapshot keeps the historical memory too).
 - **Never lose history.** The framework's snapshots are additive and live under
   `.ai-project-assistant/`; they never rewrite or replace the project's own Git
   history (GitHub stays the source of truth for code).

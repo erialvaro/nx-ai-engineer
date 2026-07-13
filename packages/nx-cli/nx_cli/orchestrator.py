@@ -45,6 +45,29 @@ def _cfg() -> dict:
     return config_mod.load()
 
 
+def _auto_record(cfg: dict, *, note: str = "", record: dict | None = None,
+                 facet: str = "history") -> None:
+    """Ambient recording. When `auto_record` is on (default) and a project home
+    exists, persist to the Project Brain and sync the vault after a
+    knowledge-producing command — so nothing ever needs an explicit
+    `nxai knowledge sync`. Best-effort: recording must never break the command."""
+    if not cfg.get("auto_record", True):
+        return
+    try:
+        root = util.config_root()
+        if not ((root / "config.json").exists() or (root / "brain").is_dir()):
+            return  # no project home yet — nothing to record into
+        from nx_knowledge.knowledge.engine import KnowledgeEngine
+        from nx_knowledge.memory.brain import ProjectBrain
+        brain = ProjectBrain()
+        if record:
+            brain.append(facet, record)
+        KnowledgeEngine(brain, config=cfg).sync()
+        print(f"  [recorded] Brain + vault synced{(' — ' + note) if note else ''}")
+    except Exception as exc:  # never let recording break the command
+        print(f"  [record skipped] ({exc.__class__.__name__})")
+
+
 def _make_adapter(name: str):
     """Resolve an adapter by name. 'dry-run' (default) is always safe; 'claude-code'
     runs real work via the Claude Code CLI; other names come from the SDK registry."""
@@ -127,6 +150,13 @@ def cmd_plan(args: argparse.Namespace) -> int:
             print(f"  - {c.get('requested')} held by task {c.get('task')} ({c.get('owner')})")
     print(f"\nTask written: {util.rel(Path(result['path']))}")
     print(f"Locked areas: {', '.join(result['locked']) or '—'}")
+    # Ambient recording: capture the plan's goal + requirements automatically.
+    _auto_record(cfg, note="plan", record={
+        "kind": "plan", "goal": description, "task": tid,
+        "agents": list(plan.involved_agents),
+        "acceptance": list(getattr(plan, "acceptance", []) or []),
+        "risks": list(plan.risks or []),
+    })
     print("\nNext: open the task file, dispatch each agent in order, then `review`.")
     return 0
 
@@ -334,6 +364,7 @@ def cmd_pipeline(args: argparse.Namespace) -> int:
         print(f"Delivery:     gates {'PASSED' if res.delivery.get('gates_passed') else 'BLOCKED'}")
     print(f"Brain:        v{res.brain_version}")
     print(f"Experience:   {res.experience}")
+    _auto_record(_cfg(), note="pipeline")
     return 0
 
 
@@ -354,6 +385,7 @@ def cmd_deliver(args: argparse.Namespace) -> int:
     print(f"PR written:    {util.rel(Path(res['pr_path']))}")
     print(f"Locks released: {res['locks_released']}")
     print(f"Rollback:      {res['rollback']}")
+    _auto_record(cfg, note="deliver")
     return 0 if res["gates_passed"] else 1
 
 
@@ -508,6 +540,7 @@ def cmd_run(args: argparse.Namespace) -> int:
     print(f"\nProgress: {engine.progress()}")
     if result and result.ok and mode is ExecutionMode.EXECUTE:
         print(f"Run persisted under {util.rel(util.config_root() / 'runs')}/")
+        _auto_record(_cfg(), note="run")
     return 0
 
 

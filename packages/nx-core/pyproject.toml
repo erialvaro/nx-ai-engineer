@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "nxai-core"
-version = "2.2.2"
+version = "2.3.0"
 description = "Pure primitives: domain, states(9), lifecycle, BaseEngine(Dry->Test->Execute), governance, observability, experience, agents/util/config."
 requires-python = ">=3.8"
 license = { text = "MIT" }

@@ -12,5 +12,6 @@
     "**/payments/**"
   ],
   "extra_agents": {},
-  "disabled_agents": []
+  "disabled_agents": [],
+  "auto_record": true
 }

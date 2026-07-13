@@ -3,6 +3,18 @@
 All notable changes to NX AI Engineer are documented here. Format:
 [Keep a Changelog]; versioning: [Semantic Versioning](https://semver.org).
 
+## [2.3.0] — 2026-07-13 · ambient auto-recording (on by default)
+
+### Added
+- **`auto_record` — on by default.** From the moment `.ai-project-assistant` exists
+  at the project root, knowledge-producing commands (`plan`, `execute`/`pipeline`,
+  `run` in execute mode, `deliver`) **automatically persist to the Project Brain
+  and sync the vault** — recording is ambient and never needs an explicit
+  `nxai knowledge sync`. `nxai plan` also records the goal + acceptance criteria +
+  risks to the Brain, so a project's requirements/decisions accrue as you work.
+  Best-effort: recording can never break the command; disable with
+  `"auto_record": false` in `config.json`. `PROJECT_RULES.md` updated to say so.
+
 ## [2.2.2] — 2026-07-13 · skip modern edge/build output dirs
 
 ### Fixed

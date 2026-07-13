@@ -29,6 +29,11 @@ DEFAULTS: dict[str, Any] = {
     # Obsidian: auto-sync a visual vault from the Project Brain (knowledge view).
     "obsidian_sync": True,
     "obsidian_vault": None,   # path; null => .ai-project-assistant/obsidian
+    # Auto-record: ON by default. From the moment `.ai-project-assistant` exists at
+    # the project root, every knowledge-producing command (plan/execute/run/
+    # deliver) automatically persists to the Project Brain and syncs the vault —
+    # recording is ambient and never needs an explicit `nxai knowledge sync`.
+    "auto_record": True,
     # Knowledge Engine: opt-in commit of brain+obsidian to Git (historical memory).
     "knowledge_git_snapshot": False,
     # Engineering Contracts: per-agent overrides for pack auto-application, e.g.
