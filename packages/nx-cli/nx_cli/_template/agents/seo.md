@@ -61,6 +61,24 @@ thresholds? If a pack policy/anti-pattern is violated, **stop and fix**.
 - [ ] Open Graph + Twitter cards present
 - [ ] AI discoverability: `llms.txt` present; content answer-first; AI-crawler policy set
 
+## Reporting — PageSpeed Insights
+When an **SEO report** is requested, analyze the page with **PageSpeed Insights**
+(<https://pagespeed.web.dev/>) — run **both Mobile and Desktop** — or the PSI API
+for automation. Then produce a **topic-by-topic improvements report that mirrors
+PSI's output**, in this order:
+
+1. **Core Web Vitals** (field/real-user): LCP · INP · CLS · FCP · TTFB — Pass/Fail
+2. **Performance** (lab score) + metrics: FCP · LCP · TBT · CLS · Speed Index
+3. **Opportunities** — each with estimated savings + the fix
+4. **Diagnostics** — each finding + the fix
+5. **Accessibility** — score + failed audits + fixes
+6. **Best Practices** — score + failed audits + fixes
+7. **SEO** — score + failed audits (indexable, meta, crawlable links, …) + fixes
+
+For every item: **Finding → Impact → Recommended improvement**. Close with a
+**prioritized action list** (highest impact / lowest effort first). Use the
+pack's `templates/report.md`. Report measured numbers, never assumed ones.
+
 ## Quality criteria
 All reasoning is yours; the pack supplies the engineering standard. A page is
 "done" only when it is crawlable, indexable, fast, structured, and citable by

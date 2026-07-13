@@ -32,5 +32,19 @@ standard. Budgets (75th percentile, mobile):
 - Set per-template budgets and treat regressions as release blockers.
 - Also: TTFB (server) < 800ms; keep total transfer and request count in check.
 
+## Measuring with PageSpeed Insights (canonical tool)
+Use **PageSpeed Insights** — <https://pagespeed.web.dev/> — as the source of
+truth for performance and Core Web Vitals. Run **both Mobile and Desktop**.
+
+- It reports **field data** (CrUX, real users) for LCP/INP/CLS/FCP/TTFB **and** a
+  **lab** Lighthouse run (Performance/Accessibility/Best-Practices/SEO scores +
+  Opportunities + Diagnostics).
+- Automate via the **PSI API**
+  (`https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=…&strategy=mobile`),
+  which returns the same data as JSON — good for CI gates.
+- The SEO report is generated **topic-by-topic from the PSI output** using the
+  pack's `templates/report.md` (Core Web Vitals → Performance → Opportunities →
+  Diagnostics → Accessibility → Best Practices → SEO). Report measured numbers.
+
 Fast pages help **AI discoverability** too — answer engines favor quick,
 render-stable, easily-fetched HTML.

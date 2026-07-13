@@ -3,6 +3,18 @@
 All notable changes to NX AI Engineer are documented here. Format:
 [Keep a Changelog]; versioning: [Semantic Versioning](https://semver.org).
 
+## [2.1.1] — 2026-07-13 · SEO reports via PageSpeed Insights
+
+### Changed
+- The `seo` agent now generates SEO reports from **PageSpeed Insights**
+  (<https://pagespeed.web.dev/> / the PSI API), analyzing **Mobile + Desktop**, as
+  a **topic-by-topic** improvements report that mirrors the tool's output:
+  Core Web Vitals → Performance → Opportunities → Diagnostics → Accessibility →
+  Best Practices → SEO — each item **Finding → Impact → Fix**, closing with a
+  prioritized action list. Adds `templates/report.md` to the `seo` pack (v1.1.0);
+  `performance.md`/`checklists.md`/the agent spec name PSI as the canonical
+  measurement tool.
+
 ## [2.1.0] — 2026-07-13 · SEO & AI-discoverability specialist
 
 ### Added

@@ -32,7 +32,9 @@
 - [ ] Key facts reachable in server HTML (AI crawlers often don't run JS)
 
 ## Validation tooling (evidence, not opinion)
+- [ ] **PageSpeed Insights** (<https://pagespeed.web.dev/>) — Mobile **and**
+      Desktop; field CWV + lab scores within budget. The SEO report is generated
+      topic-by-topic from this output (see `templates/report.md`).
 - [ ] Google Rich Results Test / Schema validator — pass
-- [ ] Lighthouse / PageSpeed (field CWV) — pass budgets
 - [ ] `robots.txt` + sitemap validators — pass
 - [ ] Mobile-friendly / rendered-HTML check — primary content visible

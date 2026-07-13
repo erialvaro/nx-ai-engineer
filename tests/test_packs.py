@@ -33,8 +33,11 @@ class TestCatalog(unittest.TestCase):
         self.assertIn("seo", m["applies_to"])
         d = nx_packs.pack_dir("seo")
         for f in ("structured-data.md", "ai-discoverability.md", "performance.md",
-                  "anti-patterns.md", "prompts/specialist.md", "templates/audit.md"):
+                  "anti-patterns.md", "prompts/specialist.md", "templates/audit.md",
+                  "templates/report.md"):
             self.assertTrue((d / f).is_file(), f"seo pack missing {f}")
+        # the PageSpeed Insights reporting workflow is baked into the pack
+        self.assertIn("pagespeed.web.dev", (d / "performance.md").read_text(encoding="utf-8"))
         # the executor agent is registered, ordered, and owns SEO-dedicated files
         from nx_core import agents
         reg = agents.registry()
