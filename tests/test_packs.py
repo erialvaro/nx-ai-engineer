@@ -11,7 +11,7 @@ from nx_cli import orchestrator
 
 EXPECTED = {"lgpd", "security", "owasp", "ai", "cloud", "docker", "multi-tenant",
             "observability", "testing", "billing", "authentication", "repo-standards",
-            "postgres", "mongodb", "seo", "copywriter"}
+            "postgres", "mongodb", "seo", "copywriter", "design"}
 
 
 class TestCatalog(unittest.TestCase):
@@ -65,6 +65,32 @@ class TestCatalog(unittest.TestCase):
         self.assertIn("copywriter", agents.CANON_ORDER)
         self.assertTrue(reg["copywriter"].owns("content/blog/post.mdx"))
         self.assertFalse(reg["copywriter"].owns("web/App.tsx"))       # forbidden (frontend)
+
+    def test_design_pack_and_designer_agent(self):
+        m = nx_packs.manifest("design")
+        self.assertEqual(m["category"], "design")
+        self.assertEqual(m["status"], "stable")
+        self.assertIn("designer", m["applies_to"])
+        d = nx_packs.pack_dir("design")
+        for f in ("design-system.md", "typography.md", "color.md", "layout-spacing.md",
+                  "accessibility.md", "motion.md", "tooling.md", "anti-patterns.md",
+                  "prompts/specialist.md", "templates/design-brief.md"):
+            self.assertTrue((d / f).is_file(), f"design pack missing {f}")
+        # the tooling the agent must use is documented
+        tooling = (d / "tooling.md").read_text(encoding="utf-8")
+        for tool in ("ui-ux-pro-max", "21st-cli-use", "21st-ai", "21st-registry",
+                     "21st-design-sync", "dataviz", "framer-motion"):
+            self.assertIn(tool, tooling, f"tooling.md must document {tool}")
+        # design moves Core Web Vitals -> the seo pack also feeds the designer
+        self.assertIn("designer", nx_packs.manifest("seo")["applies_to"])
+        # the agent is registered, runs BEFORE frontend, and owns the design system
+        from nx_core import agents
+        reg = agents.registry()
+        self.assertIn("designer", reg)
+        order = agents.CANON_ORDER
+        self.assertLess(order.index("designer"), order.index("frontend"))
+        self.assertTrue(reg["designer"].owns("app/globals.css"))
+        self.assertFalse(reg["designer"].owns("app/api/users.ts"))   # forbidden
 
     def test_reference_packs_are_stable(self):
         self.assertEqual(nx_packs.manifest("lgpd")["status"], "stable")

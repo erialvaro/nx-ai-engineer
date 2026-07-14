@@ -1,0 +1,67 @@
+{
+  "name": "design",
+  "title": "Design System & UI/UX",
+  "version": "1.0.0",
+  "domain": "design",
+  "category": "design",
+  "status": "stable",
+  "summary": "Design-system engineering: tokens as the single source of truth (color, type, spacing, radius, shadow, motion), typography and color with WCAG-passing contrast, layout/grid, accessibility as a gate, a motion system (framer-motion), mandatory component states, and the tooling (ui-ux-pro-max, 21st.dev catalog/AI/registry, shadcn/Tailwind, dataviz).",
+  "tags": [
+    "design",
+    "design-system",
+    "ui",
+    "ux",
+    "accessibility",
+    "tokens",
+    "motion",
+    "tailwind",
+    "shadcn"
+  ],
+  "applies_to": [
+    "designer",
+    "frontend"
+  ],
+  "provides": [
+    "context.md",
+    "policies.md",
+    "checklists.md"
+  ],
+  "required_adrs": [],
+  "mandatory_tests": [
+    "Contrast passes WCAG 2.2 (4.5:1 text, 3:1 large/UI) in BOTH light and dark",
+    "Every interactive element is keyboard reachable with a visible focus ring",
+    "No layout shift: all media/embeds have explicit dimensions (CLS < 0.1)",
+    "Motion honors prefers-reduced-motion"
+  ],
+  "validations": [
+    "Design tokens are the single source of truth — no magic values in components",
+    "Light AND dark themes both defined and validated",
+    "Type scale + font pairing justified; measure 45-75ch",
+    "One spacing scale; consistent grid; mobile-first responsive",
+    "Loading / skeleton / empty / error / disabled states specified per component",
+    "Motion has a duration + easing scale; purposeful, never gratuitous",
+    "Existing components/tokens reused (catalog checked) — no duplicates",
+    "Design does not regress Core Web Vitals (LCP/CLS)"
+  ],
+  "brain_facets": [
+    "decisions",
+    "patterns",
+    "services"
+  ],
+  "files": [
+    "README.md",
+    "context.md",
+    "policies.md",
+    "checklists.md",
+    "design-system.md",
+    "typography.md",
+    "color.md",
+    "layout-spacing.md",
+    "accessibility.md",
+    "motion.md",
+    "tooling.md",
+    "patterns.md",
+    "anti-patterns.md",
+    "architecture.md"
+  ]
+}

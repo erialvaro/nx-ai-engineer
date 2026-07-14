@@ -3,6 +3,32 @@
 All notable changes to NX AI Engineer are documented here. Format:
 [Keep a Changelog]; versioning: [Semantic Versioning](https://semver.org).
 
+## [2.4.0] — 2026-07-13 · Designer (UI/UX) specialist
+
+### Added
+- **`designer` specialist agent + `design` Engineering Pack** (two-layer pattern).
+  Designs interfaces **and** the system behind them, and hands the `frontend` agent
+  a spec it can implement without guessing. Slots into `CANON_ORDER` **before
+  `frontend`** (design informs implementation).
+  - **Design system** — tokens (color, type, spacing, radius, shadow, z, motion) as
+    the **single source of truth** (CSS vars → Tailwind → shadcn `components.json`),
+    **light *and* dark**; no magic values in components.
+  - **Typography / color / layout** — type scale + pairing, palette with roles,
+    spacing scale, grid, mobile-first responsive.
+  - **Accessibility (WCAG 2.2) as a release gate** — contrast verified in both
+    themes, keyboard reachable, visible focus, semantic + labelled, target ≥ 24px,
+    `prefers-reduced-motion`.
+  - **Motion system** — duration + easing scale with **framer-motion**;
+    transform/opacity only; never blocking; reduced-motion-safe.
+  - **Mandatory states** — loading/skeleton, empty, error (not just the happy path).
+  - **Performance-aware** — no CLS from unsized media, light LCP; the **`seo` pack
+    now also feeds `designer`** (design decisions move Core Web Vitals).
+  - **Tooling baked in** — `ui-ux-pro-max` (plan/review), the **21st.dev** family
+    (`21st-cli-use` to reuse, `21st-ai` to generate, `21st-registry` /
+    `21st-design-sync` to publish), **`dataviz`** (read before any chart), and
+    shadcn/Tailwind as the default stack.
+  Grouped under a new **`design`** category (`nxai pack add design`).
+
 ## [2.3.1] — 2026-07-13 · index ADRs in brain/decisions + surface Brain docs
 
 ### Fixed

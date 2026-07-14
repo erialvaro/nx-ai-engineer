@@ -20,7 +20,7 @@ import shutil
 from pathlib import Path
 from typing import Any
 
-__version__ = "2.3.1"
+__version__ = "2.4.0"
 
 CATALOG = Path(__file__).resolve().parent / "catalog"
 # Files a pack feeds into agent context (the organizing surface).

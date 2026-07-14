@@ -19,7 +19,8 @@ from typing import Any, Optional
 CANON_ORDER = [
     "architect", "database", "database-relational", "database-nosql",
     "database-reviewer", "security", "backend", "ai",
-    "frontend", "seo", "copywriter", "devops", "qa", "reviewer", "delivery", "docs",
+    "designer", "frontend", "seo", "copywriter", "devops", "qa", "reviewer",
+    "delivery", "docs",
 ]
 
 
@@ -68,6 +69,31 @@ _BUILTIN: list[Agent] = [
         ],
         forbidden_globs=["**/migrations/**", "**/*.sql"],
         keywords=["api", "endpoint", "service", "backend", "business logic", "controller", "auth flow"],
+    ),
+    # Designer specialist. EXECUTES using the `design` Engineering Pack (design
+    # system/tokens, typography, color, layout, accessibility, motion) — which
+    # auto-attaches via `applies_to`, together with the `seo` pack (design decisions
+    # move Core Web Vitals). Owns the design system/tokens/theme; the `frontend`
+    # agent implements the components from it.
+    Agent(
+        "designer", "Designer (UI/UX)",
+        "Design system, tokens, typography, color, layout, accessibility and motion.",
+        route_globs=[
+            "**/design/**", "**/design-system/**", "**/tokens/**", "**/theme/**",
+            "**/*.tokens.json", "**/tailwind.config.*", "**/components.json",
+            "**/globals.css", "**/.storybook/**", "**/storybook/**",
+        ],
+        forbidden_globs=["**/*.sql", "**/migrations/**", "**/api/**", "**/server/**"],
+        keywords=["design", "designer", "ui", "ux", "ui/ux", "design system",
+                  "tokens", "design token", "theme", "tema", "typography", "tipografia",
+                  "font pairing", "color palette", "paleta", "contrast", "contraste",
+                  "spacing", "grid", "layout", "hierarchy", "whitespace",
+                  "accessibility", "acessibilidade", "wcag", "a11y", "focus",
+                  "motion", "animation", "framer-motion", "micro-interaction",
+                  "transition", "responsive", "dark mode", "glassmorphism",
+                  "brutalism", "minimalism", "bento", "skeleton", "empty state",
+                  "shadcn", "tailwind", "21st", "figma", "wireframe", "mockup",
+                  "prototype", "dashboard design", "data viz"],
     ),
     Agent(
         "frontend", "Frontend", "UI components, client state, styling, UX.",

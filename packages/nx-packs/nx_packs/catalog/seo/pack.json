@@ -19,7 +19,8 @@
     "seo",
     "frontend",
     "docs",
-    "copywriter"
+    "copywriter",
+    "designer"
   ],
   "provides": [
     "context.md",
