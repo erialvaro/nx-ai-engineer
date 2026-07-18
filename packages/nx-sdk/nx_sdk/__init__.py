@@ -12,7 +12,7 @@ from __future__ import annotations
 
 from typing import Any, Callable
 
-__version__ = "2.4.0"
+__version__ = "2.5.0"
 
 # In-memory registries. Engines/dispatcher/pipeline read from these.
 _REGISTRIES: dict[str, dict[str, Any]] = {

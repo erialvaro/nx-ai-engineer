@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "nxai-cli"
-version = "2.4.0"
+version = "2.5.0"
 description = "NX AI Engineer official CLI (nxai): init/audit/plan/execute/review/knowledge/docs/doctor/update."
 requires-python = ">=3.8"
 license = { text = "MIT" }
@@ -16,7 +16,7 @@ classifiers = [
   "License :: OSI Approved :: MIT License",
   "Programming Language :: Python :: 3",
 ]
-dependencies = ["nxai-core==2.4.0", "nxai-runtime==2.4.0", "nxai-knowledge==2.4.0", "nxai-obsidian==2.4.0", "nxai-sdk==2.4.0", "nxai-packs==2.4.0"]
+dependencies = ["nxai-core==2.5.0", "nxai-runtime==2.5.0", "nxai-knowledge==2.5.0", "nxai-obsidian==2.5.0", "nxai-sdk==2.5.0", "nxai-packs==2.5.0"]
 
 [project.scripts]
 nxai = "nx_cli.orchestrator:main"

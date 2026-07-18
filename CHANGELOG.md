@@ -3,6 +3,31 @@
 All notable changes to NX AI Engineer are documented here. Format:
 [Keep a Changelog]; versioning: [Semantic Versioning](https://semver.org).
 
+## [2.5.0] — 2026-07-18 · Reverse Engineer specialist
+
+### Added
+- **`reverse-engineer` specialist agent + `ui-reverse-engineering` Engineering
+  Pack** (two-layer pattern). Capture a live site's UI/UX with a real browser,
+  distill a design system, and rebuild it as clean **React + Vite + Tailwind +
+  shadcn/ui** — reproducing layout and UX, **never a literal copy**. Slots into
+  `CANON_ORDER` **before `designer`** (capture produces the system that
+  design/frontend refine).
+  - **Capture (Playwright / Playwright MCP)** — full-page screenshots **desktop +
+    mobile**, rendered HTML, CSS, images/fonts/SVG/icons, nav links, and key
+    interaction states, into a self-contained capture folder with `meta.json`.
+  - **Design-system extraction** — tokens (color, type, spacing, radii, shadows,
+    breakpoints) + a component inventory, written down **before** any code.
+  - **Rebuild** — role-named reusable components (Header, Nav, Hero, Card, Form,
+    Footer…), content as data, tokens over magic numbers; shadcn/ui base.
+  - **Legal/ethical gate (rule #0)** — only sites you own or are authorized to
+    rebuild; respect `robots.txt`/ToS; **no third-party IP shipped** (logos,
+    trademarks, copyrighted images, licensed fonts, verbatim copy); **refactor,
+    never copy**.
+  - **Improve, don't inherit flaws** — a11y (WCAG), responsiveness, semantics and
+    performance; provenance (source URLs, date, authorization) on record.
+  Grouped under the **`frontend`** pack category
+  (`nxai pack add ui-reverse-engineering`).
+
 ## [2.4.0] — 2026-07-13 · Designer (UI/UX) specialist
 
 ### Added
