@@ -1,0 +1,67 @@
+{
+  "name": "ui-reverse-engineering",
+  "title": "UI Reverse Engineering — capture → analyze → rebuild",
+  "version": "1.0.0",
+  "domain": "frontend",
+  "category": "frontend",
+  "status": "stable",
+  "summary": "Reverse-engineer a live website's UI/UX with Playwright (HTML, CSS, screenshots desktop+mobile, assets, behavior), distill a design system, and rebuild it as clean React + Vite + Tailwind + shadcn/ui components. Rebuild the LAYOUT and UX, never a literal copy — refactor, componentize, improve a11y/responsiveness. Legally-gated: only sites you own or are authorized to rebuild (redesign, migration, inspiration).",
+  "tags": [
+    "reverse-engineering",
+    "ui",
+    "ux",
+    "playwright",
+    "design-system",
+    "react",
+    "tailwind",
+    "shadcn",
+    "scraping",
+    "migration",
+    "redesign"
+  ],
+  "applies_to": [
+    "reverse-engineer",
+    "designer",
+    "frontend",
+    "architect"
+  ],
+  "provides": [
+    "context.md",
+    "policies.md",
+    "checklists.md",
+    "capture-playbook.md"
+  ],
+  "required_adrs": [
+    "ADR-0001-baseline"
+  ],
+  "mandatory_tests": [
+    "Authorization confirmed: the source site is owned by the user or rebuild is authorized (redesign/migration/inspiration) — recorded in the Brain",
+    "No literal HTML/CSS copy shipped: output is refactored, componentized code",
+    "Third-party assets (logos, fonts, copyrighted images/copy, trademarks) are NOT reused without a license — replaced or flagged",
+    "Rebuilt UI meets the a11y baseline (semantic HTML, contrast, focus, keyboard) and is responsive (desktop + mobile captured and matched)"
+  ],
+  "validations": [
+    "Capture is complete: HTML, CSS, screenshots (desktop + mobile), assets, fonts, SVG/icons, links, and key interactions",
+    "A design system was extracted (colors, typography, spacing scale, radii, shadows, components) before any code",
+    "Components are reusable and named by role (Header, Nav, Hero, Features, Card, Form, Footer), not pixel-cloned",
+    "Improvements proposed where the original is weak (a11y, responsiveness, performance, semantics)",
+    "Clean code: no dead markup, no inline style dumps, tokens over magic numbers",
+    "Provenance recorded: source URL(s), capture date, and the authorization basis"
+  ],
+  "brain_facets": [
+    "decisions",
+    "patterns",
+    "modules"
+  ],
+  "files": [
+    "README.md",
+    "context.md",
+    "policies.md",
+    "checklists.md",
+    "patterns.md",
+    "anti-patterns.md",
+    "capture-playbook.md",
+    "architecture.md",
+    "prompts/specialist.md"
+  ]
+}

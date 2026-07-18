@@ -19,7 +19,7 @@ from typing import Any, Optional
 CANON_ORDER = [
     "architect", "database", "database-relational", "database-nosql",
     "database-reviewer", "security", "backend", "ai",
-    "designer", "frontend", "seo", "copywriter", "devops", "qa", "reviewer",
+    "reverse-engineer", "designer", "frontend", "seo", "copywriter", "devops", "qa", "reviewer",
     "delivery", "docs",
 ]
 
@@ -104,6 +104,25 @@ _BUILTIN: list[Agent] = [
         ],
         forbidden_globs=["**/*.sql", "**/migrations/**"],
         keywords=["ui", "component", "frontend", "page", "screen", "css", "styling", "form", "client"],
+    ),
+    # Reverse-engineer specialist. EXECUTES using the `ui-reverse-engineering`
+    # pack (Playwright capture -> design system -> rebuild in React+Vite+Tailwind+
+    # shadcn), which auto-attaches via `applies_to`. Legally gated (own/authorized
+    # sites only). Produces the design system + componentized rebuild; shares UI
+    # paths with designer/frontend.
+    Agent(
+        "reverse-engineer", "Reverse Engineer",
+        "Capture a live site's UI/UX (Playwright) and rebuild it as clean, componentized code -- layout & UX, never a literal copy.",
+        route_globs=[
+            "**/capture/**", "**/reverse-engineering/**", "**/design-system/**",
+            "**/tokens/**", "**/components/**", "**/*.tsx",
+        ],
+        forbidden_globs=["**/*.sql", "**/migrations/**", "**/api/**", "**/server/**"],
+        keywords=["reverse engineer", "reverse engineering", "engenharia reversa",
+                  "clone site", "clonar site", "rebuild website", "reconstruir site",
+                  "recreate", "recriar", "capture site", "capturar site", "playwright",
+                  "scrape ui", "screenshot to code", "site to react", "redesign",
+                  "migrate site", "migrar site", "replicate design", "replicar design"],
     ),
     # SEO specialist. EXECUTES using the `seo` Engineering Pack (technical +
     # on-page SEO, structured data, Core Web Vitals, and AI/LLM discoverability),
