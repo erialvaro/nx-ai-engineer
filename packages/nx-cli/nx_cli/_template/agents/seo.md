@@ -61,6 +61,50 @@ thresholds? If a pack policy/anti-pattern is violated, **stop and fix**.
 - [ ] Open Graph + Twitter cards present
 - [ ] AI discoverability: `llms.txt` present; content answer-first; AI-crawler policy set
 
+## Deployment checklist — search & AI discoverability (go-live)
+Run these **after** the site is live in production. The checklist above is code;
+this one is the operational rollout that gets pages **discovered, indexed, and
+cited**. Each step: do it → verify externally → record in the Brain.
+
+### 1. Crawlable & indexable (verify in prod)
+- [ ] `robots.txt` 200, allows primary bots, declares the sitemap, never blocks CSS/JS
+- [ ] `sitemap.xml` 200, valid XML, `lastmod` per URL, only indexable URLs
+- [ ] Key pages: 200, no stray `noindex`, self-referential canonical, primary content in server HTML
+
+### 2. Google Search Console
+- [ ] Add property — prefer **Domain** (covers apex + www + http/https); verify via **DNS TXT**
+- [ ] Submit `sitemap.xml`
+- [ ] Request indexing (URL Inspection) for home + top templates/pages
+- [ ] After a few days: check Pages/Coverage + Enhancements (rich results) for errors
+
+### 3. Bing Webmaster Tools
+- [ ] **Import from Google Search Console** (brings verification + sitemap). Covers Bing **and** ChatGPT/Copilot (Bing index)
+
+### 4. AI crawler policy (deliberate — not accidental)
+- [ ] Decide allow/deny per crawler: GPTBot, ClaudeBot, CCBot, Google-Extended, PerplexityBot, OAI-SearchBot, Claude-SearchBot
+- [ ] **Marketing/brand sites → ALLOW** (maximize citation reach in AI answers). Content/IP sites may deny *training* bots while allowing *search/citation* bots
+- [ ] Cloudflare: AI Crawl Control → **Managed robots.txt OFF** + **Block AI bots Scope = "Do not block"**. This never affects Googlebot (classic search indexing stays intact)
+- [ ] Verify: prod `robots.txt` has no AI `Disallow` you didn't intend
+
+### 5. Analytics
+- [ ] Pick a provider. Cookieless (Cloudflare Web Analytics / Plausible) needs **no** consent gate; **GA4 uses cookies → gate behind consent** (performance category), Consent Mode v2
+- [ ] Verify the beacon/tag actually fires in prod HTML (browser UA), not just configured
+
+### 6. Structured data validation
+- [ ] **Rich Results Test** on each template (Product/Offer, FAQPage, BreadcrumbList, Article…); fix warnings
+- [ ] Schema mirrors visible text (no phantom FAQ/price); **never** fake `aggregateRating`/`review`
+
+### 7. Social cards
+- [ ] Prime/refresh OG cache: Facebook Sharing Debugger + LinkedIn Post Inspector (+ X validator)
+
+### 8. Entity consolidation (GEO / Knowledge Graph)
+- [ ] Organization `sameAs` → official social/profile URLs; consistent name/branding across surfaces
+- [ ] Optional: `llms.txt`, answer-first content, E-E-A-T signals
+
+### 9. Post-launch monitoring
+- [ ] GSC performance (impressions/clicks) starts ~2–3 days; indexing hours→days
+- [ ] Watch GSC/Bing for crawl errors, coverage drops, manual actions
+
 ## Reporting — PageSpeed Insights
 When an **SEO report** is requested, analyze the page with **PageSpeed Insights**
 (<https://pagespeed.web.dev/>) — run **both Mobile and Desktop** — or the PSI API
