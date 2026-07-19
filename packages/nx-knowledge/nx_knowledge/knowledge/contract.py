@@ -34,6 +34,10 @@ class EngineeringContract:
     requirements: dict[str, list[str]] = field(default_factory=lambda: {
         "tests": [], "validations": [], "checklists": [], "adrs": []})
     brain: list[str] = field(default_factory=list)
+    # A matched design-reference profile (palette/type/mood) for design tasks, or
+    # None. Injected only for the designer/frontend agents when the
+    # `design-references` pack is installed and a reference fits the task.
+    design_reference: Optional[dict[str, Any]] = None
 
     def packs(self) -> list[str]:
         return [e["pack"] for e in self.engineering]
@@ -45,6 +49,7 @@ class EngineeringContract:
             "engineering": [{"pack": e["pack"], "title": e["title"]} for e in self.engineering],
             "constraints": self.constraints, "requirements": self.requirements,
             "brain": self.brain,
+            "design_reference": self.design_reference,
         }
 
     def to_text(self) -> str:
@@ -67,6 +72,21 @@ class EngineeringContract:
             L += [f"    - {v}" for v in vals]
         L.append("\nbrain:" + ("" if self.brain else " []"))
         L += [f"  - {b}" for b in self.brain]
+        dr = self.design_reference
+        if dr:
+            pal = (dr.get("palette") or {}).get("light", {}) or {}
+            typo = dr.get("typography") or {}
+            disp = (typo.get("display") or {}).get("family", "?")
+            body = (typo.get("body") or {}).get("family", "?")
+            L.append("\ndesign_reference:")
+            L.append(f"  id:       {dr.get('id', '?')}")
+            L.append(f"  name:     {dr.get('name', '?')}")
+            L.append(f"  vertical: {dr.get('vertical', '?')}")
+            L.append(f"  mood:     {', '.join(dr.get('mood', []))}")
+            L.append("  palette (light): " + ", ".join(f"{k}:{v}" for k, v in pal.items()))
+            L.append(f"  type:     {disp} (display) + {body} (body)")
+            if dr.get("source"):
+                L.append(f"  source:   {dr['source']}")
         return "\n".join(L) + "\n"
 
 
@@ -168,6 +188,13 @@ class ContractBuilder:
         for k in req:
             req[k] = list(dict.fromkeys(req[k]))
 
+        # design reference: only for design agents, only when the pack is installed
+        # and applies to this agent (i.e. it is among `packs`).
+        design_reference = None
+        if agent in ("designer", "frontend", "mobile") and any(
+                p.get("name") == "design-references" for p in packs):
+            design_reference = self._select_reference(task)
+
         return EngineeringContract(
             task=task, agent=agent,
             context={"files": list(files or []), "areas": list(areas or [])},
@@ -176,4 +203,20 @@ class ContractBuilder:
             constraints=list(dict.fromkeys(constraints)),
             requirements=req,
             brain=list(dict.fromkeys(brain_facets)),
+            design_reference=design_reference,
         )
+
+    def _select_reference(self, task: str) -> Optional[dict[str, Any]]:
+        """Best-fit design reference for the task, from the installed
+        `design-references` pack. Soft dependency on nx_packs — never fatal."""
+        prov = self.registry.get("packs") if self.registry else None
+        packs_root = getattr(prov, "packs_dir", None)
+        if packs_root is None:
+            return None
+        try:
+            from nx_providers.knowledge import design_refs as _refs
+            entries = _refs.installed_references(packs_root)
+            top = _refs.match(task, entries, k=1)
+            return top[0][0] if top else None
+        except Exception:
+            return None

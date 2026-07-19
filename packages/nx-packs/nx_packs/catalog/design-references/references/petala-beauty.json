@@ -1,0 +1,22 @@
+{
+  "id": "petala-beauty",
+  "name": "Petala Beauty",
+  "source": "https://www.petalabeauty.com.br/",
+  "vertical": "cosmetics",
+  "industry": ["cosmetics", "beauty products", "makeup", "skincare", "personal care"],
+  "mood": ["feminine", "modern", "clean", "fresh", "empowering", "soft"],
+  "keywords": ["beleza", "cosmeticos", "maquiagem", "skincare", "pele", "feminina", "mulher",
+               "produtos de beleza", "cuidados", "cosmetics", "beauty", "makeup", "skincare"],
+  "palette": {
+    "light": { "bg": "#ffffff", "surface": "#fdf1f6", "primary": "#ec6ea5", "accent": "#0a1423", "fg": "#0a1423", "muted": "#67645e" },
+    "dark":  { "bg": "#0a1423", "surface": "#14203a", "primary": "#f28cbb", "accent": "#f4f4f4", "fg": "#f4f4f4", "muted": "#8a94a5" }
+  },
+  "typography": {
+    "display": { "family": "Geist", "role": "headings", "source": "google" },
+    "body":    { "family": "Geist", "role": "text", "source": "google" },
+    "pairing_note": "A single modern grotesque (Geist) across weights — clean and contemporary, letting the pink do the emotional work."
+  },
+  "layout": "White canvas with a soft pink surface tint; deep-navy text; product cards; benefit strips; a warm, feminine but modern feel.",
+  "components": ["hero banner", "product grid", "benefit strip", "category cards", "reviews", "newsletter"],
+  "notes": "Cosmetics ecommerce 'por elas, pra elas': rose pink (#ec6ea5) primary against deep navy (#0a1423) — feminine yet modern. Distinct from salon references (product, not service)."
+}

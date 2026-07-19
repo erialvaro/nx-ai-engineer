@@ -3,30 +3,68 @@
 All notable changes to NX AI Engineer are documented here. Format:
 [Keep a Changelog]; versioning: [Semantic Versioning](https://semver.org).
 
-## [2.5.0] — 2026-07-18 · Reverse Engineer specialist
+## [2.7.0] — 2026-07-19 · Mobile specialist + design-reference library growth
 
 ### Added
-- **`reverse-engineer` specialist agent + `ui-reverse-engineering` Engineering
-  Pack** (two-layer pattern). Capture a live site's UI/UX with a real browser,
-  distill a design system, and rebuild it as clean **React + Vite + Tailwind +
-  shadcn/ui** — reproducing layout and UX, **never a literal copy**. Slots into
-  `CANON_ORDER` **before `designer`** (capture produces the system that
-  design/frontend refine).
-  - **Capture (Playwright / Playwright MCP)** — full-page screenshots **desktop +
-    mobile**, rendered HTML, CSS, images/fonts/SVG/icons, nav links, and key
-    interaction states, into a self-contained capture folder with `meta.json`.
-  - **Design-system extraction** — tokens (color, type, spacing, radii, shadows,
-    breakpoints) + a component inventory, written down **before** any code.
-  - **Rebuild** — role-named reusable components (Header, Nav, Hero, Card, Form,
-    Footer…), content as data, tokens over magic numbers; shadcn/ui base.
-  - **Legal/ethical gate (rule #0)** — only sites you own or are authorized to
-    rebuild; respect `robots.txt`/ToS; **no third-party IP shipped** (logos,
-    trademarks, copyrighted images, licensed fonts, verbatim copy); **refactor,
-    never copy**.
-  - **Improve, don't inherit flaws** — a11y (WCAG), responsiveness, semantics and
-    performance; provenance (source URLs, date, authorization) on record.
-  Grouped under the **`frontend`** pack category
-  (`nxai pack add ui-reverse-engineering`).
+- **`mobile` specialist agent + `mobile` Engineering Pack (React Native + Expo).**
+  A native iOS/Android developer that executes against a full mobile standard —
+  **architecture** (managed Expo, New Architecture, TypeScript), **typed
+  navigation** (expo-router/react-navigation), **state & data** (TanStack Query,
+  offline-first, `expo-secure-store`), **native modules & permissions** (Expo
+  modules, in-context requests), **performance** (FlatList/FlashList, Reanimated on
+  the UI thread, `expo-image`, Hermes), **EAS build/update/submit** + store
+  readiness, and **mobile accessibility** (44pt targets, labels, reduce-motion,
+  safe areas).
+  - Slots into `CANON_ORDER` **after `frontend`**; owns RN/Expo-specific files
+    (`App.*`, `app.json`/`app.config.*`, `eas.json`, `metro.config.*`,
+    `**/*.native.*`, `screens/`, `navigation/`, `mobile/`, `expo/`) and is
+    forbidden web/server/db paths. Routing prefers it for native config
+    (`eas.json` → `mobile`).
+  - **`design-references` now also feeds `mobile`** — palette/type/mood profiles
+    are platform-agnostic, injected into the mobile theme (NativeWind), light +
+    dark. *Adapt, never clone.*
+  - Prototyping via the **`mockup-app-skill`** (referenced as tooling) to sketch
+    screens/flow before wiring real data. Ships `prompts/specialist.md`, a
+    `templates/screen-spec.md`, and the `agents/mobile.md` contract.
+- **Design Reference Library grew to 14 profiles** (+8) — extracted from real
+  sites, broadening the verticals the matcher covers:
+  - `sweetags` (design-agency), `myfots` (fashion, minimal/mono), `petala-beauty`
+    (cosmetics), `vicshop` (fashion, minimalist), `fwr-agencia` (digital-agency),
+    `liloca` (fashion, playful), `tapetes-sao-jose` (home-decor), `lp-max-suzuki`
+    (car-dealership landing page). Same-vertical entries are separated by `mood`
+    (e.g. `moda minimalista` → myfots vs `moda divertida` → liloca).
+
+## [2.6.0] — 2026-07-19 · Design Reference Library
+
+### Added
+- **`design-references` Engineering Pack + a deterministic reference matcher.**
+  A library of **design-reference profiles** distilled from real, shipped sites —
+  each declaring a **palette (light + dark tokens), a type pairing, a layout
+  concept, mood and vertical** as structured data (`references/*.json`, validated
+  by `references/schema.json`). When a `designer`/`frontend` Engineering Contract
+  is built, NX matches the task prompt to the best-fit reference and injects it, so
+  the agent generates UI **grounded in a concrete visual language** instead of
+  inventing tokens — *adapt, never clone* (all `design`-pack gates still bind).
+  - **Matcher** (`nx_providers.knowledge.design_refs`) — a knowledge-source
+    primitive. Pure **deterministic tag overlap** (`vertical` ×3,
+    `industry`/`mood`/`keywords` ×2), accent-folded (`salão`→`salao`), ties broken
+    by `id`. No embeddings, no model, no network — matching the doctrine *packs
+    organize data; the model reasons*. `mood` disambiguates same-vertical entries
+    (`salão elegante` → Espaço Ellen Souza; `salão de luxo` → Odara Li).
+  - **Contract surface** — `EngineeringContract.design_reference` (rendered in
+    `to_text()`/`as_dict()`); populated only for `designer`/`frontend` when the
+    pack is installed and a reference actually fits the prompt (else `None`).
+  - **CLI** — `nxai design ref list | show <id> | match "<prompt>"` (reads the
+    installed pack, falls back to the built-in seeds).
+  - **Seed library (6)** — `hs-motors` (automotive, bold red/near-black,
+    Clash Display + Satoshi), `espaco-ellen-souza` (beauty, elegant rose/gold,
+    Playfair Display + Jost), `luque-construcoes` (construction, industrial
+    orange, Archivo + Inter), `atelie-simone` (stationery, playful pinks,
+    Pacifico + Nunito), `odara-li` (beauty, luxury gold, Fraunces + Inter),
+    `pousada-luz-do-sol` (hospitality, coastal terracotta/teal, Fraunces +
+    Plus Jakarta Sans).
+  - Extend by dropping a schema-conforming `references/<id>.json` into the pack —
+    no code change; third-party reference packs work the same way.
 
 ## [2.4.0] — 2026-07-13 · Designer (UI/UX) specialist
 

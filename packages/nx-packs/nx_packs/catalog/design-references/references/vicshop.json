@@ -1,0 +1,22 @@
+{
+  "id": "vicshop",
+  "name": "ViC",
+  "source": "https://www.vicshop.com.br/",
+  "vertical": "fashion",
+  "industry": ["fashion", "womenswear", "apparel", "clothing", "conscious fashion"],
+  "mood": ["minimalist", "sophisticated", "timeless", "elegant", "conscious", "understated"],
+  "keywords": ["moda", "roupa", "roupas", "feminina", "atemporal", "minimalista", "sofisticada",
+               "elegante", "consciente", "guarda-roupa", "fashion", "apparel", "clothing", "womenswear"],
+  "palette": {
+    "light": { "bg": "#ffffff", "surface": "#f4f0ee", "primary": "#292929", "accent": "#c07255", "fg": "#292929", "muted": "#929292" },
+    "dark":  { "bg": "#1c1c1c", "surface": "#262626", "primary": "#e8e8e8", "accent": "#c07255", "fg": "#f0efee", "muted": "#8a8a8a" }
+  },
+  "typography": {
+    "display": { "family": "Montserrat", "role": "headings", "source": "google" },
+    "body":    { "family": "Quicksand", "role": "text", "source": "google" },
+    "pairing_note": "Geometric Montserrat headings with rounded Quicksand body — clean and sophisticated with a soft, approachable touch."
+  },
+  "layout": "Minimal white base with a warm blush surface and a single terracotta accent; charcoal type; generous whitespace; refined product grid.",
+  "components": ["clean hero", "product grid", "collection banners", "editorial blocks", "size guide", "minimal footer"],
+  "notes": "Conscious womenswear: charcoal (#292929) with a terracotta/clay accent (#c07255) and blush (#f0c0ae) — minimalist and sophisticated. Contrast with liloca (playful) and myfots (mono/editorial)."
+}

@@ -1,0 +1,63 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "nxai:design-reference",
+  "title": "Design Reference Profile",
+  "description": "A structured visual-identity profile distilled from a real, shipped website. The designer/frontend agents match it to a prompt by tag overlap and design in its style.",
+  "type": "object",
+  "required": ["id", "name", "vertical", "industry", "mood", "keywords", "palette", "typography"],
+  "additionalProperties": true,
+  "properties": {
+    "id": { "type": "string", "pattern": "^[a-z0-9-]+$", "description": "Stable kebab-case identifier." },
+    "name": { "type": "string" },
+    "source": { "type": "string", "description": "Origin URL the profile was distilled from." },
+    "vertical": { "type": "string", "description": "Primary business vertical slug (strongest match signal), e.g. 'beauty-salon'." },
+    "industry": { "type": "array", "items": { "type": "string" }, "description": "Industry terms (EN/PT-BR) that should match the vertical." },
+    "mood": { "type": "array", "items": { "type": "string" }, "description": "Aesthetic descriptors, e.g. 'elegant', 'bold', 'coastal'." },
+    "keywords": { "type": "array", "items": { "type": "string" }, "description": "Vocabulary (EN + PT-BR) a user is likely to type; drives matching." },
+    "palette": {
+      "type": "object",
+      "required": ["light", "dark"],
+      "description": "Design tokens by theme. Roles, not raw swatches — reused as CSS vars / Tailwind config.",
+      "properties": {
+        "light": { "$ref": "#/definitions/theme" },
+        "dark": { "$ref": "#/definitions/theme" }
+      }
+    },
+    "typography": {
+      "type": "object",
+      "required": ["display", "body"],
+      "properties": {
+        "display": { "$ref": "#/definitions/typeface" },
+        "body": { "$ref": "#/definitions/typeface" },
+        "accent": { "$ref": "#/definitions/typeface" },
+        "pairing_note": { "type": "string" }
+      }
+    },
+    "layout": { "type": "string", "description": "One-line layout concept." },
+    "components": { "type": "array", "items": { "type": "string" }, "description": "Signature component patterns present on the reference." },
+    "notes": { "type": "string" }
+  },
+  "definitions": {
+    "theme": {
+      "type": "object",
+      "required": ["bg", "surface", "primary", "accent", "fg", "muted"],
+      "properties": {
+        "bg": { "type": "string" },
+        "surface": { "type": "string" },
+        "primary": { "type": "string" },
+        "accent": { "type": "string" },
+        "fg": { "type": "string" },
+        "muted": { "type": "string" }
+      }
+    },
+    "typeface": {
+      "type": "object",
+      "required": ["family"],
+      "properties": {
+        "family": { "type": "string" },
+        "role": { "type": "string" },
+        "source": { "type": "string", "description": "Where the font comes from, e.g. 'google', 'fontshare'." }
+      }
+    }
+  }
+}

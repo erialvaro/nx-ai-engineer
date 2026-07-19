@@ -851,6 +851,66 @@ def cmd_pack(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_design(args: argparse.Namespace) -> int:
+    """Design Reference Library: list / show / match design-reference profiles.
+
+    Reads the installed `design-references` pack when present, else the built-in
+    seed catalog, so `list`/`show`/`match` work even before `nxai pack add`."""
+    import nx_packs
+    from nx_providers.knowledge import design_refs as refs
+    packs_root = util.config_root() / "packs"
+    entries = refs.installed_references(packs_root)
+    if not entries:
+        try:
+            entries = refs.load_references(nx_packs.pack_dir("design-references") / "references")
+        except KeyError:
+            entries = []
+
+    if args.ref_action == "list":
+        print(util.banner("DESIGN REFERENCE LIBRARY"))
+        if not entries:
+            print("\n  (no references found)"); return 0
+        for e in entries:
+            typo = e.get("typography", {})
+            disp = (typo.get("display") or {}).get("family", "?")
+            body = (typo.get("body") or {}).get("family", "?")
+            print(f"\n  {e['id']:22} {e.get('vertical',''):16} {', '.join(e.get('mood', [])[:3])}")
+            print(f"    {'':22} {disp} + {body}")
+        print("\n  Inspect one with:  nxai design ref show <id>")
+        print("  Test a prompt with: nxai design ref match \"<prompt>\"")
+        return 0
+
+    if args.ref_action == "show":
+        if not args.query:
+            util.eprint("error: `nxai design ref show <id>` requires an id"); return 2
+        entry = next((e for e in entries if e.get("id") == args.query), None)
+        if entry is None:
+            util.eprint(f"error: unknown reference '{args.query}'. Run `nxai design ref list`."); return 2
+        print(util.banner(f"DESIGN REFERENCE — {entry.get('name', entry['id'])}"))
+        print("\n" + refs.summarize(entry))
+        if entry.get("components"):
+            print("  components: " + ", ".join(entry["components"]))
+        pal = (entry.get("palette") or {}).get("dark", {})
+        if pal:
+            print("  palette (dark):  " + ", ".join(f"{k}:{v}" for k, v in pal.items()))
+        return 0
+
+    if args.ref_action == "match":
+        if not args.query:
+            util.eprint("error: `nxai design ref match \"<prompt>\"` requires a prompt"); return 2
+        ranked = refs.match(args.query, entries, k=args.top)
+        print(util.banner("DESIGN REFERENCE — MATCH"))
+        print(f"\n  prompt: {args.query}")
+        if not ranked:
+            print("\n  no reference matched — the model designs from first principles.")
+            return 0
+        print()
+        for e, s in ranked:
+            print(f"  {s:5.1f}  {e['id']:22} {e.get('vertical','')}")
+        return 0
+    return 0
+
+
 def _detect_stack() -> str:
     try:
         mem = analyzer.load_memory()
@@ -1047,6 +1107,14 @@ def build_parser() -> argparse.ArgumentParser:
     sp.add_argument("action", choices=["list", "show", "add", "remove"])
     sp.add_argument("name", nargs="?", help="Pack name (for show/add/remove)")
     sp.set_defaults(fn=cmd_pack)
+
+    sp = sub.add_parser("design", help="Design Reference Library (list/show/match design profiles)")
+    dsub = sp.add_subparsers(dest="design_group", required=True)
+    rp = dsub.add_parser("ref", help="Work with design-reference profiles")
+    rp.add_argument("ref_action", choices=["list", "show", "match"])
+    rp.add_argument("query", nargs="?", help="Reference id (show) or prompt (match)")
+    rp.add_argument("--top", type=int, default=3, help="How many matches to show (match)")
+    rp.set_defaults(fn=cmd_design)
 
     sp = sub.add_parser("new",
                         help="Scaffold a new Cloud-Agnostic project foundation "

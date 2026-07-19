@@ -1,0 +1,22 @@
+{
+  "id": "myfots",
+  "name": "Myfots",
+  "source": "https://www.myfots.com/",
+  "vertical": "fashion",
+  "industry": ["fashion", "womenswear", "apparel", "clothing", "slow fashion", "atemporal"],
+  "mood": ["minimal", "timeless", "editorial", "neutral", "understated", "androgynous"],
+  "keywords": ["moda", "roupa", "roupas", "feminina", "agenera", "colecao", "atemporal",
+               "minimalista", "estilista", "vestuario", "fashion", "apparel", "clothing", "womenswear"],
+  "palette": {
+    "light": { "bg": "#f4f4f4", "surface": "#e7e7e3", "primary": "#231f20", "accent": "#9b9b8d", "fg": "#231f20", "muted": "#8a8a80" },
+    "dark":  { "bg": "#1a1817", "surface": "#232120", "primary": "#e7e7e3", "accent": "#9b9b8d", "fg": "#f4f4f4", "muted": "#8a877e" }
+  },
+  "typography": {
+    "display": { "family": "Roboto Mono", "role": "headings / labels", "source": "google" },
+    "body":    { "family": "Helvetica Neue", "role": "text", "source": "system" },
+    "pairing_note": "Monospace display for labels and headings over a plain neutral sans — an editorial, gallery-like fashion voice."
+  },
+  "layout": "Near-monochrome canvas, wide margins, big product photography; monospaced labels; almost no color — the garments carry the page.",
+  "components": ["editorial hero", "lookbook grid", "product cards", "minimal nav", "quiet footer"],
+  "notes": "Timeless womenswear label: warm greys and sage (#9b9b8d) with near-black; monospace typography sets the understated, editorial tone."
+}

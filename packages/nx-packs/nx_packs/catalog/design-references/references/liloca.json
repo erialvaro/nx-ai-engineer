@@ -1,0 +1,22 @@
+{
+  "id": "liloca",
+  "name": "Liloca Store",
+  "source": "https://www.liloca.com.br/",
+  "vertical": "fashion",
+  "industry": ["fashion", "womenswear", "apparel", "clothing", "fashion store"],
+  "mood": ["playful", "feminine", "vibrant", "friendly", "cheerful", "youthful"],
+  "keywords": ["moda", "roupa", "roupas", "loja", "feminina", "moda feminina", "look",
+               "tendencia", "vestido", "fashion", "apparel", "clothing", "store"],
+  "palette": {
+    "light": { "bg": "#ffffff", "surface": "#eafbec", "primary": "#128722", "accent": "#df5e76", "fg": "#343434", "muted": "#676767" },
+    "dark":  { "bg": "#0f1a12", "surface": "#16261a", "primary": "#3fbf58", "accent": "#ef7d92", "fg": "#eafbec", "muted": "#9aa79d" }
+  },
+  "typography": {
+    "display": { "family": "Dancing Script", "role": "headings", "source": "google" },
+    "body":    { "family": "Montserrat", "role": "text", "source": "google" },
+    "pairing_note": "Flowing script display (Dancing Script) with clean Montserrat body — a warm, boutique, feminine personality."
+  },
+  "layout": "Bright canvas with a green primary and mint surface offset by a pink accent; script headlines; promo banners; product carousels.",
+  "components": ["promo hero", "product carousels", "category tiles", "sale banners", "reviews", "floating WhatsApp button"],
+  "notes": "A long-running (32 anos) women's fashion store: unusual green (#128722) + pink (#df5e76) + mint pairing with a script display — playful and boutique."
+}

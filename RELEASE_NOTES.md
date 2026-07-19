@@ -33,6 +33,17 @@ nxai docs                      # the bundled guides
 
 ## Highlights
 
+- **Mobile specialist (2.7)** — a `mobile` agent + React Native/Expo Engineering
+  Pack: managed Expo + New Architecture, typed navigation, offline-first data,
+  secure storage, UI-thread performance, EAS build/update/submit, and mobile a11y.
+  Owns RN/Expo files, runs after `frontend`, and receives a matched design
+  reference (tokens are platform-agnostic). Prototype with `mockup-app-skill`.
+- **Design Reference Library (2.6)** — the `design-references` pack ships visual
+  identities distilled from real sites (palette light+dark, type pairing, layout,
+  mood, vertical). NX matches the prompt to the best-fit reference by deterministic
+  tag overlap and injects it into the `designer`/`frontend` contract, so the AI
+  generates sites **grounded in a concrete reference** — *adapt, never clone*.
+  Inspect with `nxai design ref list | show <id> | match "<prompt>"`.
 - **Official `nxai` CLI** — 25 commands. New in 1.0: `init`, `update`, `doctor`,
   `docs`, `version`, `execute`. The legacy `nx` alias is also installed.
 - **PyPI distribution** — 8 acyclic, **stdlib-only** packages (no third-party
@@ -56,7 +67,7 @@ nxai docs                      # the bundled guides
 ## Quality bar
 
 Every release must pass the Quality Gate (`python scripts/quality_gate.py`):
-**219 tests**, no import cycles, no unused imports, public CLI/API present, all
+**290 tests**, no import cycles, no unused imports, public CLI/API present, all
 docs present — plus `scripts/verify_packages.py` (declared **and** real-import
 graphs acyclic and consistent).
 

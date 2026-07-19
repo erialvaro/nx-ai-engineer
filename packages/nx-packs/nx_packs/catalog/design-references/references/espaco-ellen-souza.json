@@ -1,0 +1,22 @@
+{
+  "id": "espaco-ellen-souza",
+  "name": "Espaço Ellen Souza",
+  "source": "https://espacoellensouza.com.br/",
+  "vertical": "beauty-salon",
+  "industry": ["beauty", "salon", "hair", "wellness", "aesthetics"],
+  "mood": ["elegant", "feminine", "warm", "refined", "soft", "delicate"],
+  "keywords": ["salao", "beleza", "estetica", "cabelo", "cabeleireiro", "spa", "manicure",
+               "sobrancelha", "feminino", "elegante", "delicado", "beauty", "salon", "hair"],
+  "palette": {
+    "light": { "bg": "#fdfaf6", "surface": "#faf3ea", "primary": "#c98f86", "accent": "#c2a36b", "fg": "#3b2c23", "muted": "#9c8f86" },
+    "dark":  { "bg": "#211913", "surface": "#2c211a", "primary": "#d9a49b", "accent": "#d4b87f", "fg": "#f4e8da", "muted": "#a2917f" }
+  },
+  "typography": {
+    "display": { "family": "Playfair Display", "role": "headings", "source": "google" },
+    "body":    { "family": "Jost", "role": "text", "source": "google" },
+    "pairing_note": "High-contrast serif display with a light geometric sans — classic 'editorial + modern' pairing that reads refined and feminine."
+  },
+  "layout": "Soft cream sections with generous whitespace; serif headlines; service cards; before/after gallery; gentle rose/gold accents.",
+  "components": ["hero with tagline", "service list cards", "gallery", "testimonials", "team section", "floating WhatsApp button"],
+  "notes": "Warm cream base with a rose (#c98f86) primary and a muted gold (#c2a36b) accent; deep cocoa text for contrast."
+}

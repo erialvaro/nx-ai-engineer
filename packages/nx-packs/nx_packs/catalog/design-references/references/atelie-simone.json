@@ -1,0 +1,24 @@
+{
+  "id": "atelie-simone",
+  "name": "Ateliê Simone Personalizados",
+  "source": "https://ateliesimone.com.br/",
+  "vertical": "stationery",
+  "industry": ["stationery", "personalized gifts", "party", "crafts", "paper goods", "invitations"],
+  "mood": ["playful", "handmade", "cute", "warm", "friendly", "whimsical", "charming"],
+  "keywords": ["papelaria", "personalizados", "personalizada", "festa", "convite", "convites",
+               "lembrancinha", "lembrancinhas", "atelie", "artesanal", "aniversario", "topo de bolo",
+               "stationery", "party", "gifts", "invitations"],
+  "palette": {
+    "light": { "bg": "#fdfbf0", "surface": "#f8f5e1", "primary": "#f846a0", "accent": "#f99ecb", "fg": "#3a2414", "muted": "#a89b8c" },
+    "dark":  { "bg": "#241a12", "surface": "#30231a", "primary": "#f96fb5", "accent": "#f99ecb", "fg": "#fdfbf0", "muted": "#b0a394" }
+  },
+  "typography": {
+    "display": { "family": "Pacifico", "role": "headings", "source": "google" },
+    "body":    { "family": "Nunito", "role": "text", "source": "google" },
+    "accent":  { "family": "Caveat", "role": "handwritten labels", "source": "google" },
+    "pairing_note": "Rounded script display (Pacifico) with a soft rounded sans (Nunito) and a handwritten accent (Caveat) — cheerful and artisanal."
+  },
+  "layout": "Cream base with playful pink accents; rounded cards; product gallery; handwritten-style labels; friendly, soft shapes.",
+  "components": ["cheerful hero", "product/category cards", "gallery", "how-to-order steps", "testimonials", "floating WhatsApp button"],
+  "notes": "Two pinks (hot #f846a0 + soft #f99ecb) on warm cream; rounded, hand-made feeling suited to custom party stationery."
+}

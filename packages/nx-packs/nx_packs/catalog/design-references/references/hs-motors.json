@@ -1,0 +1,22 @@
+{
+  "id": "hs-motors",
+  "name": "HS Motors",
+  "source": "https://hsmotorsgru.com.br/",
+  "vertical": "car-dealership",
+  "industry": ["automotive", "car dealership", "vehicle sales", "cars", "auto"],
+  "mood": ["bold", "trustworthy", "dynamic", "masculine", "confident"],
+  "keywords": ["carro", "carros", "veiculo", "veiculos", "loja de carros", "concessionaria",
+               "automovel", "seminovos", "automotivo", "revenda", "car", "dealership", "auto", "motors"],
+  "palette": {
+    "light": { "bg": "#ffffff", "surface": "#f4f5f7", "primary": "#e10e1b", "accent": "#ff2130", "fg": "#16181b", "muted": "#9ca3af" },
+    "dark":  { "bg": "#0f1113", "surface": "#16181b", "primary": "#ff2130", "accent": "#ff4a56", "fg": "#e6e8ec", "muted": "#8a909c" }
+  },
+  "typography": {
+    "display": { "family": "Clash Display", "role": "headings", "source": "fontshare" },
+    "body":    { "family": "Satoshi", "role": "text", "source": "fontshare" },
+    "pairing_note": "Wide, high-contrast grotesque display over a neutral geometric body — reads fast and assertive, fitting an automotive brand."
+  },
+  "layout": "Dark, high-contrast hero with a large vehicle image; inventory as a responsive card grid; sticky WhatsApp CTA.",
+  "components": ["full-bleed hero", "vehicle card grid", "trust badges", "filter bar", "floating WhatsApp button", "footer with map"],
+  "notes": "Positioning is 'Procedência e Confiança' (provenance & trust). Red is the single bold accent against near-black neutrals."
+}

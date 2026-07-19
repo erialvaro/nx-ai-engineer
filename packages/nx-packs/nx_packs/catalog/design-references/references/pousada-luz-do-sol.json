@@ -1,0 +1,23 @@
+{
+  "id": "pousada-luz-do-sol",
+  "name": "Pousada Luz do Sol",
+  "source": "https://pousadaluzdosolaracati.tur.br/",
+  "vertical": "hospitality",
+  "industry": ["hospitality", "inn", "hotel", "lodging", "tourism", "bed and breakfast", "guesthouse"],
+  "mood": ["coastal", "boutique", "warm", "relaxed", "inviting", "sunny"],
+  "keywords": ["pousada", "hotel", "hospedagem", "turismo", "praia", "mar", "litoral", "quarto",
+               "quartos", "reserva", "diaria", "beira-mar", "hospitality", "inn", "beach", "guesthouse"],
+  "palette": {
+    "light": { "bg": "#f8f2e6", "surface": "#f2e9d7", "primary": "#d98441", "accent": "#5ba0b3", "fg": "#3b2f26", "muted": "#94897a" },
+    "dark":  { "bg": "#16201f", "surface": "#1e2a29", "primary": "#e0925a", "accent": "#6fb3c6", "fg": "#f2e9d7", "muted": "#9aa79f" }
+  },
+  "typography": {
+    "display": { "family": "Fraunces", "role": "headings", "source": "google" },
+    "body":    { "family": "Plus Jakarta Sans", "role": "text", "source": "google" },
+    "accent":  { "family": "Cormorant Garamond", "role": "quotes / secondary headings", "source": "google" },
+    "pairing_note": "Sun-warmed serif display (Fraunces/Cormorant) over a friendly humanist sans — coastal, boutique-inn feeling."
+  },
+  "layout": "Sandy warm base with terracotta primary and sea-teal accent; photo-led hero; room cards; location/attractions section; booking CTA.",
+  "components": ["photo hero", "room cards", "amenities grid", "attractions/location", "gallery", "booking CTA", "floating WhatsApp button"],
+  "notes": "Terracotta (#d98441) + sea teal (#5ba0b3) on sand — the only reference pairing two accents (warm + cool) for a beach-town identity."
+}

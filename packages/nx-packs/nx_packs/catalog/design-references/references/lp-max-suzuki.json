@@ -1,0 +1,22 @@
+{
+  "id": "lp-max-suzuki",
+  "name": "LP Max (Suzuki dealer)",
+  "source": "https://lp-max.vercel.app/",
+  "vertical": "car-dealership",
+  "industry": ["automotive", "car dealership", "vehicle sales", "landing page", "lead generation"],
+  "mood": ["modern", "trustworthy", "clean", "energetic", "conversion-focused", "professional"],
+  "keywords": ["carro", "carros", "veiculo", "concessionaria", "revenda", "automovel", "dealer",
+               "mobil", "landing page", "lp", "captura de leads", "car", "dealership", "automotive"],
+  "palette": {
+    "light": { "bg": "#ffffff", "surface": "#eef2ff", "primary": "#4149dc", "accent": "#e4002b", "fg": "#1a1a2e", "muted": "#7f89b0" },
+    "dark":  { "bg": "#0d0f1f", "surface": "#16182e", "primary": "#6b73f0", "accent": "#ff4d68", "fg": "#eef2ff", "muted": "#7f89b0" }
+  },
+  "typography": {
+    "display": { "family": "Poppins", "role": "headings", "source": "google" },
+    "body":    { "family": "Poppins", "role": "text", "source": "google" },
+    "pairing_note": "A single geometric sans (Poppins) across weights — modern, friendly and conversion-oriented, standard for a high-clarity landing page."
+  },
+  "layout": "Conversion landing page: indigo primary with a red brand pop; hero with lead form, model cards, credit-simulation CTA, WhatsApp-first contact.",
+  "components": ["hero with lead form", "model/vehicle cards", "financing/credit CTA", "benefits grid", "testimonials", "floating WhatsApp button"],
+  "notes": "Modern automotive LANDING PAGE — indigo (#4149dc) with a red brand accent (#e4002b) and Poppins. Distinct from hs-motors (bold red/near-black dealership); this is a clean lead-gen LP."
+}

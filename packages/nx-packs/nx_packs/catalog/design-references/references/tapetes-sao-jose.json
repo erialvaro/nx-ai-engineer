@@ -1,0 +1,22 @@
+{
+  "id": "tapetes-sao-jose",
+  "name": "Tapetes São José",
+  "source": "https://www.tapetessaojose.com/",
+  "vertical": "home-decor",
+  "industry": ["home decor", "rugs", "carpets", "interior", "furnishings", "made to measure"],
+  "mood": ["warm", "artisanal", "cozy", "earthy", "homely", "refined"],
+  "keywords": ["tapete", "tapetes", "sob medida", "decoracao", "casa", "interior", "personalizado",
+               "sala", "quarto", "home decor", "rug", "rugs", "carpet", "home"],
+  "palette": {
+    "light": { "bg": "#ffffff", "surface": "#e8e3de", "primary": "#a26127", "accent": "#8d8664", "fg": "#343141", "muted": "#9a9c9b" },
+    "dark":  { "bg": "#201e26", "surface": "#2b2833", "primary": "#c07f3f", "accent": "#a39a73", "fg": "#e8e3de", "muted": "#9a9c9b" }
+  },
+  "typography": {
+    "display": { "family": "Plus Jakarta Sans", "role": "headings", "source": "google" },
+    "body":    { "family": "Plus Jakarta Sans", "role": "text", "source": "google" },
+    "pairing_note": "A single humanist sans (Plus Jakarta Sans) across weights — calm and modern, letting the earthy palette and product photography lead."
+  },
+  "layout": "Warm neutral canvas with slate text, terracotta primary and olive accent; a configurator ('crie seu tapete'); room-scene photography; consultation CTA.",
+  "components": ["photo hero", "product configurator", "room-scene gallery", "material/color pickers", "consultation CTA", "testimonials"],
+  "notes": "Made-to-measure rugs: earthy terracotta (#a26127) + olive (#8d8664) + cream (#e8e3de) on slate (#343141) — warm, artisanal, homely."
+}

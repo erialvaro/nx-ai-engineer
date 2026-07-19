@@ -1,0 +1,22 @@
+{
+  "id": "fwr-agencia",
+  "name": "FWR Agência Digital",
+  "source": "https://www.fwragenciadigital.com.br/",
+  "vertical": "digital-agency",
+  "industry": ["digital agency", "ecommerce", "web design", "seo", "ux", "marketing"],
+  "mood": ["bold", "modern", "techy", "dark", "energetic", "digital"],
+  "keywords": ["agencia", "agencia digital", "ecommerce", "seo", "ux", "conversao", "marketing",
+               "web design", "trafego", "performance", "digital agency", "agency", "web"],
+  "palette": {
+    "light": { "bg": "#ffffff", "surface": "#f0f0f0", "primary": "#191919", "accent": "#5cfd86", "fg": "#191919", "muted": "#6b6b6b" },
+    "dark":  { "bg": "#191919", "surface": "#262626", "primary": "#5cfd86", "accent": "#5cfd86", "fg": "#f0f0f0", "muted": "#b6b7b8" }
+  },
+  "typography": {
+    "display": { "family": "Comfortaa", "role": "headings", "source": "google" },
+    "body":    { "family": "Inter", "role": "text", "source": "google" },
+    "pairing_note": "Rounded geometric display (Comfortaa) over neutral Inter — friendly-but-techy, softens an otherwise hard dark UI."
+  },
+  "layout": "Dark-first: near-black canvas with a neon-green (#5cfd86) accent; bold headlines, service cards, results/metrics, strong CTAs.",
+  "components": ["dark hero", "service cards", "results/metrics band", "portfolio", "process timeline", "contact CTA"],
+  "notes": "Digital-agency energy: electric green (#5cfd86) on near-black (#191919) — high-tech and bold. Rounded Comfortaa keeps it friendly."
+}

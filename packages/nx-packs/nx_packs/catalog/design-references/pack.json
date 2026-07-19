@@ -1,0 +1,49 @@
+{
+  "name": "design-references",
+  "title": "Design Reference Library",
+  "version": "1.0.0",
+  "domain": "design",
+  "category": "design",
+  "status": "stable",
+  "summary": "A library of design-reference profiles distilled from real shipped sites (palette light+dark, type pairing, layout, mood, vertical). Matched to the prompt by deterministic tag overlap so the designer/frontend agents generate UI grounded in a concrete visual language instead of inventing tokens.",
+  "tags": [
+    "design",
+    "design-system",
+    "references",
+    "tokens",
+    "palette",
+    "typography",
+    "ui",
+    "inspiration"
+  ],
+  "applies_to": [
+    "designer",
+    "frontend",
+    "mobile"
+  ],
+  "provides": [
+    "context.md",
+    "policies.md",
+    "checklists.md"
+  ],
+  "required_adrs": [],
+  "mandatory_tests": [],
+  "validations": [
+    "A design reference was selected (or explicitly none) for the prompt's context",
+    "The chosen reference's palette is adapted into project tokens (light AND dark) — not copied verbatim as magic values",
+    "The reference's type pairing is honored (display + body families) or a justified substitute is documented",
+    "The generated design reads as its own brand, not a pixel-clone of the reference source"
+  ],
+  "brain_facets": [
+    "patterns",
+    "decisions"
+  ],
+  "files": [
+    "README.md",
+    "context.md",
+    "policies.md",
+    "checklists.md",
+    "matcher.md",
+    "references/schema.json"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "id": "odara-li",
+  "name": "Odara Li Beauty Parlor",
+  "source": "https://odaralibeautyparlor.com.br/",
+  "vertical": "beauty-salon",
+  "industry": ["beauty", "salon", "hair", "spa", "aesthetics", "beauty parlor"],
+  "mood": ["luxury", "warm", "refined", "sophisticated", "golden", "premium"],
+  "keywords": ["salao", "beleza", "cabelo", "estetica", "spa", "luxo", "sofisticado", "premium",
+               "parlor", "beauty parlor", "salon", "hair", "beauty", "luxury"],
+  "palette": {
+    "light": { "bg": "#fdfaf5", "surface": "#f2e8d6", "primary": "#9c7d3c", "accent": "#cbae7e", "fg": "#3b2f26", "muted": "#9a8b78" },
+    "dark":  { "bg": "#211a13", "surface": "#2c231a", "primary": "#cbae7e", "accent": "#d8bf90", "fg": "#f2e8d6", "muted": "#a2927d" }
+  },
+  "typography": {
+    "display": { "family": "Fraunces", "role": "headings", "source": "google" },
+    "body":    { "family": "Inter", "role": "text", "source": "google" },
+    "pairing_note": "Fraunces (soft, high-contrast 'old-style' serif with optical sizing) over neutral Inter — warm luxury with a modern base."
+  },
+  "layout": "Cream-and-gold luxury sections; serif display; elegant service cards; gold hairlines; generous spacing; sticky WhatsApp.",
+  "components": ["elegant hero", "service cards", "price list", "gallery", "booking CTA", "testimonials", "floating WhatsApp button"],
+  "notes": "Golds (#cbae7e / #9c7d3c) on warm cream with cocoa text; distinct from Espaço Ellen Souza by leaning luxury/gold rather than rose."
+}

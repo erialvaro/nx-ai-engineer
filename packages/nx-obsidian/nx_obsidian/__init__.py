@@ -1,2 +1,2 @@
 """nx_obsidian — nx-ai-engineer monorepo package."""
-__version__ = "2.5.0"
+__version__ = "2.7.0"

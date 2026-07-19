@@ -1,0 +1,66 @@
+{
+  "name": "mobile",
+  "title": "Mobile (React Native + Expo)",
+  "version": "1.0.0",
+  "domain": "mobile",
+  "category": "mobile",
+  "status": "stable",
+  "summary": "Mobile engineering with React Native + Expo: project architecture, typed navigation (expo-router / react-navigation), state & data (offline-first, secure storage), native modules & permissions, list/render performance (FlatList, Reanimated, Hermes), EAS build/update/submit, app-store release, and mobile accessibility. Pairs with the design-references pack (tokens are platform-agnostic).",
+  "tags": [
+    "mobile",
+    "react-native",
+    "expo",
+    "expo-router",
+    "eas",
+    "ios",
+    "android",
+    "nativewind",
+    "reanimated"
+  ],
+  "applies_to": [
+    "mobile"
+  ],
+  "provides": [
+    "context.md",
+    "policies.md",
+    "checklists.md"
+  ],
+  "required_adrs": [],
+  "mandatory_tests": [
+    "App boots on BOTH iOS and Android (Expo Go or a dev build) with no red-screen error",
+    "Every screen handles loading / empty / error states — not just the happy path",
+    "Lists use a virtualized list (FlatList/FlashList) with stable keyExtractor — never .map() over large data",
+    "Navigation is typed and every route is reachable and has a back path (no dead ends)"
+  ],
+  "validations": [
+    "Targets Expo SDK + New Architecture; no unjustified ejection from the managed workflow",
+    "Secrets/tokens use expo-secure-store / Keychain / Keystore — never AsyncStorage or bundled in JS",
+    "Design tokens are the single source of truth (NativeWind/theme), light AND dark, honoring the OS setting",
+    "Touch targets >= 44x44pt, screens are accessible (labels/roles), and honor reduce-motion",
+    "Animations run on the UI thread (Reanimated / native driver) — never animate layout on the JS thread",
+    "Images are sized and cached (expo-image); no unbounded lists or memory leaks from listeners/timers",
+    "Env/config via app.config + EAS env; builds/release go through EAS (build/update/submit)"
+  ],
+  "brain_facets": [
+    "patterns",
+    "decisions",
+    "services"
+  ],
+  "files": [
+    "README.md",
+    "context.md",
+    "policies.md",
+    "checklists.md",
+    "architecture.md",
+    "navigation.md",
+    "state-data.md",
+    "native-modules.md",
+    "performance.md",
+    "build-release.md",
+    "accessibility.md",
+    "anti-patterns.md",
+    "tooling.md",
+    "prompts/specialist.md",
+    "templates/screen-spec.md"
+  ]
+}

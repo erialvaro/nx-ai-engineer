@@ -1,0 +1,22 @@
+{
+  "id": "sweetags",
+  "name": "Sweetags",
+  "source": "https://www.sweetags.com.br/",
+  "vertical": "design-agency",
+  "industry": ["design agency", "ecommerce design", "branding", "ui/ux", "creative studio"],
+  "mood": ["bold", "creative", "energetic", "playful", "confident", "vibrant"],
+  "keywords": ["agencia", "design", "ecommerce", "loja virtual", "identidade visual", "branding",
+               "ux", "ui", "layout", "criacao", "portfolio", "agency", "design agency", "studio"],
+  "palette": {
+    "light": { "bg": "#fffff0", "surface": "#f7f7e6", "primary": "#6c36fe", "accent": "#fefc2d", "fg": "#010101", "muted": "#6b7280" },
+    "dark":  { "bg": "#0a0a08", "surface": "#16150f", "primary": "#8b63ff", "accent": "#fefc2d", "fg": "#fffff0", "muted": "#9a988c" }
+  },
+  "typography": {
+    "display": { "family": "Avenir Next", "role": "headings", "source": "custom" },
+    "body":    { "family": "Wix Madefor Text", "role": "text", "source": "custom" },
+    "pairing_note": "Heavy geometric sans display over a clean neutral text face — confident and creative, an agency showing off its own craft."
+  },
+  "layout": "High-energy cream canvas with a neon-yellow highlight and a violet primary; oversized type, big case-study blocks, bold CTAs.",
+  "components": ["oversized hero", "case-study grid", "stats band", "logo wall", "process steps", "bold CTA"],
+  "notes": "Neon yellow (#fefc2d) as a highlight against near-black on warm cream, with violet (#6c36fe) as the creative accent — a portfolio brand that sells design."
+}

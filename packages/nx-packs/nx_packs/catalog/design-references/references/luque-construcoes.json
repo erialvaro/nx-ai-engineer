@@ -1,0 +1,22 @@
+{
+  "id": "luque-construcoes",
+  "name": "Luque Construções",
+  "source": "https://luqueconstrucoes.com.br/",
+  "vertical": "construction",
+  "industry": ["construction", "civil works", "renovation", "contractor", "engineering", "building"],
+  "mood": ["industrial", "strong", "bold", "reliable", "solid", "professional"],
+  "keywords": ["obra", "obras", "reforma", "reformas", "construcao", "construtora", "empreiteiro",
+               "pedreiro", "engenharia", "predial", "construction", "contractor", "builder", "renovation"],
+  "palette": {
+    "light": { "bg": "#ffffff", "surface": "#f2f3f5", "primary": "#e8821e", "accent": "#ffb763", "fg": "#16181b", "muted": "#6b7280" },
+    "dark":  { "bg": "#0f1113", "surface": "#16181b", "primary": "#f2933a", "accent": "#ffb763", "fg": "#e5e7eb", "muted": "#9ca3af" }
+  },
+  "typography": {
+    "display": { "family": "Archivo", "role": "headings", "source": "google" },
+    "body":    { "family": "Inter", "role": "text", "source": "google" },
+    "pairing_note": "Heavy, slightly condensed grotesque display over neutral Inter — industrial and structural, evokes signage and blueprints."
+  },
+  "layout": "Bold near-black sections with a safety-orange accent; project portfolio grid; process steps; strong CTAs; sticky WhatsApp.",
+  "components": ["hero with CTA", "services grid", "project portfolio", "numbered process steps", "stats band", "quote form"],
+  "notes": "Safety/construction orange (#e8821e) as the single loud accent against near-black; conveys strength and reliability."
+}

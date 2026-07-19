@@ -19,7 +19,7 @@ from typing import Any, Optional
 CANON_ORDER = [
     "architect", "database", "database-relational", "database-nosql",
     "database-reviewer", "security", "backend", "ai",
-    "reverse-engineer", "designer", "frontend", "seo", "copywriter", "devops", "qa", "reviewer",
+    "reverse-engineer", "designer", "frontend", "mobile", "seo", "copywriter", "devops", "qa", "reviewer",
     "delivery", "docs",
 ]
 
@@ -104,6 +104,31 @@ _BUILTIN: list[Agent] = [
         ],
         forbidden_globs=["**/*.sql", "**/migrations/**"],
         keywords=["ui", "component", "frontend", "page", "screen", "css", "styling", "form", "client"],
+    ),
+    # Mobile specialist. EXECUTES using the `mobile` Engineering Pack (React Native
+    # + Expo: architecture, navigation, native modules, performance, EAS build/
+    # release, store submission), which auto-attaches via `applies_to`. The
+    # `design-references` pack also feeds it (tokens/palette/type are platform-
+    # agnostic). Owns RN/Expo-specific files (App entry, expo/eas/metro config,
+    # screens, navigation, .native.* files) — never web (`frontend`) or server.
+    Agent(
+        "mobile", "Mobile (React Native + Expo)",
+        "React Native / Expo apps: screens, navigation, native modules, builds and store release.",
+        route_globs=[
+            "App.tsx", "App.jsx", "App.js", "App.ts", "**/App.tsx", "**/App.jsx",
+            "app.json", "app.config.*", "eas.json", "metro.config.*",
+            "**/*.native.ts", "**/*.native.tsx",
+            "**/screens/**", "**/navigation/**", "**/mobile/**", "apps/mobile/**",
+            "**/expo/**", "**/react-native.config.*",
+        ],
+        forbidden_globs=["**/*.sql", "**/migrations/**", "**/api/**", "**/server/**"],
+        keywords=["mobile", "mobile app", "app mobile", "aplicativo", "aplicativo mobile",
+                  "react native", "react-native", "rn", "expo", "expo router", "expo-router",
+                  "eas", "eas build", "eas submit", "ios", "android", "native", "nativo",
+                  "apk", "aab", "ipa", "app store", "play store", "testflight",
+                  "react navigation", "nativewind", "reanimated", "expo go",
+                  "push notification", "notificação push", "tela do app", "app screen",
+                  "mockup app", "mockup-app", "mockup do app", "cross-platform"],
     ),
     # Reverse-engineer specialist. EXECUTES using the `ui-reverse-engineering`
     # pack (Playwright capture -> design system -> rebuild in React+Vite+Tailwind+
