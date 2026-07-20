@@ -8,6 +8,6 @@ New code should import from here:
 Equivalent top-level access also works:
     from nx_core import util
 """
-from .. import config, util
+from .. import config, net, util
 
-__all__ = ["util", "config"]
+__all__ = ["util", "config", "net"]

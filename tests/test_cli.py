@@ -10,7 +10,7 @@ EXPECTED = {
     "metrics": "cmd_metrics", "insights": "cmd_insights", "recommend": "cmd_recommend",
     "knowledge": "cmd_knowledge", "obsidian": "cmd_obsidian",
     "tasks": "cmd_tasks", "locks": "cmd_locks", "unlock": "cmd_unlock",
-    "status": "cmd_status", "worktree": "cmd_worktree",
+    "status": "cmd_status", "worktree": "cmd_worktree", "port": "cmd_port",
 }
 
 MINIMAL_ARGS = {
@@ -22,6 +22,7 @@ MINIMAL_ARGS = {
     "obsidian": ["obsidian", "status"],
     "tasks": ["tasks"], "locks": ["locks"],
     "unlock": ["unlock"], "status": ["status"], "worktree": ["worktree", "backend"],
+    "port": ["port"],
 }
 
 

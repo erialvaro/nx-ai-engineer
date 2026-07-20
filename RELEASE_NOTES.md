@@ -33,6 +33,12 @@ nxai docs                      # the bundled guides
 
 ## Highlights
 
+- **Free-port preflight (2.8)** — `nxai port [preferred]` finds a bindable
+  localhost port **before** a project is brought up on `http://localhost`, so a
+  busy port (a stale container, another dev server) never fails startup. `-q`
+  prints just the number for scripts (`PORT=$(nxai port 8000 -q)`); scaffolded
+  projects also check ports in `make up`. Backed by the stdlib-only
+  `nx_core.net` primitive (`is_port_free`, `find_free_port`).
 - **Mobile specialist (2.7)** — a `mobile` agent + React Native/Expo Engineering
   Pack: managed Expo + New Architecture, typed navigation, offline-first data,
   secure storage, UI-thread performance, EAS build/update/submit, and mobile a11y.
@@ -44,7 +50,7 @@ nxai docs                      # the bundled guides
   tag overlap and injects it into the `designer`/`frontend` contract, so the AI
   generates sites **grounded in a concrete reference** — *adapt, never clone*.
   Inspect with `nxai design ref list | show <id> | match "<prompt>"`.
-- **Official `nxai` CLI** — 25 commands. New in 1.0: `init`, `update`, `doctor`,
+- **Official `nxai` CLI** — 26 commands. New in 1.0: `init`, `update`, `doctor`,
   `docs`, `version`, `execute`. The legacy `nx` alias is also installed.
 - **PyPI distribution** — 8 acyclic, **stdlib-only** packages (no third-party
   runtime deps). The deployable template ships as package data; **no manual file

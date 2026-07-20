@@ -618,6 +618,33 @@ def cmd_version(_: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_port(args: argparse.Namespace) -> int:
+    """Find a free localhost port before bringing a project up on http.
+
+    Probes ``preferred`` and scans upward for the first bindable port. With
+    ``--quiet`` prints only the number, for scripts:  PORT=$(nxai port 8000 -q)."""
+    from nx_core.foundation import net
+    try:
+        port = net.find_free_port(args.preferred, args.host, span=args.span)
+    except (RuntimeError, ValueError) as exc:
+        util.eprint(f"error: {exc}")
+        return 2
+    if args.quiet:
+        print(port)
+        return 0
+    free = port == args.preferred
+    print(util.banner("NXAI PORT"))
+    print(f"\n  host:      {args.host}")
+    print(f"  preferred: {args.preferred} ({'free' if free else 'busy'})")
+    print(f"  available: {port}")
+    if free:
+        print(f"\n  Bring it up on  http://localhost:{port}")
+    else:
+        print(f"\n  {args.preferred} is taken — bring it up on "
+              f"http://localhost:{port}  instead")
+    return 0
+
+
 def cmd_graph(args: argparse.Namespace) -> int:
     """Show the project Knowledge Graph (top-level alias of `knowledge graph`)."""
     args.action = "graph"
@@ -1259,6 +1286,17 @@ def build_parser() -> argparse.ArgumentParser:
     sp.set_defaults(fn=cmd_unlock)
 
     sub.add_parser("status", help="Overview").set_defaults(fn=cmd_status)
+
+    sp = sub.add_parser(
+        "port", help="Find a free localhost port before bringing a project up on http")
+    sp.add_argument("preferred", nargs="?", type=int, default=8000,
+                    help="Preferred port to try first (default 8000)")
+    sp.add_argument("--host", default="127.0.0.1", help="Host/interface to probe")
+    sp.add_argument("--span", type=int, default=100,
+                    help="How many ports to scan upward from preferred (default 100)")
+    sp.add_argument("-q", "--quiet", action="store_true",
+                    help="Print only the chosen port number (for scripts)")
+    sp.set_defaults(fn=cmd_port)
     return p
 
 

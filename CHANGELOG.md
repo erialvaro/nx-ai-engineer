@@ -3,6 +3,24 @@
 All notable changes to NX AI Engineer are documented here. Format:
 [Keep a Changelog]; versioning: [Semantic Versioning](https://semver.org).
 
+## [2.8.0] — 2026-07-19 · Free-port preflight before bringing a project up
+
+### Added
+- **`nxai port` command + `nx_core.net` primitive.** Before a project is brought
+  up on `http://localhost`, the wanted port may already be taken (a stale
+  container, another dev server) — startup then fails. `nxai port [preferred]`
+  probes the preferred port and scans upward for the first **bindable** one,
+  printing where to bring the app up (`--host`/`--span` tune the probe; `-q`
+  prints only the number so scripts can do `PORT=$(nxai port 8000 -q)`).
+  - **`nx_core.net`** — stdlib-only helpers `is_port_free(port, host)` and
+    `find_free_port(preferred, host, span=…)` (pure `socket`, no third-party
+    dep). Re-exported from `nx_core.foundation`.
+  - **Scaffold preflight** — the `cloud-agnostic` stack ships
+    `scripts/check-ports.py` and runs it (advisory, non-blocking) in `make up`,
+    plus a standalone `make ports` target, so generated projects verify
+    `BACKEND_PORT`/`FRONTEND_PORT` are free and suggest a free alternative.
+  - CLI grows to **26 commands**.
+
 ## [2.7.1] — 2026-07-19 · Design reference: Hostinger (web-hosting)
 
 ### Added
