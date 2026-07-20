@@ -35,6 +35,7 @@ and a `typography` pairing (display + body, optional accent), plus `layout`,
 | `liloca` | fashion | playful, feminine | green + pink + mint | Dancing Script + Montserrat |
 | `tapetes-sao-jose` | home-decor | warm, artisanal | terracotta + olive on slate | Plus Jakarta Sans |
 | `lp-max-suzuki` | car-dealership | modern, conversion | indigo + red (LP) | Poppins |
+| `hostinger` | web-hosting | modern, trustworthy | Hostinger purple on white + violet dark | DM Sans |
 
 ## Usage
 

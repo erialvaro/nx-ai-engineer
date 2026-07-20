@@ -3,6 +3,19 @@
 All notable changes to NX AI Engineer are documented here. Format:
 [Keep a Changelog]; versioning: [Semantic Versioning](https://semver.org).
 
+## [2.7.1] — 2026-07-19 · Design reference: Hostinger (web-hosting)
+
+### Added
+- **`hostinger` design reference** (`design-references` pack) — the library's first
+  **web-hosting** vertical, distilled from https://www.hostinger.com/br/. Ships the
+  signature Hostinger purple (`#673de6`) on white with a deep meteorite-violet dark
+  theme (`#0a0a2c` / `#1b1145`), a DM Sans single-family type system, and the
+  conversion-first hosting layout (pricing tiers, discount/percent-off badges,
+  uptime stats, social-proof strip). Rich EN + PT-BR `industry`/`keywords`
+  (hospedagem, domínio, vps, cloud, wordpress…) so the deterministic matcher selects
+  it for hosting prompts. Data-only addition — no code change; the matcher reads the
+  directory. Library grows to **15 profiles**.
+
 ## [2.7.0] — 2026-07-19 · Mobile specialist + design-reference library growth
 
 ### Added

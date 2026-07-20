@@ -1,0 +1,24 @@
+{
+  "id": "hostinger",
+  "name": "Hostinger",
+  "source": "https://www.hostinger.com/br/",
+  "vertical": "web-hosting",
+  "industry": ["web hosting", "hosting", "hospedagem", "hospedagem de sites", "domain", "dominio",
+               "vps", "cloud", "servidor", "wordpress", "website builder", "registro de dominio"],
+  "mood": ["modern", "trustworthy", "techy", "friendly", "bold", "conversion", "confiavel", "moderno"],
+  "keywords": ["hospedagem", "hospedagem de sites", "hospedar site", "criar site", "dominio",
+               "registrar dominio", "servidor", "vps", "cloud", "nuvem", "wordpress", "host",
+               "hosting", "domain", "server", "website", "planos", "uptime", "ssl"],
+  "palette": {
+    "light": { "bg": "#ffffff", "surface": "#f4f3fb", "primary": "#673de6", "accent": "#2f1c6a", "fg": "#0a0a2c", "muted": "#6f6c90" },
+    "dark":  { "bg": "#0a0a2c", "surface": "#1b1145", "primary": "#8c7bff", "accent": "#673de6", "fg": "#f2f1fb", "muted": "#a5a1c4" }
+  },
+  "typography": {
+    "display": { "family": "DM Sans", "role": "headings", "source": "google" },
+    "body":    { "family": "DM Sans", "role": "text", "source": "google" },
+    "pairing_note": "Single-family system: DM Sans across the board — bold, tight-tracking weights for display headings and regular weight for body. Geometric-humanist sans that reads modern and approachable, exactly Hostinger's brand voice."
+  },
+  "layout": "White base with a signature Hostinger purple (#673de6) as the primary action color, offset by deep meteorite-violet (#0a0a2c / #2f1c6a) dark sections; generous spacing, big confident headlines, rounded cards and pill buttons; conversion-first with discount badges and social proof.",
+  "components": ["value-prop hero with dual CTA", "pricing tier cards (Single/Premium/Cloud) with recommended highlight", "discount/percent-off badges", "'NOVO' and 'Oferta especial' badges", "plan comparison table", "feature grid with icons", "media-logo social proof strip", "testimonials", "rounded pill CTA buttons", "trust/uptime stats band"],
+  "notes": "Global web-hosting brand: vibrant Hostinger purple (#673de6) on white with deep-violet meteorite dark sections and DM Sans throughout. Conversion-optimized SaaS/hosting layout — pricing tiers, discount badges, uptime stats. This is the only web-hosting vertical in the library; contrast with fwr-agencia (neon-green dark techy agency) and sweetags (neon design agency)."
+}
