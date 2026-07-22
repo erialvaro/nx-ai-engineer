@@ -5,7 +5,7 @@ COMPOSE_PROD  = docker compose -f docker-compose.yml -f docker-compose.prod.yml
 PY           ?= python3
 
 .DEFAULT_GOAL := help
-.PHONY: help ports up down prod logs build shell migrate lint test clean ps restart
+.PHONY: help ports up down prod logs build shell migrate lint test visual clean ps restart
 
 help: ## Show this help
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | \
@@ -45,6 +45,9 @@ lint: ## Lint backend + frontend
 test: ## Run backend + frontend tests
 	$(COMPOSE) run --rm backend pytest -q
 	$(COMPOSE) run --rm frontend sh -c "npm test --silent || true"
+
+visual: ## Visual & responsive QA matrix (Playwright device matrix + a11y) on the frontend
+	$(COMPOSE) run --rm frontend sh -c "npx playwright install --with-deps && npm run test:visual"
 
 ps: ## Show running services
 	$(COMPOSE) ps

@@ -82,9 +82,10 @@ audit → discover → impact → risk → plan → subtasks → agents → orde
 implement → test → review → consolidate → document → report
 ```
 
-It coordinates **specialized agents** (backend, frontend, database, ai, security,
-devops, qa, docs, plus read-only architect/planner/reviewer/delivery) that work
-safely on the same codebase via advisory locks and isolated git worktrees.
+It coordinates **specialized agents** (backend, frontend, responsive, mobile,
+database, ai, security, devops, designer, qa, visual-qa, docs, plus read-only
+architect/planner/reviewer/delivery) that work safely on the same codebase via
+advisory locks and isolated git worktrees.
 
 ### The three memories
 

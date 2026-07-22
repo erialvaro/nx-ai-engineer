@@ -191,7 +191,7 @@ class ContractBuilder:
         # design reference: only for design agents, only when the pack is installed
         # and applies to this agent (i.e. it is among `packs`).
         design_reference = None
-        if agent in ("designer", "frontend", "mobile") and any(
+        if agent in ("designer", "frontend", "responsive", "mobile") and any(
                 p.get("name") == "design-references" for p in packs):
             design_reference = self._select_reference(task)
 

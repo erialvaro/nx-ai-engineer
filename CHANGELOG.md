@@ -3,6 +3,39 @@
 All notable changes to NX AI Engineer are documented here. Format:
 [Keep a Changelog]; versioning: [Semantic Versioning](https://semver.org).
 
+## [2.9.0] — 2026-07-22 · Visual QA + Responsive developer (browser-driven QA)
+
+### Added
+- **Two specialist agents — `responsive` (developer) and `visual-qa` (QA).**
+  Give the AI eyes on a real browser and collapse the *change → open browser →
+  eyeball → fix* loop.
+  - **`responsive`** — the mobile-first WEB developer. Builds base→`sm`→`md`→`lg`,
+    guarantees no horizontal overflow / clipped controls, fluid type, touch
+    targets ≥ 44px, safe areas, sized media (no CLS). Runs right after `frontend`,
+    owns responsive-dedicated files + Storybook stories + layouts, and receives a
+    matched design reference. Hands off to `visual-qa`.
+  - **`visual-qa`** — drives the running app with **Playwright** across the device
+    matrix (360×640, 390×844, 768×1024, 1024×768, 1366×768, 1920×1080 + iPhone
+    SE/15/16, Pixel 9, Galaxy S24, iPad), gating horizontal overflow, clipped
+    elements, contrast + WCAG 2.2 AA, CLS/LCP and **Lighthouse ≥ 95**, and
+    pixel-diffing baselines (**BackstopJS**). Owns the visual-test infra (more
+    specific than `qa`, so routing prefers it); reports defects with before/after
+    screenshots and hands the fix to the owning developer. Runs after `qa`,
+    before `reviewer`.
+- **`visual-qa` Engineering Pack** — the browser-driven QA doctrine: `workflow.md`
+  (the closed loop), `device-matrix.md`, `responsive.md`, `accessibility.md`
+  (WCAG 2.2 AA), `performance.md` (Core Web Vitals + the Lighthouse gate),
+  `tooling.md` (Playwright, Playwright MCP, BrowserTools MCP, Lighthouse CI,
+  BackstopJS, Storybook, React DevTools, Tailwind IntelliSense, ESLint, Prettier,
+  Android Studio / Genymotion, Chrome DevTools), `anti-patterns.md`, a specialist
+  prompt and a before/after report template. Attaches to `visual-qa`, `responsive`,
+  `frontend`, `mobile` and `qa`; `design-references` now also feeds `responsive`.
+- **Scaffold ships the loop.** `nxai new` (cloud-agnostic) generates
+  `frontend/playwright.config.ts` (device matrix), a responsive + a11y spec,
+  `backstop.json`, `lighthouserc.json` (assertions at 0.95), a Storybook setup,
+  npm scripts (`test:visual`, `test:regression`, `lhci`, `storybook`), a `make
+  visual` target and a `visual-qa` CI workflow.
+
 ## [2.8.0] — 2026-07-19 · Free-port preflight before bringing a project up
 
 ### Added

@@ -19,7 +19,8 @@ from typing import Any, Optional
 CANON_ORDER = [
     "architect", "database", "database-relational", "database-nosql",
     "database-reviewer", "security", "backend", "ai",
-    "reverse-engineer", "designer", "frontend", "mobile", "seo", "copywriter", "devops", "qa", "reviewer",
+    "reverse-engineer", "designer", "frontend", "responsive", "mobile", "seo", "copywriter", "devops",
+    "qa", "visual-qa", "reviewer",
     "delivery", "docs",
 ]
 
@@ -129,6 +130,29 @@ _BUILTIN: list[Agent] = [
                   "react navigation", "nativewind", "reanimated", "expo go",
                   "push notification", "notificação push", "tela do app", "app screen",
                   "mockup app", "mockup-app", "mockup do app", "cross-platform"],
+    ),
+    # Responsive specialist — the mobile-first WEB developer. EXECUTES using the
+    # `visual-qa` Engineering Pack (device matrix, breakpoints, no-overflow doctrine,
+    # touch targets, Core Web Vitals), which auto-attaches via `applies_to`; the
+    # `design-references` pack also feeds it. Runs right after `frontend` (it refines
+    # the responsive layer of the same web UI) and hands off to `visual-qa` for
+    # verification. Owns responsive-dedicated files + Storybook stories + layouts —
+    # never server/db (those stay with backend/database).
+    Agent(
+        "responsive", "Responsive (mobile-first web)",
+        "Mobile-first responsive web: breakpoints, fluid layout, no horizontal overflow, touch targets, safe areas — verified across the device matrix.",
+        route_globs=[
+            "**/*.responsive.tsx", "**/*.responsive.ts", "**/*.responsive.jsx",
+            "**/*.responsive.css", "**/responsive/**", "**/layouts/**",
+            "**/breakpoints.*", "**/*.breakpoints.*",
+            "**/*.stories.tsx", "**/*.stories.ts", "**/*.stories.jsx", "**/*.stories.mdx",
+        ],
+        forbidden_globs=["**/*.sql", "**/migrations/**", "**/api/**", "**/server/**"],
+        keywords=["responsive", "responsividade", "responsivo", "mobile-first", "mobile first",
+                  "breakpoint", "breakpoints", "media query", "viewport", "overflow",
+                  "horizontal overflow", "layout shift", "cls", "adaptativo", "fluido", "fluid",
+                  "touch target", "safe area", "notch", "mobile web", "web mobile", "tablet",
+                  "desktop", "reflow", "layout responsivo", "quebra de layout", "storybook"],
     ),
     # Reverse-engineer specialist. EXECUTES using the `ui-reverse-engineering`
     # pack (Playwright capture -> design system -> rebuild in React+Vite+Tailwind+
@@ -261,6 +285,36 @@ _BUILTIN: list[Agent] = [
             "**/__tests__/**", "**/e2e/**", "**/cypress/**", "**/*_test.py",
         ],
         keywords=["test", "qa", "coverage", "fixture", "e2e", "unit test", "integration test"],
+    ),
+    # Visual-QA specialist. EXECUTES using the `visual-qa` Engineering Pack: drives
+    # the running app in a real browser (Playwright) across the device matrix, gates
+    # horizontal overflow / clipped elements / contrast / WCAG a11y / CLS-LCP /
+    # Lighthouse >= 95, and pixel-diffs baselines (BackstopJS). Owns the VISUAL-test
+    # infra (playwright/backstop/lighthouse configs, visual specs, baselines, reports)
+    # — more specific than `qa`, so routing prefers it for those. Reports defects with
+    # before/after screenshots; the FIX belongs to the owning developer
+    # (responsive/frontend/mobile). Runs after `qa`, before `reviewer`.
+    Agent(
+        "visual-qa", "Visual QA",
+        "Visual & responsive QA in a real browser: device matrix, overflow/contrast/CLS gates, Lighthouse >= 95, pixel-diff baselines.",
+        route_globs=[
+            "playwright.config.*", "**/playwright.config.*", "**/playwright/**",
+            "tests/visual/**", "**/tests/visual/**",
+            "*.visual.spec.*", "**/*.visual.spec.*",
+            "*.visual.test.*", "**/*.visual.test.*",
+            "e2e/visual/**", "**/e2e/visual/**", "**/visual-regression/**",
+            "backstop.json", "**/backstop.json",
+            "backstop.config.*", "**/backstop.config.*", "**/backstop_data/**",
+            "lighthouserc.*", "**/lighthouserc.*", "**/.lighthouseci/**",
+            "**/__screenshots__/**", "**/visual-qa/**",
+        ],
+        forbidden_globs=["**/*.sql", "**/migrations/**", "**/api/**", "**/server/**"],
+        keywords=["visual qa", "qa visual", "visual regression", "regressão visual",
+                  "screenshot", "screenshots", "playwright", "backstopjs", "backstop",
+                  "lighthouse", "lighthouse ci", "lhci", "pixel diff", "visual test",
+                  "cross-browser", "cross browser", "device matrix", "responsive test",
+                  "teste responsivo", "core web vitals", "web vitals", "cls", "lcp",
+                  "accessibility audit", "a11y audit", "contrast check", "overflow test"],
     ),
     Agent(
         "reviewer", "Reviewer", "Reviews diffs; never writes product code.",

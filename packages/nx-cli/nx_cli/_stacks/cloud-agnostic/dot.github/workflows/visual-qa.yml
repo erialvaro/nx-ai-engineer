@@ -1,0 +1,36 @@
+name: visual-qa
+# Gate visual & responsive QA for {{project_title}} on every PR: drive the app in a
+# real browser across the device matrix (Playwright) and enforce Lighthouse >= 95.
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  visual:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: npm ci
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+      - name: Build
+        run: npm run build
+      - name: Visual + responsive matrix (Playwright)
+        run: npm run test:visual
+      - name: Lighthouse CI (>= 95)
+        run: npm run lhci
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report
+          path: frontend/playwright-report/
+          retention-days: 7

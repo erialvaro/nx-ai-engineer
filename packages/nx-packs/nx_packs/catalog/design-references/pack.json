@@ -19,6 +19,7 @@
   "applies_to": [
     "designer",
     "frontend",
+    "responsive",
     "mobile"
   ],
   "provides": [

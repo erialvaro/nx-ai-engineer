@@ -60,8 +60,9 @@ class TestPackIntegrity(unittest.TestCase):
         self.assertTrue((d / "matcher.md").is_file())
         m = nx_packs.manifest("design-references")
         self.assertEqual(m["category"], "design")
-        # designer + frontend + mobile (tokens are platform-agnostic)
-        self.assertEqual(sorted(m["applies_to"]), ["designer", "frontend", "mobile"])
+        # designer + frontend + responsive + mobile (tokens are platform-agnostic)
+        self.assertEqual(sorted(m["applies_to"]),
+                         ["designer", "frontend", "mobile", "responsive"])
 
     def test_every_seed_reference_conforms_to_schema(self):
         refs = catalog_refs()

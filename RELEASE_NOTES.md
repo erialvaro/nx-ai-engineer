@@ -33,6 +33,16 @@ nxai docs                      # the bundled guides
 
 ## Highlights
 
+- **Visual QA + Responsive developer (2.9)** — two agents that give the AI *eyes
+  on a real browser*. The `responsive` specialist builds mobile-first web
+  (breakpoints, no horizontal overflow, touch targets, safe areas); the
+  `visual-qa` specialist drives the running app with **Playwright** across a
+  device matrix (360×640 … 1920×1080 + named devices), gates overflow / contrast /
+  WCAG a11y / CLS / **Lighthouse ≥ 95**, and pixel-diffs baselines (**BackstopJS**).
+  Backed by the `visual-qa` Engineering Pack (Playwright/MCP, Lighthouse CI,
+  BackstopJS, Storybook, Chrome DevTools, Android Studio/Genymotion) and the
+  closed loop *start → screenshot matrix → detect → fix → re-verify → before/after
+  report*. `nxai new` projects ship the loop ready to run.
 - **Free-port preflight (2.8)** — `nxai port [preferred]` finds a bindable
   localhost port **before** a project is brought up on `http://localhost`, so a
   busy port (a stale container, another dev server) never fails startup. `-q`

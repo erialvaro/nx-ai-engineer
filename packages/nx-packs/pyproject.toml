@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "nxai-packs"
-version = "2.8.0"
+version = "2.9.0"
 description = "NX AI Engineer — Engineering Packs catalog (domain knowledge bundles: policies, patterns, checklists, ADRs, templates, context)."
 requires-python = ">=3.8"
 license = { text = "MIT" }
@@ -16,7 +16,7 @@ classifiers = [
   "License :: OSI Approved :: MIT License",
   "Programming Language :: Python :: 3",
 ]
-dependencies = ["nxai-core==2.8.0"]
+dependencies = ["nxai-core==2.9.0"]
 
 [project.urls]
 Homepage = "https://github.com/erialvaro/nx-ai-engineer"

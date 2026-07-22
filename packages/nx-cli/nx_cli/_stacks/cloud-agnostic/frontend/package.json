@@ -3,11 +3,20 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 3000",
+    "dev": "next dev -p {{frontend_port}}",
     "build": "next build",
-    "start": "next start -p 3000",
+    "start": "next start -p {{frontend_port}}",
     "lint": "next lint",
-    "test": "echo \"no frontend tests yet\" && exit 0"
+    "format": "prettier --write .",
+    "test": "echo \"no frontend unit tests yet\" && exit 0",
+    "test:visual": "playwright test",
+    "test:visual:update": "playwright test --update-snapshots",
+    "test:e2e": "playwright test",
+    "test:regression": "backstop test",
+    "test:regression:approve": "backstop approve",
+    "lhci": "lhci autorun",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "next": "14.2.5",
@@ -20,6 +29,17 @@
     "@types/react": "18.3.3",
     "@types/react-dom": "18.3.0",
     "eslint": "8.57.0",
-    "eslint-config-next": "14.2.5"
+    "eslint-config-next": "14.2.5",
+    "prettier": "3.3.3",
+    "@playwright/test": "1.47.2",
+    "@axe-core/playwright": "4.10.0",
+    "@lhci/cli": "0.14.0",
+    "backstopjs": "6.3.25",
+    "storybook": "8.3.5",
+    "@storybook/nextjs": "8.3.5",
+    "@storybook/react": "8.3.5",
+    "@storybook/addon-essentials": "8.3.5",
+    "@storybook/addon-a11y": "8.3.5",
+    "@storybook/addon-viewport": "8.3.5"
   }
 }

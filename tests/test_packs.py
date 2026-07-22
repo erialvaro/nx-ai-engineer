@@ -12,7 +12,7 @@ from nx_cli import orchestrator
 EXPECTED = {"lgpd", "security", "owasp", "ai", "cloud", "docker", "multi-tenant",
             "observability", "testing", "billing", "authentication", "repo-standards",
             "postgres", "mongodb", "seo", "copywriter", "design", "design-references",
-            "mobile"}
+            "mobile", "visual-qa"}
 
 
 class TestCatalog(unittest.TestCase):

@@ -1,0 +1,66 @@
+{
+  "name": "visual-qa",
+  "title": "Visual & Responsive QA",
+  "version": "1.0.0",
+  "domain": "visual-qa",
+  "category": "qa",
+  "status": "stable",
+  "summary": "Automated visual, responsive and quality QA with a real browser: drive the app with Playwright across a device matrix, catch horizontal overflow / clipped elements / broken layout, verify contrast + WCAG a11y, measure CLS/LCP, gate Lighthouse >= 95, and pixel-diff against baselines (BackstopJS). Ships the closed loop — start app -> screenshot matrix -> detect -> hand fixes to the developer -> re-verify -> before/after report. Feeds the visual-qa, responsive, frontend and mobile agents.",
+  "tags": [
+    "qa",
+    "visual-regression",
+    "responsive",
+    "playwright",
+    "lighthouse",
+    "backstopjs",
+    "storybook",
+    "accessibility",
+    "core-web-vitals"
+  ],
+  "applies_to": [
+    "visual-qa",
+    "responsive",
+    "frontend",
+    "mobile",
+    "qa"
+  ],
+  "provides": [
+    "context.md",
+    "policies.md",
+    "checklists.md"
+  ],
+  "required_adrs": [],
+  "mandatory_tests": [
+    "The app is driven in a real browser (Playwright) across the full device matrix — not just one viewport",
+    "No horizontal overflow (document scrollWidth <= viewport width) on any tested viewport",
+    "No clipped/off-screen interactive elements; nav, buttons and CTAs are fully visible and reachable",
+    "Lighthouse category scores >= 95 (Performance, Accessibility, Best-Practices, SEO) on the key routes",
+    "Cumulative Layout Shift < 0.1 and no unsized media causing shift"
+  ],
+  "validations": [
+    "Every key route is verified across the device matrix (360x640, 390x844, 768x1024, 1024x768, 1366x768, 1920x1080) plus named devices (iPhone SE/15/16, Pixel 9, Galaxy S24, iPad)",
+    "Color contrast meets WCAG 2.2 AA in light AND dark; focus is visible; targets >= 24px (44px on touch)",
+    "Visual regressions are caught by pixel diff against approved baselines (BackstopJS) — intentional changes re-approved, never blindly overwritten",
+    "Findings are reported with before/after screenshots; the fix is applied by the owning developer (responsive/frontend/mobile) and re-verified green",
+    "Thresholds run in CI (Playwright + Lighthouse CI) so a regression blocks the merge, not just local runs"
+  ],
+  "brain_facets": [
+    "patterns",
+    "decisions"
+  ],
+  "files": [
+    "README.md",
+    "context.md",
+    "policies.md",
+    "checklists.md",
+    "device-matrix.md",
+    "workflow.md",
+    "responsive.md",
+    "accessibility.md",
+    "performance.md",
+    "anti-patterns.md",
+    "tooling.md",
+    "prompts/specialist.md",
+    "templates/visual-qa-report.md"
+  ]
+}
